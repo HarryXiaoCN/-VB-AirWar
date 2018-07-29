@@ -79,13 +79,13 @@ End Function
 Public Function 物理事件检测_Plane主体_PBaFP事件_经验结算(ByVal PBID As Long, ByVal FPID As Long)
 Select Case FPg(FPID).AiRank
     Case 0
-        Pg(0).Emp = Pg(0).Emp + 1
+        Pg(PBID).Emp = Pg(PBID).Emp + 1
     Case 1
-        Pg(0).Emp = Pg(0).Emp + 25
+        Pg(PBID).Emp = Pg(PBID).Emp + 25
     Case 2
-        Pg(0).Emp = Pg(0).Emp + 50
+        Pg(PBID).Emp = Pg(PBID).Emp + 50
 End Select
-升级 0
+升级 PBID
 End Function
 Public Function 物理事件检测_PlaneBullet主体_Trl_1(ByRef i As Long)
 物理事件检测_PlaneBullet主体_Trl_1_Bullet i

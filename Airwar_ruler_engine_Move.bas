@@ -71,23 +71,45 @@ Select Case TrID
 End Select
 End Function
 Public Function PlaneWYKZ(ByRef PlID As Long, KeyCode As Integer)
-Select Case KeyCode
-    Case 37, 65
-        If Pg(PlID).X - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
-        Pg(PlID).X = Pg(PlID).X - Pg(PlID).Sp
-    Case 38, 87
-        If Pg(PlID).Y + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Height Then Exit Function
-        Pg(PlID).Y = Pg(PlID).Y + Pg(PlID).Sp
-    Case 39, 68
-        If Pg(PlID).X + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Width Then Exit Function
-        Pg(PlID).X = Pg(PlID).X + Pg(PlID).Sp
-    Case 40, 83
-        If Pg(PlID).Y - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
-        Pg(PlID).Y = Pg(PlID).Y - Pg(PlID).Sp
-    Case 32, 81
-        PBg_Add PlID
-    Case 69
-        PBg_Add PlID, Pg(0).Blt
+Select Case PlID
+    Case 0
+        Select Case KeyCode
+            Case 65
+                If Pg(PlID).X - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
+                Pg(PlID).X = Pg(PlID).X - Pg(PlID).Sp
+            Case 87
+                If Pg(PlID).Y + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Height Then Exit Function
+                Pg(PlID).Y = Pg(PlID).Y + Pg(PlID).Sp
+            Case 68
+                If Pg(PlID).X + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Width Then Exit Function
+                Pg(PlID).X = Pg(PlID).X + Pg(PlID).Sp
+            Case 83
+                If Pg(PlID).Y - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
+                Pg(PlID).Y = Pg(PlID).Y - Pg(PlID).Sp
+            Case 74
+                PBg_Add PlID
+            Case 75
+                PBg_Add PlID, Pg(0).Blt
+        End Select
+    Case 1
+        Select Case KeyCode
+            Case 37
+                If Pg(PlID).X - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
+                Pg(PlID).X = Pg(PlID).X - Pg(PlID).Sp
+            Case 38
+                If Pg(PlID).Y + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Height Then Exit Function
+                Pg(PlID).Y = Pg(PlID).Y + Pg(PlID).Sp
+            Case 39
+                If Pg(PlID).X + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Width Then Exit Function
+                Pg(PlID).X = Pg(PlID).X + Pg(PlID).Sp
+            Case 40
+                If Pg(PlID).Y - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
+                Pg(PlID).Y = Pg(PlID).Y - Pg(PlID).Sp
+            Case 97
+                PBg_Add PlID
+            Case 98
+                PBg_Add PlID, Pg(1).Blt
+            End Select
 End Select
 End Function
 Public Function SupplyWYKZ(ByRef BID As Long)

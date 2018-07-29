@@ -48,13 +48,16 @@ Next
 End Sub
 Public Sub 移动事件处理_Plane主体()
 Dim i As Long
-For i = 0 To 1
-    If Pg(i).a = True Then
-        PlaneWYKZ i, KCTemp(0)
-        PlaneWYKZ i, KCTemp(1)
-        PlaneWYKZ i, KCTemp(2)
-    End If
-Next
+If Pg(0).a = True Then
+    For i = 0 To 5
+        PlaneWYKZ 0, KCTemp(i)
+    Next
+End If
+If Pg(1).a = True Then
+    For i = 0 To 5
+        PlaneWYKZ 1, KCTemp(i)
+    Next
+End If
 End Sub
 Public Sub 移动事件处理_Bullet主体()
 Dim i As Long

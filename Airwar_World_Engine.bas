@@ -31,7 +31,7 @@ Next
 End Function
 Public Function F5_PC_Bullet()
 Form1.Picture1.FillColor = RGB(0, 255, 255)
-For i = 0 To PBSum - 1
+For i = 0 To 1
     If PBg(i).a = True Then
         Select Case PBg(i).Trl
             Case 0
@@ -96,17 +96,17 @@ Next
 End Function
 Public Function F5_PC_Plane()
 Form1.Picture1.FillColor = RGB(255, 0, 0)
-For i = 0 To 1
-    If Pg(i).a = True Then
-        Form1.Picture1.Circle (Pg(i).X, Pg(i).Y), Pg(i).Ar, RGB(255, 0, 0)
-    Else
-        Exit For
-    End If
-Next
+If Pg(0).a = True Then
+    Form1.Picture1.Circle (Pg(0).X, Pg(0).Y), Pg(0).Ar, RGB(255, 0, 0)
+End If
+If Pg(1).a = True Then
+    Form1.Picture1.FillColor = RGB(0, 100, 0)
+    Form1.Picture1.Circle (Pg(1).X, Pg(1).Y), Pg(1).Ar, RGB(0, 100, 0)
+End If
 End Function
 Public Sub World_Load()
 Erase PSkill
-Diff = 0: PBSkillCD = True: Timer5.Interval = 1000
+Diff = 0: PBSkillCD = True: Form1.Timer5.Interval = 1000
 Form1.Label2.Caption = "0"
 PBCD = True
 PC_Def

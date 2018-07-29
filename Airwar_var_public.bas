@@ -5,7 +5,7 @@ Public PBg(1000) As Bullet
 Public Sg(10000) As Supply
 Public FPg(1000) As Plane
 Public Diff, PBSkillCDTime As Long
-Public KCTemp(5) As Integer
+Public KCTemp(7) As Integer
 Public PBCD, PBSkillCD, PSkill(3) As Boolean
 Public BgSum, SgSum, PBSum, FPSum, PSkillID, PSkillID_Ft As Long
 Public Function PBg_Add_2(ByVal PBID As Long, ByVal PID As Long, Optional Ty As Long = 0)
@@ -92,7 +92,13 @@ Public Sub PC_Def()
 Pg(0).a = True: Pg(0).HP = 100: Pg(0).MxHP = 100: Pg(0).MxEmp = 10
 Pg(0).Emp = 0: Pg(0).Rank = 1: Pg(0).Blt = 1
 Pg(0).Ar = 100: Pg(0).E = 100: Pg(0).MxE = 100: Pg(0).Sb = True
-Pg(0).Sp = 30: Pg(0).Esp = 1: Pg(0).X = 3000: Pg(0).Y = 1000
+Pg(0).Sp = 30: Pg(0).Esp = 1: Pg(0).X = 2000: Pg(0).Y = 1000
+End Sub
+Public Sub PC_2_Def()
+Pg(1).a = True: Pg(1).HP = 100: Pg(1).MxHP = 100: Pg(1).MxEmp = 10
+Pg(1).Emp = 0: Pg(1).Rank = 1: Pg(1).Blt = 1
+Pg(1).Ar = 100: Pg(1).E = 100: Pg(1).MxE = 100: Pg(1).Sb = True
+Pg(1).Sp = 30: Pg(1).Esp = 1: Pg(1).X = 4000: Pg(1).Y = 1000
 End Sub
 Public Function Sg_Add(ByVal SgID As Long)
 Randomize

@@ -5,7 +5,7 @@ Begin VB.Form Form1
    ClientHeight    =   8130
    ClientLeft      =   225
    ClientTop       =   870
-   ClientWidth     =   8820
+   ClientWidth     =   8805
    BeginProperty Font 
       Name            =   "Î¢ÈíÑÅºÚ"
       Size            =   12
@@ -17,7 +17,7 @@ Begin VB.Form Form1
    EndProperty
    LinkTopic       =   "Form1"
    ScaleHeight     =   8130
-   ScaleWidth      =   8820
+   ScaleWidth      =   8805
    StartUpPosition =   3  '´°¿ÚÈ±Ê¡
    Begin VB.Timer Ftime 
       Enabled         =   0   'False
@@ -254,8 +254,8 @@ Begin VB.Form Form1
          Caption         =   "ÔÝÍ£"
          Shortcut        =   ^Z
       End
-      Begin VB.Menu Test1 
-         Caption         =   "Test1"
+      Begin VB.Menu Ë«ÈË 
+         Caption         =   "Ë«ÈË"
       End
    End
 End
@@ -287,35 +287,48 @@ End Sub
 
 Private Sub Picture1_KeyDown(KeyCode As Integer, Shift As Integer)
 '37_40:4865
+Dim i As Long
 If KeyCode = 70 Or KeyCode = 82 Then
     If PSkillID = 0 And PSkill(1) = True Then PSkillID = 1: Pg(0).Blt = 2 Else PSkillID = 0: Pg(0).Blt = 1
     Form1.Shape1.Left = Form1.SkOn(PSkillID).Left: Form1.Shape1.Top = Form1.SkOn(PSkillID).Top - 20
 End If
-If KCTemp(0) = 0 Then KCTemp(0) = KeyCode: Exit Sub
-If KCTemp(1) = 0 And KCTemp(0) <> KeyCode Then KCTemp(1) = KeyCode: Exit Sub
-If KCTemp(0) <> KeyCode And KCTemp(1) <> KeyCode Then KCTemp(2) = KeyCode
+For i = 0 To 5
+    If KCTemp(i) = KeyCode Then Exit Sub
+Next
+For i = 0 To 4
+    If KCTemp(i) = 0 Then KCTemp(i) = KeyCode: Exit Sub
+Next
+KCTemp(5) = KeyCode
 End Sub
 Private Sub Picture1_KeyUp(KeyCode As Integer, Shift As Integer)
 '1
-If KCTemp(0) = KeyCode Then KCTemp(0) = 0
-If KCTemp(1) = KeyCode Then KCTemp(1) = 0
-If KCTemp(2) = KeyCode Then KCTemp(2) = 0
+Dim i As Long
+For i = 0 To 5
+    If KCTemp(i) = KeyCode Then KCTemp(i) = 0
+Next
 End Sub
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 '37_40:4865
-If KeyCode = 70 Or KeyCode = 82 Then
+Dim i As Long
+If KeyCode = 76 Then
     If PSkillID = 0 And PSkill(1) = True Then PSkillID = 1: Pg(0).Blt = 2 Else PSkillID = 0: Pg(0).Blt = 1
     Form1.Shape1.Left = Form1.SkOn(PSkillID).Left: Form1.Shape1.Top = Form1.SkOn(PSkillID).Top - 20
+    Exit Sub
 End If
-If KCTemp(0) = 0 Then KCTemp(0) = KeyCode: Exit Sub
-If KCTemp(1) = 0 And KCTemp(0) <> KeyCode Then KCTemp(1) = KeyCode: Exit Sub
-If KCTemp(0) <> KeyCode And KCTemp(1) <> KeyCode Then KCTemp(2) = KeyCode
+For i = 0 To 5
+    If KCTemp(i) = KeyCode Then Exit Sub
+Next
+For i = 0 To 4
+    If KCTemp(i) = 0 Then KCTemp(i) = KeyCode: Exit Sub
+Next
+KCTemp(5) = KeyCode
 End Sub
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 '1
-If KCTemp(0) = KeyCode Then KCTemp(0) = 0
-If KCTemp(1) = KeyCode Then KCTemp(1) = 0
-If KCTemp(2) = KeyCode Then KCTemp(2) = 0
+Dim i As Long
+For i = 0 To 5
+    If KCTemp(i) = KeyCode Then KCTemp(i) = 0
+Next
 End Sub
 Private Sub Form_Load()
 Picture1.Scale (0, Picture1.Height)-(Picture1.Width, 0)
@@ -327,12 +340,15 @@ Private Sub Timer_PC_Skill_Flash_Timer()
 End Sub
 
 
+Private Sub Test1_Click()
+
+End Sub
 Private Sub Timer1_Timer()
 F5
 End Sub
 Private Sub Timer2_Timer()
 Dim i As Long
-Label3.Caption = KCTemp(0) & "," & KCTemp(1) & "," & KCTemp(2)
+Label3.Caption = KCTemp(0) & "," & KCTemp(1) & "," & KCTemp(2) & "," & KCTemp(3) & "," & KCTemp(4) & "," & KCTemp(5)
 PBCD = True
 If PBSkillCD = False Then PBSkillCDTime = PBSkillCDTime + 1
 If PBSkillCDTime > 99 Then PBSkillCD = True: PBSkillCDTime = 0
@@ -400,6 +416,10 @@ Timer2.Enabled = True
 Timer3.Enabled = True
 Timer4.Enabled = True
 Timer5.Enabled = True
+End Sub
+
+Private Sub Ë«ÈË_Click()
+PC_2_Def
 End Sub
 
 Private Sub ÔÝÍ£_Click()
