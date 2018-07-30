@@ -4,8 +4,8 @@ Begin VB.Form Form1
    Caption         =   "AirWar"
    ClientHeight    =   8130
    ClientLeft      =   225
-   ClientTop       =   870
-   ClientWidth     =   8805
+   ClientTop       =   855
+   ClientWidth     =   12060
    BeginProperty Font 
       Name            =   "Œ¢»Ì—≈∫⁄"
       Size            =   12
@@ -17,10 +17,314 @@ Begin VB.Form Form1
    EndProperty
    LinkTopic       =   "Form1"
    ScaleHeight     =   8130
-   ScaleWidth      =   8805
+   ScaleWidth      =   12060
    StartUpPosition =   3  '¥∞ø⁄»± °
    Begin VB.Timer Ftime 
       Enabled         =   0   'False
+      Index           =   1
+      Interval        =   1000
+      Left            =   6960
+      Top             =   7080
+   End
+   Begin VB.Frame Frame1 
+      Caption         =   "PLAYER2"
+      Height          =   3135
+      Index           =   1
+      Left            =   9120
+      TabIndex        =   16
+      Top             =   0
+      Width           =   2775
+      Begin JinDuTiao.JinDuT JinDuT1 
+         Height          =   255
+         Index           =   1
+         Left            =   600
+         TabIndex        =   17
+         Top             =   945
+         Width           =   1935
+         _ExtentX        =   3413
+         _ExtentY        =   450
+         ProgressColor   =   255
+      End
+      Begin JinDuTiao.JinDuT JinDuT2 
+         Height          =   255
+         Index           =   1
+         Left            =   600
+         TabIndex        =   18
+         Top             =   1305
+         Width           =   1935
+         _ExtentX        =   3413
+         _ExtentY        =   450
+      End
+      Begin JinDuTiao.JinDuT JinDuT3 
+         Height          =   255
+         Index           =   1
+         Left            =   600
+         TabIndex        =   19
+         Top             =   1665
+         Width           =   1935
+         _ExtentX        =   3413
+         _ExtentY        =   450
+         ProgressColor   =   33023
+      End
+      Begin VB.Shape Shape1 
+         BorderColor     =   &H000080FF&
+         Height          =   405
+         Index           =   1
+         Left            =   120
+         Top             =   2640
+         Width           =   405
+      End
+      Begin VB.Label Label9 
+         AutoSize        =   -1  'True
+         Caption         =   "LV:"
+         BeginProperty Font 
+            Name            =   "Œ¢»Ì—≈∫⁄"
+            Size            =   14.25
+            Charset         =   134
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   390
+         Index           =   1
+         Left            =   120
+         TabIndex        =   26
+         Top             =   480
+         Width           =   435
+      End
+      Begin VB.Label Label8 
+         AutoSize        =   -1  'True
+         Caption         =   "EXP:"
+         Height          =   315
+         Index           =   1
+         Left            =   135
+         TabIndex        =   25
+         Top             =   2025
+         Width           =   495
+      End
+      Begin VB.Label Label7 
+         AutoSize        =   -1  'True
+         Caption         =   "CD:"
+         Height          =   315
+         Index           =   1
+         Left            =   135
+         TabIndex        =   24
+         Top             =   1665
+         Width           =   405
+      End
+      Begin VB.Label Label6 
+         AutoSize        =   -1  'True
+         Caption         =   "E:"
+         Height          =   315
+         Index           =   1
+         Left            =   240
+         TabIndex        =   23
+         Top             =   1305
+         Width           =   195
+      End
+      Begin VB.Label Label5 
+         AutoSize        =   -1  'True
+         Caption         =   "HP:"
+         Height          =   315
+         Index           =   1
+         Left            =   135
+         TabIndex        =   22
+         Top             =   945
+         Width           =   390
+      End
+      Begin VB.Label SkOn2 
+         Alignment       =   2  'Center
+         Caption         =   "∂‹"
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Œ¢»Ì—≈∫⁄"
+            Size            =   12
+            Charset         =   134
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   405
+         Index           =   1
+         Left            =   600
+         TabIndex        =   21
+         Top             =   2655
+         Visible         =   0   'False
+         Width           =   405
+      End
+      Begin VB.Label SkOn2 
+         Alignment       =   2  'Center
+         Caption         =   "∫⁄"
+         BeginProperty Font 
+            Name            =   "Œ¢»Ì—≈∫⁄"
+            Size            =   12
+            Charset         =   134
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   405
+         Index           =   0
+         Left            =   120
+         TabIndex        =   20
+         Top             =   2655
+         Width           =   405
+      End
+   End
+   Begin VB.Frame Frame1 
+      Caption         =   "PLAYER1"
+      Height          =   3135
+      Index           =   0
+      Left            =   6240
+      TabIndex        =   5
+      Top             =   0
+      Width           =   2775
+      Begin JinDuTiao.JinDuT JinDuT1 
+         Height          =   255
+         Index           =   0
+         Left            =   600
+         TabIndex        =   6
+         Top             =   945
+         Width           =   1935
+         _ExtentX        =   3413
+         _ExtentY        =   450
+         ProgressColor   =   255
+      End
+      Begin JinDuTiao.JinDuT JinDuT2 
+         Height          =   255
+         Index           =   0
+         Left            =   600
+         TabIndex        =   7
+         Top             =   1305
+         Width           =   1935
+         _ExtentX        =   3413
+         _ExtentY        =   450
+      End
+      Begin JinDuTiao.JinDuT JinDuT3 
+         Height          =   255
+         Index           =   0
+         Left            =   600
+         TabIndex        =   8
+         Top             =   1665
+         Width           =   1935
+         _ExtentX        =   3413
+         _ExtentY        =   450
+         ProgressColor   =   33023
+      End
+      Begin VB.Shape Shape1 
+         BorderColor     =   &H000080FF&
+         Height          =   405
+         Index           =   0
+         Left            =   120
+         Top             =   2640
+         Width           =   405
+      End
+      Begin VB.Label SkOn1 
+         Alignment       =   2  'Center
+         Caption         =   "∫⁄"
+         BeginProperty Font 
+            Name            =   "Œ¢»Ì—≈∫⁄"
+            Size            =   12
+            Charset         =   134
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   405
+         Index           =   0
+         Left            =   120
+         TabIndex        =   15
+         Top             =   2655
+         Width           =   405
+      End
+      Begin VB.Label SkOn1 
+         Alignment       =   2  'Center
+         Caption         =   "∂‹"
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Œ¢»Ì—≈∫⁄"
+            Size            =   12
+            Charset         =   134
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   405
+         Index           =   1
+         Left            =   600
+         TabIndex        =   14
+         Top             =   2655
+         Visible         =   0   'False
+         Width           =   405
+      End
+      Begin VB.Label Label5 
+         AutoSize        =   -1  'True
+         Caption         =   "HP:"
+         Height          =   315
+         Index           =   0
+         Left            =   135
+         TabIndex        =   13
+         Top             =   945
+         Width           =   390
+      End
+      Begin VB.Label Label6 
+         AutoSize        =   -1  'True
+         Caption         =   "E:"
+         Height          =   315
+         Index           =   0
+         Left            =   240
+         TabIndex        =   12
+         Top             =   1305
+         Width           =   195
+      End
+      Begin VB.Label Label7 
+         AutoSize        =   -1  'True
+         Caption         =   "CD:"
+         Height          =   315
+         Index           =   0
+         Left            =   135
+         TabIndex        =   11
+         Top             =   1665
+         Width           =   405
+      End
+      Begin VB.Label Label8 
+         AutoSize        =   -1  'True
+         Caption         =   "EXP:"
+         Height          =   315
+         Index           =   0
+         Left            =   135
+         TabIndex        =   10
+         Top             =   2025
+         Width           =   495
+      End
+      Begin VB.Label Label9 
+         AutoSize        =   -1  'True
+         Caption         =   "LV:"
+         BeginProperty Font 
+            Name            =   "Œ¢»Ì—≈∫⁄"
+            Size            =   14.25
+            Charset         =   134
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   390
+         Index           =   0
+         Left            =   120
+         TabIndex        =   9
+         Top             =   480
+         Width           =   435
+      End
+   End
+   Begin VB.Timer Ftime 
+      Enabled         =   0   'False
+      Index           =   0
       Interval        =   1000
       Left            =   7560
       Top             =   7080
@@ -49,16 +353,6 @@ Begin VB.Form Form1
       Left            =   7560
       Top             =   7560
    End
-   Begin JinDuTiao.JinDuT JinDuT1 
-      Height          =   255
-      Left            =   6720
-      TabIndex        =   3
-      Top             =   480
-      Width           =   1935
-      _ExtentX        =   3413
-      _ExtentY        =   450
-      ProgressColor   =   255
-   End
    Begin VB.Timer Timer1 
       Enabled         =   0   'False
       Interval        =   10
@@ -85,141 +379,23 @@ Begin VB.Form Form1
       ScaleHeight     =   8060.721
       ScaleMode       =   0  'User
       ScaleWidth      =   4990.596
-      TabIndex        =   2
+      TabIndex        =   0
       Top             =   0
       Width           =   6000
-   End
-   Begin JinDuTiao.JinDuT JinDuT2 
-      Height          =   255
-      Left            =   6720
-      TabIndex        =   6
-      Top             =   840
-      Width           =   1935
-      _ExtentX        =   3413
-      _ExtentY        =   450
-   End
-   Begin JinDuTiao.JinDuT JinDuT3 
-      Height          =   255
-      Left            =   6720
-      TabIndex        =   7
-      Top             =   1200
-      Width           =   1935
-      _ExtentX        =   3413
-      _ExtentY        =   450
-      ProgressColor   =   33023
-   End
-   Begin VB.Shape Shape1 
-      BorderColor     =   &H000080FF&
-      Height          =   400
-      Left            =   6360
-      Top             =   2260
-      Width           =   400
-   End
-   Begin VB.Label SkOn 
-      Alignment       =   2  'Center
-      Caption         =   "∂‹"
-      Enabled         =   0   'False
-      BeginProperty Font 
-         Name            =   "Œ¢»Ì—≈∫⁄"
-         Size            =   12
-         Charset         =   134
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   405
-      Index           =   1
-      Left            =   6840
-      TabIndex        =   0
-      Top             =   2280
-      Visible         =   0   'False
-      Width           =   405
-   End
-   Begin VB.Label SkOn 
-      Alignment       =   2  'Center
-      Caption         =   "∫⁄"
-      BeginProperty Font 
-         Name            =   "Œ¢»Ì—≈∫⁄"
-         Size            =   12
-         Charset         =   134
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   400
-      Index           =   0
-      Left            =   6360
-      TabIndex        =   1
-      Top             =   2280
-      Width           =   400
-   End
-   Begin VB.Label Label9 
-      Caption         =   "LV:"
-      BeginProperty Font 
-         Name            =   "Œ¢»Ì—≈∫⁄"
-         Size            =   14.25
-         Charset         =   134
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   6240
-      TabIndex        =   14
-      Top             =   10
-      Width           =   2415
-   End
-   Begin VB.Label Label8 
-      Caption         =   "EXP:"
-      Height          =   615
-      Left            =   6255
-      TabIndex        =   13
-      Top             =   1560
-      Width           =   2295
-   End
-   Begin VB.Label Label7 
-      AutoSize        =   -1  'True
-      Caption         =   "CD:"
-      Height          =   315
-      Left            =   6255
-      TabIndex        =   12
-      Top             =   1200
-      Width           =   405
-   End
-   Begin VB.Label Label6 
-      AutoSize        =   -1  'True
-      Caption         =   "E:"
-      Height          =   315
-      Left            =   6360
-      TabIndex        =   11
-      Top             =   840
-      Width           =   195
-   End
-   Begin VB.Label Label5 
-      AutoSize        =   -1  'True
-      Caption         =   "HP:"
-      Height          =   315
-      Left            =   6255
-      TabIndex        =   10
-      Top             =   480
-      Width           =   390
    End
    Begin VB.Label Label4 
       AutoSize        =   -1  'True
       Caption         =   $"AirWar.frx":0000
       Height          =   2835
-      Left            =   6360
-      TabIndex        =   9
-      Top             =   3960
-      Width           =   1995
+      Left            =   9120
+      TabIndex        =   4
+      Top             =   3240
+      Width           =   2715
    End
    Begin VB.Label Label3 
       Height          =   375
       Left            =   6360
-      TabIndex        =   8
+      TabIndex        =   3
       Top             =   7080
       Width           =   2055
    End
@@ -227,17 +403,17 @@ Begin VB.Form Form1
       Alignment       =   2  'Center
       Caption         =   "0"
       Height          =   375
-      Left            =   6360
-      TabIndex        =   5
-      Top             =   3240
+      Left            =   6240
+      TabIndex        =   2
+      Top             =   3720
       Width           =   1455
    End
    Begin VB.Label Label1 
       Caption         =   "Timing:"
       Height          =   375
-      Left            =   6360
-      TabIndex        =   4
-      Top             =   2760
+      Left            =   6240
+      TabIndex        =   1
+      Top             =   3240
       Width           =   1935
    End
    Begin VB.Menu ≤Àµ• 
@@ -281,16 +457,22 @@ Dim la(1 To 16) As Long
 Dim ActIme, BigFovPlaneTime, CunningFovPlaneTime As Long
 Private T_s As Single
 
-Private Sub Ftime_Timer()
-PSkillID_Ft = PSkillID_Ft + 1
+Private Sub Ftime_Timer(Index As Integer)
+PSkillID_Ft(Index) = PSkillID_Ft(Index) + 1
 End Sub
 
 Private Sub Picture1_KeyDown(KeyCode As Integer, Shift As Integer)
 '37_40:4865
 Dim i As Long
-If KeyCode = 70 Or KeyCode = 82 Then
-    If PSkillID = 0 And PSkill(1) = True Then PSkillID = 1: Pg(0).Blt = 2 Else PSkillID = 0: Pg(0).Blt = 1
-    Form1.Shape1.Left = Form1.SkOn(PSkillID).Left: Form1.Shape1.Top = Form1.SkOn(PSkillID).Top - 20
+If KeyCode = 76 Then
+    If PSkillID(0) = 0 And PSkill(0, 1) = True Then PSkillID(0) = 1: Pg(0).Blt = 2 Else PSkillID(0) = 0: Pg(0).Blt = 1
+    Form1.Shape1(0).Left = Form1.SkOn1(PSkillID(0)).Left: Form1.Shape1(0).Top = Form1.SkOn1(PSkillID(0)).Top - 20
+    Exit Sub
+End If
+If KeyCode = 99 Then
+    If PSkillID(1) = 0 And PSkill(1, 1) = True Then PSkillID(1) = 1: Pg(1).Blt = 2 Else PSkillID(1) = 0: Pg(1).Blt = 1
+    Form1.Shape1(1).Left = Form1.SkOn2(PSkillID(1)).Left: Form1.Shape1(1).Top = Form1.SkOn2(PSkillID(1)).Top - 20
+    Exit Sub
 End If
 For i = 0 To 5
     If KCTemp(i) = KeyCode Then Exit Sub
@@ -307,41 +489,9 @@ For i = 0 To 5
     If KCTemp(i) = KeyCode Then KCTemp(i) = 0
 Next
 End Sub
-Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
-'37_40:4865
-Dim i As Long
-If KeyCode = 76 Then
-    If PSkillID = 0 And PSkill(1) = True Then PSkillID = 1: Pg(0).Blt = 2 Else PSkillID = 0: Pg(0).Blt = 1
-    Form1.Shape1.Left = Form1.SkOn(PSkillID).Left: Form1.Shape1.Top = Form1.SkOn(PSkillID).Top - 20
-    Exit Sub
-End If
-For i = 0 To 5
-    If KCTemp(i) = KeyCode Then Exit Sub
-Next
-For i = 0 To 4
-    If KCTemp(i) = 0 Then KCTemp(i) = KeyCode: Exit Sub
-Next
-KCTemp(5) = KeyCode
-End Sub
-Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
-'1
-Dim i As Long
-For i = 0 To 5
-    If KCTemp(i) = KeyCode Then KCTemp(i) = 0
-Next
-End Sub
 Private Sub Form_Load()
 Picture1.Scale (0, Picture1.Height)-(Picture1.Width, 0)
 World_Load
-End Sub
-
-Private Sub Timer_PC_Skill_Flash_Timer()
-
-End Sub
-
-
-Private Sub Test1_Click()
-
 End Sub
 Private Sub Timer1_Timer()
 F5
@@ -349,17 +499,23 @@ End Sub
 Private Sub Timer2_Timer()
 Dim i As Long
 Label3.Caption = KCTemp(0) & "," & KCTemp(1) & "," & KCTemp(2) & "," & KCTemp(3) & "," & KCTemp(4) & "," & KCTemp(5)
-PBCD = True
-If PBSkillCD = False Then PBSkillCDTime = PBSkillCDTime + 1
-If PBSkillCDTime > 99 Then PBSkillCD = True: PBSkillCDTime = 0
+
 '---------------------------Test------------------------------
-Label8.Caption = "EXP:" & Pg(0).Emp & "/" & Pg(0).MxEmp
-Label9.Caption = "LV:" & Pg(0).Rank
+For i = 0 To 1
+    If Pg(i).a = True Then
+        PBCD(i) = True
+        If PBSkillCD(i) = False Then PBSkillCDTime(i) = PBSkillCDTime(i) + 1
+        If PBSkillCDTime(i) > 99 Then PBSkillCD(i) = True: PBSkillCDTime(i) = 0
+        Label8(i).Caption = "EXP:" & Pg(i).Emp & "/" & Pg(i).MxEmp
+        Label9(i).Caption = "LV:" & Pg(i).Rank
+    End If
+Next
 '-------------------------------------------------------------
 ActIme = "134481924" '’‚¿Ô «”¢Œƒ ‰»Î∑®µƒ¬Î°£
 ActivateKeyboardLayout ActIme, 1
 '---------------------------Skon------------------------------
-If PSkill(1) = True Then SkOn(1).Enabled = True: SkOn(1).Visible = True Else SkOn(1).Enabled = False: SkOn(1).Visible = False
+If PSkill(0, 1) = True Then SkOn1(1).Enabled = True: SkOn1(1).Visible = True Else SkOn1(1).Enabled = False: SkOn1(1).Visible = False
+If PSkill(1, 1) = True Then SkOn2(1).Enabled = True: SkOn2(1).Visible = True Else SkOn2(1).Enabled = False: SkOn2(1).Visible = False
 End Sub
 Private Sub Timer3_Timer()
 If Pg(0).a = True Then
@@ -420,6 +576,7 @@ End Sub
 
 Private Sub À´»À_Click()
 PC_2_Def
+DuoPlayer = True
 End Sub
 
 Private Sub ‘›Õ£_Click()

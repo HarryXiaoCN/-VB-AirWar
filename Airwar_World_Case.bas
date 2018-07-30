@@ -9,7 +9,7 @@ If Pg(PID).Emp >= Pg(PID).MxEmp Then
     Pg(PID).E = Pg(PID).MxE
     Pg(PID).Esp = Pg(PID).Esp + 0.5
     Pg(PID).Sp = 3 + Pg(PID).Sp
-    If Pg(PID).Rank >= 3 Then PSkill(1) = True
+    If Pg(PID).Rank >= 3 Then PSkill(PID, 1) = True
 End If
 End Function
 Public Function PCEsp_Recovery()

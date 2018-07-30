@@ -26,7 +26,7 @@ Select Case TrID
             Bg(BID).a = False: Bg(BID).Da = False
         End If
     Case 3
-        XXJie = 线性求解(Bg(BID).X, Bg(BID).Y, Pg(0).X, Pg(0).Y, Bg(BID).Sp)
+        XXJie = 线性求解(Bg(BID).X, Bg(BID).Y, Pg(Bg(BID).Target).X, Pg(Bg(BID).Target).Y, Bg(BID).Sp)
         Bg(BID).dX = XXJie.a: Bg(BID).dY = XXJie.b
         Bg(BID).X = Bg(BID).X + Bg(BID).dX: Bg(BID).Y = Bg(BID).Y + Bg(BID).dY
         If Bg(BID).X < 0 Or Bg(BID).Y < 0 Or Bg(BID).X > 6000 Or Bg(BID).Y > 8000 Then
@@ -58,14 +58,14 @@ Select Case TrID
         End If
     Case 2
         
-        If Form1.Ftime.Enabled = False Then
-            PSkillID_Ft = 0: Form1.Ftime.Enabled = True: PBg(PBID).X = Pg(0).X: PBg(PBID).Y = Pg(0).Y
+        If Form1.Ftime(PBg(PBID).Source).Enabled = False Then
+            PSkillID_Ft(PBg(PBID).Source) = 0: Form1.Ftime((PBg(PBID).Source)).Enabled = True: PBg(PBID).X = Pg(0).X: PBg(PBID).Y = Pg(0).Y
         Else
-            If PSkillID_Ft > 3 + 0.5 * Pg(0).Rank Then
-                Form1.Ftime.Enabled = False
+            If PSkillID_Ft(PBg(PBID).Source) > 3 + 0.5 * Pg((PBg(PBID).Source)).Rank Then
+                Form1.Ftime((PBg(PBID).Source)).Enabled = False
                 PBg(PBID).a = False
             Else
-                PBg(PBID).X = Pg(0).X: PBg(PBID).Y = Pg(0).Y
+                PBg(PBID).X = Pg((PBg(PBID).Source)).X: PBg(PBID).Y = Pg((PBg(PBID).Source)).Y
             End If
         End If
 End Select

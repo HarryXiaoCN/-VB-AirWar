@@ -1,10 +1,15 @@
 Attribute VB_Name = "Airwar_ruler_engine"
 Public Sub 物理事件检测()
+Dim i As Long
 物理事件检测_Plane主体
 物理事件检测_PlaneBullet主体
-Form1.JinDuT1.Progress = Pg(0).HP / Pg(0).MxHP * 100
-Form1.JinDuT2.Progress = Pg(0).E / Pg(0).MxE * 100
-If PBSkillCD = False Then Form1.JinDuT3.Progress = PBSkillCDTime Else Form1.JinDuT3.Progress = 100
+For i = 0 To 1
+    If Pg(i).a = True Then
+        Form1.JinDuT1(i).Progress = Pg(i).HP / Pg(i).MxHP * 100
+        Form1.JinDuT2(i).Progress = Pg(i).E / Pg(i).MxE * 100
+        If PBSkillCD(i) = False Then Form1.JinDuT3(i).Progress = PBSkillCDTime(i) Else Form1.JinDuT3(i).Progress = 100
+    End If
+Next
 End Sub
 Public Sub 移动事件处理()
 移动事件处理_Plane主体
@@ -15,7 +20,7 @@ Public Sub 移动事件处理()
 End Sub
 Public Sub 物理事件检测_PlaneBullet主体()
 Dim i As Long
-For i = 0 To PBSum - 1
+For i = 0 To PBSum
     If PBg(i).a = True Then
         Select Case PBg(i).Trl
             Case 0

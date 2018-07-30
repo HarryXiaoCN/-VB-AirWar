@@ -34,8 +34,8 @@ End Function
 Public Function 物理事件检测_Plane主体_PaS(ByRef i As Long)
 Dim Min(2), MiTemp As Long
 Min(0) = 99999
-For c = 0 To SgSum - 1
-    If Sg(i).a = True Then
+For c = 0 To SgSum
+    If Sg(c).a = True Then
         MiTemp = 两点距离(Pg(i).X, Pg(i).Y, Sg(c).X, Sg(c).Y)
         If Min(0) > MiTemp Then
             Min(0) = MiTemp: Min(1) = c
@@ -79,13 +79,13 @@ End Function
 Public Function 物理事件检测_Plane主体_PBaFP事件_经验结算(ByVal PBID As Long, ByVal FPID As Long)
 Select Case FPg(FPID).AiRank
     Case 0
-        Pg(PBID).Emp = Pg(PBID).Emp + 1
+        Pg(PBg(PBID).Source).Emp = Pg(PBg(PBID).Source).Emp + 1
     Case 1
-        Pg(PBID).Emp = Pg(PBID).Emp + 25
+        Pg(PBg(PBID).Source).Emp = Pg(PBg(PBID).Source).Emp + 25
     Case 2
-        Pg(PBID).Emp = Pg(PBID).Emp + 50
+        Pg(PBg(PBID).Source).Emp = Pg(PBg(PBID).Source).Emp + 50
 End Select
-升级 PBID
+升级 PBg(PBID).Source
 End Function
 Public Function 物理事件检测_PlaneBullet主体_Trl_1(ByRef i As Long)
 物理事件检测_PlaneBullet主体_Trl_1_Bullet i

@@ -4,10 +4,10 @@ Public Bg(1000) As Bullet
 Public PBg(1000) As Bullet
 Public Sg(10000) As Supply
 Public FPg(1000) As Plane
-Public Diff, PBSkillCDTime As Long
+Public Diff, PBSkillCDTime(2) As Long
 Public KCTemp(7) As Integer
-Public PBCD, PBSkillCD, PSkill(3) As Boolean
-Public BgSum, SgSum, PBSum, FPSum, PSkillID, PSkillID_Ft As Long
+Public PBCD(2), PBSkillCD(2), PSkill(2, 3), DuoPlayer As Boolean
+Public BgSum, SgSum, PBSum, FPSum, PSkillID(2), PSkillID_Ft(2) As Long
 Public Function PBg_Add_2(ByVal PBID As Long, ByVal PID As Long, Optional Ty As Long = 0)
 Select Case Ty
     Case 0
@@ -17,7 +17,7 @@ Select Case Ty
         PBg(PBID).mX = Pg(PID).X
         PBg(PBID).mY = 8000
         Pg(PID).E = Pg(PID).E - 1
-        PBCD = False
+        PBCD(PID) = False
     Case 1
         PBg(PBID).a = True: PBg(PBID).Ar = 50: PBg(PBID).Atk = 100 + 20 * Pg(PID).Rank: PBg(PBID).Sb = True
         PBg(PBID).Sp = 20: PBg(PBID).X = Pg(PID).X: PBg(PBID).Y = Pg(PID).Y
@@ -25,7 +25,7 @@ Select Case Ty
         PBg(PBID).mX = Pg(PID).X
         PBg(PBID).mY = Pg(PID).Y + 3200
         Pg(PID).E = Pg(PID).E - 20
-        PBSkillCD = False
+        PBSkillCD(PID) = False
     Case 2
         PBg(PBID).a = True: PBg(PBID).Ar = 300: PBg(PBID).Atk = 5 + 10 * Pg(PID).Rank: PBg(PBID).Sb = False
         PBg(PBID).Sp = 0: PBg(PBID).X = Pg(PID).X: PBg(PBID).Y = Pg(PID).Y
@@ -33,15 +33,16 @@ Select Case Ty
         PBg(PBID).mX = Pg(PID).X
         PBg(PBID).mY = Pg(PID).Y
         Pg(PID).E = Pg(PID).E - 50
-        PBSkillCD = False
+        PBSkillCD(PID) = False
 End Select
+PBg(PBID).Source = PID
 End Function
 Public Function PBg_Add(ByVal PID As Long, Optional Ty As Long = 0)
 Select Case Ty
     Case 0
-        If Pg(PID).E <= 0 Or PBCD = False Then Exit Function
+        If Pg(PID).E <= 0 Or PBCD(PID) = False Then Exit Function
     Case 1, 2
-        If Pg(PID).E < 20 Or PBSkillCD = False Then Exit Function
+        If Pg(PID).E < 20 Or PBSkillCD(PID) = False Then Exit Function
 End Select
 For i = 0 To PBSum - 1
     If PBg(i).a = False Then
@@ -106,28 +107,45 @@ Sg(SgID).a = True: Sg(SgID).Tp = Int(Rnd * 3): Sg(SgID).Sp = 20
 Sg(SgID).X = Int(Rnd * (6001)): Sg(SgID).Y = 8000
 Sg(SgID).mX = Int(Rnd * (6001)): Sg(SgID).mY = 0
 End Function
+Public Function Bg_Add_JustHitYou() As Long
+Dim i, Aggregate, Division, Verification As Long
+Randomize
+For i = 0 To 1
+    If Pg(i).a = True Then
+        Aggregate = Aggregate + Pg(i).Rank
+    End If
+Next
+Division = Int(Rnd * (Aggregate + 1))
+For i = 0 To 1
+    If Pg(i).a = True Then
+        Verification = Verification + Pg(i).Rank
+        If Verification > Division Then Bg_Add_JustHitYou = i: Exit Function
+    End If
+Next
+End Function
 Public Function Bg_Add(ByVal BgID As Long, Optional Ty As Long = 0, Optional FPID)
 Randomize
 Bg(BgID).Trl = Ty
+Bg(BgID).Target = Bg_Add_JustHitYou
 Select Case Ty
     Case 0
         Bg(BgID).a = True: Bg(BgID).Ar = 30: Bg(BgID).Atk = 10: Bg(BgID).Sb = True
-        Bg(BgID).Sp = 10 + Diff / 30: Bg(BgID).X = Int(Rnd * (6001)): Bg(BgID).Y = 8000: Bg(BgID).mX = Pg(0).X
-        Bg(BgID).mY = Pg(0).Y
+        Bg(BgID).Sp = 10 + Diff / 30: Bg(BgID).X = Int(Rnd * (6001)): Bg(BgID).Y = 8000: Bg(BgID).mX = Pg(Bg(BgID).Target).X
+        Bg(BgID).mY = Pg(Bg(BgID).Target).Y
     Case 1
         Bg(BgID).a = True: Bg(BgID).Ar = 30: Bg(BgID).Atk = 10: Bg(BgID).Sb = True
         Bg(BgID).Sp = 10 + Diff / 30: Bg(BgID).X = FPg(FPID).X
-        Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(0).X
-        Bg(BgID).mY = Pg(0).Y
+        Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(Bg(BgID).Target).X
+        Bg(BgID).mY = Pg(Bg(BgID).Target).Y
     Case 2
         Bg(BgID).a = True: Bg(BgID).Ar = 40: Bg(BgID).Atk = 20: Bg(BgID).Sb = True
         Bg(BgID).Sp = 5 + Diff / 30: Bg(BgID).X = FPg(FPID).X
-        Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(0).X
-        Bg(BgID).mY = Pg(0).Y
+        Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(Bg(BgID).Target).X
+        Bg(BgID).mY = Pg(Bg(BgID).Target).Y
     Case 3
         Bg(BgID).a = True: Bg(BgID).Ar = 20: Bg(BgID).Atk = 15: Bg(BgID).Sb = True
         Bg(BgID).Sp = 10 + Diff / 25: Bg(BgID).X = FPg(FPID).X
-        Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(0).X
-        Bg(BgID).mY = Pg(0).Y
+        Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(Bg(BgID).Target).X
+        Bg(BgID).mY = Pg(Bg(BgID).Target).Y
 End Select
 End Function

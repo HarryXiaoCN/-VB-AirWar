@@ -31,6 +31,8 @@ Public Type Bullet
     Pen As Boolean '是否有穿透性
     Trl As Long '子弹的轨迹类型
     Sb As Boolean '子弹是否会被破坏
+    Source As Long '谁发出的
+    Target As Long '目标
     Sp As Long
     X As Single
     Y As Single

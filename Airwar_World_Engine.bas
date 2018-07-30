@@ -31,7 +31,7 @@ Next
 End Function
 Public Function F5_PC_Bullet()
 Form1.Picture1.FillColor = RGB(0, 255, 255)
-For i = 0 To 1
+For i = 0 To PBSum
     If PBg(i).a = True Then
         Select Case PBg(i).Trl
             Case 0
@@ -51,7 +51,7 @@ For i = 0 To 1
             Case 2
                 Randomize
                 Form1.Picture1.FillStyle = 1
-                Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(100, 149, 237)
+                Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(100 + PSkillID_Ft(i) * 30, 149 + PSkillID_Ft(i) * 20, 237)
                 Form1.Picture1.Circle (PBg(i).X + Rnd * 20 - 20, PBg(i).Y + Rnd * 20 - 20), PBg(i).Ar + Rnd * 20 - 20, RGB(176, 196, 222)
                 Form1.Picture1.Circle (PBg(i).X + Rnd * 20 - 20, PBg(i).Y + Rnd * 20 - 20), PBg(i).Ar + Rnd * 20 - 20, RGB(176, 196, 222)
                 Form1.Picture1.Circle (PBg(i).X + Rnd * 20 - 20, PBg(i).Y + Rnd * 20 - 20), PBg(i).Ar + Rnd * 20 - 20, RGB(176, 196, 222)
@@ -105,9 +105,15 @@ If Pg(1).a = True Then
 End If
 End Function
 Public Sub World_Load()
+Dim i As Long
 Erase PSkill
-Diff = 0: PBSkillCD = True: Form1.Timer5.Interval = 1000
+Diff = 0
+For i = 0 To 1
+    PBSkillCD(i) = True
+    PBCD(i) = True
+Next
+Form1.Timer5.Interval = 1000
 Form1.Label2.Caption = "0"
-PBCD = True
 PC_Def
+If DuoPlayer = True Then PC_2_Def
 End Sub
