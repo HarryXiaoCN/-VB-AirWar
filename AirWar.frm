@@ -1,10 +1,11 @@
 VERSION 5.00
 Object = "{A2ED65B5-7DB0-4716-871E-53783A22D5D9}#66.0#0"; "JinDuT.ocx"
 Begin VB.Form Form1 
+   BorderStyle     =   1  'Fixed Single
    Caption         =   "AirWar"
    ClientHeight    =   8130
-   ClientLeft      =   225
-   ClientTop       =   855
+   ClientLeft      =   150
+   ClientTop       =   795
    ClientWidth     =   12060
    BeginProperty Font 
       Name            =   "微软雅黑"
@@ -16,9 +17,16 @@ Begin VB.Form Form1
       Strikethrough   =   0   'False
    EndProperty
    LinkTopic       =   "Form1"
+   MaxButton       =   0   'False
    ScaleHeight     =   8130
    ScaleWidth      =   12060
    StartUpPosition =   3  '窗口缺省
+   Begin VB.Timer Spare 
+      Enabled         =   0   'False
+      Interval        =   100
+      Left            =   11520
+      Top             =   7080
+   End
    Begin VB.Timer Ftime 
       Enabled         =   0   'False
       Index           =   1
@@ -136,7 +144,6 @@ Begin VB.Form Form1
       Begin VB.Label SkOn2 
          Alignment       =   2  'Center
          Caption         =   "盾"
-         Enabled         =   0   'False
          BeginProperty Font 
             Name            =   "微软雅黑"
             Size            =   12
@@ -244,7 +251,6 @@ Begin VB.Form Form1
       Begin VB.Label SkOn1 
          Alignment       =   2  'Center
          Caption         =   "盾"
-         Enabled         =   0   'False
          BeginProperty Font 
             Name            =   "微软雅黑"
             Size            =   12
@@ -480,19 +486,18 @@ End Sub
 Private Sub Ftime_Timer(Index As Integer)
 PSkillID_Ft(Index) = PSkillID_Ft(Index) + 1
 End Sub
-
 Private Sub Picture1_KeyDown(KeyCode As Integer, Shift As Integer)
 '37_40:4865
 Dim i As Long
 If KeyCode = 192 Then
     If CMDShow = False Then CMDShow = True: World_Stop: Form2.Show Else CMDShow = False: World_Start: Unload Form2
 End If
-If KeyCode = 76 Then
+If KeyCode = 76 And (Local_State = 1 Or Local_State = 0) Then
     If PSkillID(0) = 0 And PSkill(0, 1) = True Then PSkillID(0) = 1: Pg(0).Blt = 2 Else PSkillID(0) = 0: Pg(0).Blt = 1
     Form1.Shape1(0).Left = Form1.SkOn1(PSkillID(0)).Left: Form1.Shape1(0).Top = Form1.SkOn1(PSkillID(0)).Top - 20
     Exit Sub
 End If
-If KeyCode = 99 Then
+If KeyCode = 99 And (Local_State = 2 Or Local_State = 0) Then
     If PSkillID(1) = 0 And PSkill(1, 1) = True Then PSkillID(1) = 1: Pg(1).Blt = 2 Else PSkillID(1) = 0: Pg(1).Blt = 1
     Form1.Shape1(1).Left = Form1.SkOn2(PSkillID(1)).Left: Form1.Shape1(1).Top = Form1.SkOn2(PSkillID(1)).Top - 20
     Exit Sub
@@ -507,6 +512,7 @@ Select Case Local_State
         Next
         KCTemp(5) = KeyCode
     Case 1
+        If KeyCode_Filtration(KeyCode) = True Then Exit Sub
         For i = 0 To 2
             If KCTemp(i) = KeyCode Then Exit Sub
         Next
@@ -515,6 +521,7 @@ Select Case Local_State
         Next
         KCTemp(2) = KeyCode
     Case 2
+        If KeyCode_Filtration(KeyCode) = True Then Exit Sub
         For i = 3 To 5
             If KCTemp(i) = KeyCode Then Exit Sub
         Next
@@ -527,6 +534,7 @@ End Select
 End Sub
 Private Sub Picture1_KeyUp(KeyCode As Integer, Shift As Integer)
 Dim i As Long
+If KeyCode_Filtration(KeyCode) = True Then Exit Sub
 Select Case Local_State
     Case 0
         For i = 0 To 5
@@ -546,6 +554,21 @@ Private Sub Form_Load()
 Picture1.Scale (0, Picture1.Height)-(Picture1.Width, 0)
 World_Load
 End Sub
+
+Private Sub Spare_Timer()
+Dim LVTemp: Dim i As Long
+If Local_State = 2 Then
+    Form1.Shape1(0).Left = Form1.SkOn1(PSkillID(0)).Left: Form1.Shape1(0).Top = Form1.SkOn1(PSkillID(0)).Top - 20
+    Form1.Shape1(1).Left = Form1.SkOn2(PSkillID(1)).Left: Form1.Shape1(1).Top = Form1.SkOn2(PSkillID(1)).Top - 20
+End If
+If Form1.SkOn1(1).Visible = True And Form1.SkOn2(1).Visible = True Then Exit Sub
+For i = 0 To 1
+    LVTemp = Split(Label9(i), ":")
+    If Val(LVTemp(1)) > 2 Then
+        If i = 0 Then Form1.SkOn1(1).Visible = True Else Form1.SkOn2(1).Visible = True
+    End If
+Next
+End Sub
 Private Sub Timer1_Timer()
 F5
 End Sub
@@ -558,8 +581,10 @@ For i = 0 To 1
         PBCD(i) = True
         If PBSkillCD(i) = False Then PBSkillCDTime(i) = PBSkillCDTime(i) + 1
         If PBSkillCDTime(i) > 99 Then PBSkillCD(i) = True: PBSkillCDTime(i) = 0
-        Label8(i).Caption = "EXP:" & Pg(i).Emp & "/" & Pg(i).MxEmp
+        Label8(i).Caption = "EXP:" & Pg(i).EMP & "/" & Pg(i).MxEmp
         Label9(i).Caption = "LV:" & Pg(i).Rank
+    Else
+        JinDuT1(i).Progress = 0
     End If
 Next
 '-------------------------------------------------------------
@@ -570,7 +595,7 @@ If PSkill(0, 1) = True Then SkOn1(1).Enabled = True: SkOn1(1).Visible = True Els
 If PSkill(1, 1) = True Then SkOn2(1).Enabled = True: SkOn2(1).Visible = True Else SkOn2(1).Enabled = False: SkOn2(1).Visible = False
 End Sub
 Private Sub Timer3_Timer()
-If Pg(0).a = True Then
+If Pg(0).a = True Or Pg(1).a = True Then
     T_s = Format(T_s + 0.1, "0.0")
     Form1.Label2.Caption = T_s
     Diff = T_s
@@ -633,12 +658,12 @@ World_Start
 End Sub
 
 Private Sub 连接远程服务器_Click()
-If Local_State = 0 Then Local_State = 2: 双人_Click: Form4.Show Else MsgBox "请先关闭本地服务器再连接远程服务器！"
+If Local_State = 0 Then Local_State = 2: 双人_Click: Form4.Show: Spare.Enabled = True Else MsgBox "请先关闭本地服务器再连接远程服务器！"
 Local_State_Vision
 End Sub
 
 Private Sub 启动本地服务器_Click()
-If Local_State = 0 Then Local_State = 1: 双人_Click: Form3.Show Else MsgBox "请先关闭远程服务器连接再启动本地服务器！"
+If Local_State = 0 Then Local_State = 1: 双人_Click: Form3.Show: World_Stop Else MsgBox "请先关闭远程服务器连接再启动本地服务器！"
 Local_State_Vision
 End Sub
 
