@@ -1,4 +1,18 @@
 Attribute VB_Name = "Airwar_World_Engine"
+Public Function World_Stop()
+Form1.Timer1.Enabled = False
+Form1.Timer2.Enabled = False
+Form1.Timer3.Enabled = False
+Form1.Timer4.Enabled = False
+Form1.Timer5.Enabled = False
+End Function
+Public Function World_Start()
+Form1.Timer1.Enabled = True
+Form1.Timer2.Enabled = True
+Form1.Timer3.Enabled = True
+Form1.Timer4.Enabled = True
+Form1.Timer5.Enabled = True
+End Function
 Public Function F5()
 Form1.Picture1.Cls
 物理事件检测

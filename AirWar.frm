@@ -456,7 +456,9 @@ Const KLF_ACTIVATE = &H1
 Dim la(1 To 16) As Long
 Dim ActIme, BigFovPlaneTime, CunningFovPlaneTime As Long
 Private T_s As Single
-
+Private Sub Form_Unload(Cancel As Integer)
+End
+End Sub
 Private Sub Ftime_Timer(Index As Integer)
 PSkillID_Ft(Index) = PSkillID_Ft(Index) + 1
 End Sub
@@ -464,6 +466,9 @@ End Sub
 Private Sub Picture1_KeyDown(KeyCode As Integer, Shift As Integer)
 '37_40:4865
 Dim i As Long
+If KeyCode = 192 Then
+    If CMDShow = False Then CMDShow = True: World_Stop: Form2.Show Else CMDShow = False: World_Start: Unload Form2
+End If
 If KeyCode = 76 Then
     If PSkillID(0) = 0 And PSkill(0, 1) = True Then PSkillID(0) = 1: Pg(0).Blt = 2 Else PSkillID(0) = 0: Pg(0).Blt = 1
     Form1.Shape1(0).Left = Form1.SkOn1(PSkillID(0)).Left: Form1.Shape1(0).Top = Form1.SkOn1(PSkillID(0)).Top - 20
@@ -499,7 +504,6 @@ End Sub
 Private Sub Timer2_Timer()
 Dim i As Long
 Label3.Caption = KCTemp(0) & "," & KCTemp(1) & "," & KCTemp(2) & "," & KCTemp(3) & "," & KCTemp(4) & "," & KCTemp(5)
-
 '---------------------------Test------------------------------
 For i = 0 To 1
     If Pg(i).a = True Then
@@ -556,22 +560,10 @@ Test_Bullet_2
 End Sub
 
 Private Sub Timer6_Timer()
-Dim i As Long
-For i = 0 To FPSum - 1
-    If FPg(i).a = False Then
-        FPg_Add i, 1: Exit Sub
-    End If
-Next
-FPg_Add FPSum, 1
-FPSum = FPSum + 1
 End Sub
 
 Private Sub 开始_Click()
-Timer1.Enabled = True
-Timer2.Enabled = True
-Timer3.Enabled = True
-Timer4.Enabled = True
-Timer5.Enabled = True
+World_Start
 End Sub
 
 Private Sub 双人_Click()
@@ -580,11 +572,7 @@ DuoPlayer = True
 End Sub
 
 Private Sub 暂停_Click()
-Timer1.Enabled = False
-Timer2.Enabled = False
-Timer3.Enabled = False
-Timer4.Enabled = False
-Timer5.Enabled = False
+World_Stop
 End Sub
 
 Private Sub 重来_Click()
