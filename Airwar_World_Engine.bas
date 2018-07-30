@@ -14,15 +14,33 @@ Form1.Timer4.Enabled = True
 Form1.Timer5.Enabled = True
 End Function
 Public Function F5()
-Form1.Picture1.Cls
-物理事件检测
-移动事件处理
-F5_PC_Plane
-F5_Foe_Plane
-F5_Foe_Bullet
-F5_PC_Supply
-F5_PC_Bullet
-
+Select Case Local_State
+    Case 0
+        Form1.Picture1.Cls
+        物理事件检测
+        移动事件处理
+        F5_PC_Plane
+        F5_Foe_Plane
+        F5_Foe_Bullet
+        F5_PC_Supply
+        F5_PC_Bullet
+    Case 1
+        Form1.Picture1.Cls
+        物理事件检测
+        移动事件处理
+        Server_SendData
+        F5_PC_Plane
+        F5_Foe_Plane
+        F5_Foe_Bullet
+        F5_PC_Supply
+        F5_PC_Bullet
+    Case 2
+        F5_PC_Plane
+        F5_Foe_Plane
+        F5_Foe_Bullet
+        F5_PC_Supply
+        F5_PC_Bullet
+End Select
 End Function
 Public Function F5_Foe_Plane()
 Form1.Picture1.FillColor = RGB(143, 188, 143)

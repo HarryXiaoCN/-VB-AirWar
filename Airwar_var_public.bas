@@ -42,7 +42,8 @@ Select Case Ty
     Case 0
         If Pg(PID).E <= 0 Or PBCD(PID) = False Then Exit Function
     Case 1, 2
-        If Pg(PID).E < 20 Or PBSkillCD(PID) = False Then Exit Function
+        If PSkillID(PID) = 0 Then If Pg(PID).E < 20 Or PBSkillCD(PID) = False Then Exit Function
+        If PSkillID(PID) = 1 Then If Pg(PID).E < 50 Or PBSkillCD(PID) = False Then Exit Function
 End Select
 For i = 0 To PBSum - 1
     If PBg(i).a = False Then

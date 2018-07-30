@@ -23,22 +23,22 @@ Begin VB.Form Form1
       Enabled         =   0   'False
       Index           =   1
       Interval        =   1000
-      Left            =   6960
-      Top             =   7080
+      Left            =   6240
+      Top             =   7560
    End
    Begin VB.Frame Frame1 
       Caption         =   "PLAYER2"
       Height          =   3135
       Index           =   1
       Left            =   9120
-      TabIndex        =   16
+      TabIndex        =   15
       Top             =   0
       Width           =   2775
       Begin JinDuTiao.JinDuT JinDuT1 
          Height          =   255
          Index           =   1
          Left            =   600
-         TabIndex        =   17
+         TabIndex        =   16
          Top             =   945
          Width           =   1935
          _ExtentX        =   3413
@@ -49,7 +49,7 @@ Begin VB.Form Form1
          Height          =   255
          Index           =   1
          Left            =   600
-         TabIndex        =   18
+         TabIndex        =   17
          Top             =   1305
          Width           =   1935
          _ExtentX        =   3413
@@ -59,7 +59,7 @@ Begin VB.Form Form1
          Height          =   255
          Index           =   1
          Left            =   600
-         TabIndex        =   19
+         TabIndex        =   18
          Top             =   1665
          Width           =   1935
          _ExtentX        =   3413
@@ -89,7 +89,7 @@ Begin VB.Form Form1
          Height          =   390
          Index           =   1
          Left            =   120
-         TabIndex        =   26
+         TabIndex        =   25
          Top             =   480
          Width           =   435
       End
@@ -99,7 +99,7 @@ Begin VB.Form Form1
          Height          =   315
          Index           =   1
          Left            =   135
-         TabIndex        =   25
+         TabIndex        =   24
          Top             =   2025
          Width           =   495
       End
@@ -109,7 +109,7 @@ Begin VB.Form Form1
          Height          =   315
          Index           =   1
          Left            =   135
-         TabIndex        =   24
+         TabIndex        =   23
          Top             =   1665
          Width           =   405
       End
@@ -119,7 +119,7 @@ Begin VB.Form Form1
          Height          =   315
          Index           =   1
          Left            =   240
-         TabIndex        =   23
+         TabIndex        =   22
          Top             =   1305
          Width           =   195
       End
@@ -129,7 +129,7 @@ Begin VB.Form Form1
          Height          =   315
          Index           =   1
          Left            =   135
-         TabIndex        =   22
+         TabIndex        =   21
          Top             =   945
          Width           =   390
       End
@@ -149,7 +149,7 @@ Begin VB.Form Form1
          Height          =   405
          Index           =   1
          Left            =   600
-         TabIndex        =   21
+         TabIndex        =   20
          Top             =   2655
          Visible         =   0   'False
          Width           =   405
@@ -169,7 +169,7 @@ Begin VB.Form Form1
          Height          =   405
          Index           =   0
          Left            =   120
-         TabIndex        =   20
+         TabIndex        =   19
          Top             =   2655
          Width           =   405
       End
@@ -179,14 +179,14 @@ Begin VB.Form Form1
       Height          =   3135
       Index           =   0
       Left            =   6240
-      TabIndex        =   5
+      TabIndex        =   4
       Top             =   0
       Width           =   2775
       Begin JinDuTiao.JinDuT JinDuT1 
          Height          =   255
          Index           =   0
          Left            =   600
-         TabIndex        =   6
+         TabIndex        =   5
          Top             =   945
          Width           =   1935
          _ExtentX        =   3413
@@ -197,7 +197,7 @@ Begin VB.Form Form1
          Height          =   255
          Index           =   0
          Left            =   600
-         TabIndex        =   7
+         TabIndex        =   6
          Top             =   1305
          Width           =   1935
          _ExtentX        =   3413
@@ -207,7 +207,7 @@ Begin VB.Form Form1
          Height          =   255
          Index           =   0
          Left            =   600
-         TabIndex        =   8
+         TabIndex        =   7
          Top             =   1665
          Width           =   1935
          _ExtentX        =   3413
@@ -237,7 +237,7 @@ Begin VB.Form Form1
          Height          =   405
          Index           =   0
          Left            =   120
-         TabIndex        =   15
+         TabIndex        =   14
          Top             =   2655
          Width           =   405
       End
@@ -257,7 +257,7 @@ Begin VB.Form Form1
          Height          =   405
          Index           =   1
          Left            =   600
-         TabIndex        =   14
+         TabIndex        =   13
          Top             =   2655
          Visible         =   0   'False
          Width           =   405
@@ -268,7 +268,7 @@ Begin VB.Form Form1
          Height          =   315
          Index           =   0
          Left            =   135
-         TabIndex        =   13
+         TabIndex        =   12
          Top             =   945
          Width           =   390
       End
@@ -278,7 +278,7 @@ Begin VB.Form Form1
          Height          =   315
          Index           =   0
          Left            =   240
-         TabIndex        =   12
+         TabIndex        =   11
          Top             =   1305
          Width           =   195
       End
@@ -288,7 +288,7 @@ Begin VB.Form Form1
          Height          =   315
          Index           =   0
          Left            =   135
-         TabIndex        =   11
+         TabIndex        =   10
          Top             =   1665
          Width           =   405
       End
@@ -298,7 +298,7 @@ Begin VB.Form Form1
          Height          =   315
          Index           =   0
          Left            =   135
-         TabIndex        =   10
+         TabIndex        =   9
          Top             =   2025
          Width           =   495
       End
@@ -317,7 +317,7 @@ Begin VB.Form Form1
          Height          =   390
          Index           =   0
          Left            =   120
-         TabIndex        =   9
+         TabIndex        =   8
          Top             =   480
          Width           =   435
       End
@@ -326,37 +326,37 @@ Begin VB.Form Form1
       Enabled         =   0   'False
       Index           =   0
       Interval        =   1000
-      Left            =   7560
-      Top             =   7080
+      Left            =   6720
+      Top             =   7560
    End
    Begin VB.Timer Timer5 
       Enabled         =   0   'False
       Interval        =   1000
-      Left            =   8160
-      Top             =   7080
+      Left            =   7200
+      Top             =   7560
    End
    Begin VB.Timer Timer4 
       Enabled         =   0   'False
       Interval        =   10000
-      Left            =   6360
+      Left            =   7920
       Top             =   7560
    End
    Begin VB.Timer Timer3 
       Enabled         =   0   'False
       Interval        =   100
-      Left            =   6960
+      Left            =   8520
       Top             =   7560
    End
    Begin VB.Timer Timer2 
       Enabled         =   0   'False
       Interval        =   100
-      Left            =   7560
+      Left            =   9120
       Top             =   7560
    End
    Begin VB.Timer Timer1 
       Enabled         =   0   'False
       Interval        =   10
-      Left            =   8160
+      Left            =   9720
       Top             =   7560
    End
    Begin VB.PictureBox Picture1 
@@ -385,16 +385,16 @@ Begin VB.Form Form1
    End
    Begin VB.Label Label4 
       AutoSize        =   -1  'True
-      Caption         =   $"AirWar.frx":0000
-      Height          =   2835
-      Left            =   9120
-      TabIndex        =   4
-      Top             =   3240
-      Width           =   2715
+      Caption         =   "单机模式"
+      Height          =   315
+      Left            =   10800
+      TabIndex        =   26
+      Top             =   7680
+      Width           =   960
    End
    Begin VB.Label Label3 
       Height          =   375
-      Left            =   6360
+      Left            =   6240
       TabIndex        =   3
       Top             =   7080
       Width           =   2055
@@ -403,7 +403,7 @@ Begin VB.Form Form1
       Alignment       =   2  'Center
       Caption         =   "0"
       Height          =   375
-      Left            =   6240
+      Left            =   8160
       TabIndex        =   2
       Top             =   3720
       Width           =   1455
@@ -411,7 +411,7 @@ Begin VB.Form Form1
    Begin VB.Label Label1 
       Caption         =   "Timing:"
       Height          =   375
-      Left            =   6240
+      Left            =   8040
       TabIndex        =   1
       Top             =   3240
       Width           =   1935
@@ -433,6 +433,18 @@ Begin VB.Form Form1
       Begin VB.Menu 双人 
          Caption         =   "双人"
       End
+   End
+   Begin VB.Menu 网络 
+      Caption         =   "网络"
+      Begin VB.Menu 启动本地服务器 
+         Caption         =   "启动本地服务器"
+      End
+      Begin VB.Menu 连接远程服务器 
+         Caption         =   "连接远程服务器"
+      End
+   End
+   Begin VB.Menu 帮助 
+      Caption         =   "帮助"
    End
 End
 Attribute VB_Name = "Form1"
@@ -456,6 +468,12 @@ Const KLF_ACTIVATE = &H1
 Dim la(1 To 16) As Long
 Dim ActIme, BigFovPlaneTime, CunningFovPlaneTime As Long
 Private T_s As Single
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+Picture1_KeyDown KeyCode, Shift
+End Sub
+Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+Picture1_KeyUp KeyCode, Shift
+End Sub
 Private Sub Form_Unload(Cancel As Integer)
 End
 End Sub
@@ -479,20 +497,50 @@ If KeyCode = 99 Then
     Form1.Shape1(1).Left = Form1.SkOn2(PSkillID(1)).Left: Form1.Shape1(1).Top = Form1.SkOn2(PSkillID(1)).Top - 20
     Exit Sub
 End If
-For i = 0 To 5
-    If KCTemp(i) = KeyCode Then Exit Sub
-Next
-For i = 0 To 4
-    If KCTemp(i) = 0 Then KCTemp(i) = KeyCode: Exit Sub
-Next
-KCTemp(5) = KeyCode
+Select Case Local_State
+    Case 0
+        For i = 0 To 5
+            If KCTemp(i) = KeyCode Then Exit Sub
+        Next
+        For i = 0 To 4
+            If KCTemp(i) = 0 Then KCTemp(i) = KeyCode: Exit Sub
+        Next
+        KCTemp(5) = KeyCode
+    Case 1
+        For i = 0 To 2
+            If KCTemp(i) = KeyCode Then Exit Sub
+        Next
+        For i = 0 To 1
+            If KCTemp(i) = 0 Then KCTemp(i) = KeyCode: Exit Sub
+        Next
+        KCTemp(2) = KeyCode
+    Case 2
+        For i = 3 To 5
+            If KCTemp(i) = KeyCode Then Exit Sub
+        Next
+        For i = 3 To 4
+            If KCTemp(i) = 0 Then KCTemp(i) = KeyCode: Client_SendData i, KeyCode, 0: Exit Sub
+        Next
+        KCTemp(5) = KeyCode
+        Client_SendData 5, KeyCode, 0
+End Select
 End Sub
 Private Sub Picture1_KeyUp(KeyCode As Integer, Shift As Integer)
-'1
 Dim i As Long
-For i = 0 To 5
-    If KCTemp(i) = KeyCode Then KCTemp(i) = 0
-Next
+Select Case Local_State
+    Case 0
+        For i = 0 To 5
+            If KCTemp(i) = KeyCode Then KCTemp(i) = 0
+        Next
+    Case 1
+        For i = 0 To 2
+            If KCTemp(i) = KeyCode Then KCTemp(i) = 0
+        Next
+    Case 2
+        For i = 3 To 5
+            If KCTemp(i) = KeyCode Then KCTemp(i) = 0: Client_SendData i, KeyCode, 1
+        Next
+End Select
 End Sub
 Private Sub Form_Load()
 Picture1.Scale (0, Picture1.Height)-(Picture1.Width, 0)
@@ -562,11 +610,40 @@ End Sub
 Private Sub Timer6_Timer()
 End Sub
 
+Private Sub 帮助_Click()
+
+MsgBox "操作说明：" _
+& vbCrLf & "方向键(上下左右):" _
+& vbCrLf & "Player1: WSAD" _
+& vbCrLf & "Player2:↑↓←→" _
+& vbCrLf & "普通弹药: " _
+& vbCrLf & "Player1: J" _
+& vbCrLf & "Player2: 1" _
+& vbCrLf & "特殊弹药: " _
+& vbCrLf & "Player1: K" _
+& vbCrLf & "Player2: 2" _
+& vbCrLf & "特殊弹药切换:" _
+& vbCrLf & "Player1: L" _
+& vbCrLf & "Player2: 3"
+
+End Sub
+
 Private Sub 开始_Click()
 World_Start
 End Sub
 
+Private Sub 连接远程服务器_Click()
+If Local_State = 0 Then Local_State = 2: 双人_Click: Form4.Show Else MsgBox "请先关闭本地服务器再连接远程服务器！"
+Local_State_Vision
+End Sub
+
+Private Sub 启动本地服务器_Click()
+If Local_State = 0 Then Local_State = 1: 双人_Click: Form3.Show Else MsgBox "请先关闭远程服务器连接再启动本地服务器！"
+Local_State_Vision
+End Sub
+
 Private Sub 双人_Click()
+If DuoPlayer = True Then Exit Sub
 PC_2_Def
 DuoPlayer = True
 End Sub
