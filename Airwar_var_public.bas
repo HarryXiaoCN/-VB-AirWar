@@ -27,12 +27,12 @@ Select Case Ty
         Pg(PID).E = Pg(PID).E - 20
         PBSkillCD(PID) = False
     Case 2
-        PBg(PBID).a = True: PBg(PBID).Ar = 300: PBg(PBID).Atk = 5 + 10 * Pg(PID).Rank: PBg(PBID).Sb = False
+        PBg(PBID).a = True: PBg(PBID).Ar = 500 + 10 * Pg(PID).Rank: PBg(PBID).Atk = 5 + 10 * Pg(PID).Rank: PBg(PBID).Sb = False
         PBg(PBID).Sp = 0: PBg(PBID).X = Pg(PID).X: PBg(PBID).Y = Pg(PID).Y
         PBg(PBID).Pen = False: PBg(PBID).Trl = 2
         PBg(PBID).mX = Pg(PID).X
         PBg(PBID).mY = Pg(PID).Y
-        Pg(PID).E = Pg(PID).E - 50
+        Pg(PID).E = Pg(PID).E - 40
         PBSkillCD(PID) = False
 End Select
 PBg(PBID).Source = PID
@@ -71,6 +71,11 @@ Select Case Arnk
         FPg(FPID).Ar = 80: FPg(FPID).Sb = True: FPg(FPID).AiRank = 2
         FPg(FPID).Sp = 8
         FPg_Add_0_Def FPID
+    Case 3
+        FPg(FPID).a = True: FPg(FPID).HP = 250: FPg(FPID).MxHP = 250
+        FPg(FPID).Ar = 120: FPg(FPID).Sb = True: FPg(FPID).AiRank = 3
+        FPg(FPID).Sp = 5
+        FPg_Add_0_Def FPID
 End Select
 End Function
 Public Function FPg_Add_0_Def(ByVal FPID As Long)
@@ -92,13 +97,13 @@ End Select
 End Function
 Public Sub PC_Def()
 Pg(0).a = True: Pg(0).HP = 100: Pg(0).MxHP = 100: Pg(0).MxEmp = 10
-Pg(0).Emp = 0: Pg(0).Rank = 1: Pg(0).Blt = 1
+Pg(0).EMP = 0: Pg(0).Rank = 1: Pg(0).Blt = 1
 Pg(0).Ar = 100: Pg(0).E = 100: Pg(0).MxE = 100: Pg(0).Sb = True
 Pg(0).Sp = 30: Pg(0).Esp = 1: Pg(0).X = 2000: Pg(0).Y = 1000
 End Sub
 Public Sub PC_2_Def()
 Pg(1).a = True: Pg(1).HP = 100: Pg(1).MxHP = 100: Pg(1).MxEmp = 10
-Pg(1).Emp = 0: Pg(1).Rank = 1: Pg(1).Blt = 1
+Pg(1).EMP = 0: Pg(1).Rank = 1: Pg(1).Blt = 1
 Pg(1).Ar = 100: Pg(1).E = 100: Pg(1).MxE = 100: Pg(1).Sb = True
 Pg(1).Sp = 30: Pg(1).Esp = 1: Pg(1).X = 4000: Pg(1).Y = 1000
 End Sub
@@ -148,5 +153,11 @@ Select Case Ty
         Bg(BgID).Sp = 10 + Diff / 25: Bg(BgID).X = FPg(FPID).X
         Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(Bg(BgID).Target).X
         Bg(BgID).mY = Pg(Bg(BgID).Target).Y
+    Case 4
+        Bg(BgID).a = True: Bg(BgID).Ar = 10: Bg(BgID).Atk = 5: Bg(BgID).Sb = False
+        Bg(BgID).Sp = 10 + Diff / 25: Bg(BgID).X = FPg(FPID).X
+        Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(Bg(BgID).Target).X
+        Bg(BgID).mY = Pg(Bg(BgID).Target).Y
+        Bg(BgID).Source = FPID
 End Select
 End Function

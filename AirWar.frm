@@ -472,7 +472,7 @@ Const IME_CONFIG_GENERAL = 1
 Const KLF_REORDER = &H8
 Const KLF_ACTIVATE = &H1
 Dim la(1 To 16) As Long
-Dim ActIme, BigFovPlaneTime, CunningFovPlaneTime As Long
+Dim ActIme, BigFovPlaneTime, CunningFovPlaneTime, FrozenFovPlaneTime As Long
 Private T_s As Single
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 Picture1_KeyDown KeyCode, Shift
@@ -617,6 +617,7 @@ Private Sub Timer5_Timer()
 '---------------------------Code------------------------------
 BigFovPlaneTime = BigFovPlaneTime + 1
 CunningFovPlaneTime = CunningFovPlaneTime + 1
+FrozenFovPlaneTime = FrozenFovPlaneTime + 1
 PCEsp_Recovery
 If FoePlaneLifeSum() <= Diff / 10 Then
     If BigFovPlaneTime < 15 - Diff / 10 Then
@@ -627,6 +628,9 @@ If FoePlaneLifeSum() <= Diff / 10 Then
 End If
 If CunningFovPlaneTime > 60 - Diff / 10 Then
     Test_FoePlane 2: CunningFovPlaneTime = 0
+End If
+If FrozenFovPlaneTime > 90 - Diff / 8 Then
+    Test_FoePlane 3: FrozenFovPlaneTime = 0
 End If
 Test_Bullet_2
 End Sub

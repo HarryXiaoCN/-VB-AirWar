@@ -10,8 +10,8 @@ Public Type Plane
     Sb As Boolean '飞机是否会被击中
     Blt As Long '子弹类型
     DrSly As Long '死亡之后的补给类型
-    Sp As Long '速度
-    Emp As Long '经验值
+    Sp As Single  '速度
+    EMP As Long '经验值
     MxEmp As Long
     Rank As Long '等级
     Esp As Single  '能量恢复速度

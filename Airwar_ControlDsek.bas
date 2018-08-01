@@ -21,6 +21,8 @@ Select Case CMD_Temp(0)
                 Pg(CMD_Temp(2)).MxHP = Pg(CMD_Temp(2)).MxHP + Val(CMD_Temp(3)): GoTo Successfully
             Case "mxe_add"
                 Pg(CMD_Temp(2)).MxE = Pg(CMD_Temp(2)).MxE + Val(CMD_Temp(3)): GoTo Successfully
+            Case "sp_add"
+                Pg(CMD_Temp(2)).Sp = Pg(CMD_Temp(2)).Sp + Val(CMD_Temp(3)): GoTo Successfully
         End Select
     Case "network"
         Select Case CMD_Temp(1)

@@ -4,9 +4,13 @@ Dim Min(2), MiTemp As Long
 Min(0) = 99999
 For c = 0 To BgSum - 1
     If Bg(c).a = True Then
-        MiTemp = 两点距离(Pg(i).X, Pg(i).Y, Bg(c).X, Bg(c).Y)
-        If Min(0) > MiTemp Then
-            Min(0) = MiTemp: Min(1) = c
+        If Bg(c).Trl = 4 Then
+            If Pg(Bg(c).Target).Sp > 0 Then Pg(Bg(c).Target).Sp = Pg(Bg(c).Target).Sp - 0.01 * Diff / 20000
+        Else
+            MiTemp = 两点距离(Pg(i).X, Pg(i).Y, Bg(c).X, Bg(c).Y)
+            If Min(0) > MiTemp Then
+                Min(0) = MiTemp: Min(1) = c
+            End If
         End If
     End If
 Next
@@ -84,6 +88,9 @@ Select Case FPg(FPID).AiRank
         Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 25
     Case 2
         Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 50
+    Case 3
+        Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 100
+        Pg(PBg(PBID).Source).Sp = Pg(PBg(PBID).Source).Sp + 3
 End Select
 升级 PBg(PBID).Source
 End Function

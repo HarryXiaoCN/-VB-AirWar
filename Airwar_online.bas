@@ -20,13 +20,8 @@ BreakHanlder:
 Next
 Er:
 End Function
-Public Function Server_SendData(ByVal SK As Long, ByVal X As Single, ByVal Y As Single, ByVal R As Long, _
-ByVal FR As Long, ByVal FG As Long, ByVal FB As Long, _
-ByVal CR As Long, ByVal CG As Long, ByVal CB As Long, _
-Optional Break As Long, Optional PlayerID As Long, _
-Optional LV As String, Optional HpP As Long, Optional EP As Long, _
-Optional SCD As Long, Optional EMP As String, Optional SkillOpt)
-Dim i As Long: Dim StrData As String
+Public Function Server_SendData()
+ Dim StrData As String
 Select Case Break
     Case 0
         StrData = "H;" & SK & ";" & X & ";" & Y & ";" & R & ";" & FR & ";" & FG & ";" & FB & ";" & CR & ";" & CG & ";" & CB & "|"
@@ -37,12 +32,35 @@ Select Case Break
     Case 3
         StrData = "Renew|"
 End Select
+Server_SendData_Ignition StrData
+End Function
+Public Function Server_SendData_Ui(ByVal PlayerID As Long, _
+ByVal LV As String, ByVal HpP As Long, ByVal EP As Long, _
+ByVal SCD As Long, ByVal EMP As String, ByVal SkillOpt)
+Dim StrData As String
+StrData = "G;" & PlayerID & ";" & LV & ";" & HpP & ";" & EP & ";" & SCD & ";" & EMP & ";" & SkillOpt & ";" & Form1.Label2.Caption & "|"
+Server_SendData_Ignition StrData
+End Function
+Public Function Server_SendData_Circle(ByVal SK As Long, ByVal X As Single, ByVal Y As Single, ByVal R As Long, _
+ByVal FR As Long, ByVal FG As Long, ByVal FB As Long, _
+ByVal CR As Long, ByVal CG As Long, ByVal CB As Long)
+Dim StrData As String
+StrData = "H;" & SK & ";" & X & ";" & Y & ";" & R & ";" & FR & ";" & FG & ";" & FB & ";" & CR & ";" & CG & ";" & CB & "|"
+Server_SendData_Ignition StrData
+End Function
+Public Function Server_SendData_Ignition(ByRef StrData As String)
+Dim i As Long
 For i = 1 To TCPNum
     If Form3.Winsock1(i).State = 7 Then
         Form3.Winsock1(i).SendData StrData
     End If
 Next
 If ServerSendDataShow = True Then Form2.Text1.Text = StrData
+End Function
+Public Function Server_SendData_Line(ByVal X1 As Single, ByVal Y1 As Single, ByVal X2 As Single, ByVal Y2 As Single, ByVal CR As Long, ByVal CG As Long, ByVal CB As Long)
+Dim StrData As String
+StrData = "L;" & X1 & ";" & Y1 & ";" & X2 & ";" & Y2 & ";" & CR & ";" & CG & ";" & CB
+Server_SendData_Ignition StrData
 End Function
 Public Function Client_GetData()
 Dim DataTemp, Temp: Dim i As Long
@@ -76,6 +94,8 @@ Select Case DataTemp(0)
         Form1.Label8(Val(DataTemp(1))).Caption = DataTemp(6)
         PSkillID(Val(DataTemp(1))) = Val(DataTemp(7))
         Form1.Label2.Caption = DataTemp(8)
+    Case "L"
+        Form1.Picture1.Line (Val(DataTemp(1)), Val(DataTemp(2)))-(Val(DataTemp(3)), Val(DataTemp(4))), RGB(Val(DataTemp(5)), Val(DataTemp(6)), Val(DataTemp(7)))
 End Select
 BreakHanlder:
 Next
