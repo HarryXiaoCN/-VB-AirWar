@@ -1,15 +1,16 @@
 VERSION 5.00
 Begin VB.Form Form2 
-   BorderStyle     =   0  'None
+   BorderStyle     =   1  'Fixed Single
    Caption         =   "ControlDesk"
    ClientHeight    =   1350
-   ClientLeft      =   0
-   ClientTop       =   0
-   ClientWidth     =   9060
+   ClientLeft      =   45
+   ClientTop       =   390
+   ClientWidth     =   9090
    LinkTopic       =   "Form2"
+   MaxButton       =   0   'False
+   MinButton       =   0   'False
    ScaleHeight     =   1350
-   ScaleWidth      =   9060
-   ShowInTaskbar   =   0   'False
+   ScaleWidth      =   9090
    StartUpPosition =   3  '´°¿ÚÈ±Ê¡
    Begin VB.CommandButton Command1 
       Appearance      =   0  'Flat
@@ -59,6 +60,7 @@ Private HistorySum, HistoryNow As Long
 Private Sub Command1_Click()
 History(HistorySum) = Text2.Text
 CMD_Execute (Text2.Text)
+HistoryNow = HistorySum
 HistorySum = HistorySum + 1
 End Sub
 Private Sub Text2_KeyDown(KeyCode As Integer, Shift As Integer)

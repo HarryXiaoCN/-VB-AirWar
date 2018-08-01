@@ -1,18 +1,29 @@
 Attribute VB_Name = "Airwar_online"
 Public Local_State, TCPNum, Client_GetData_Temp As Long
 Public Client_SendData_Coding_Temp, Client_GetData_Key, Client_GetData_tcpTemp As String
+Public Type Leak_filling
+    a As Boolean
+    Leak As String
+End Type
+Public ClientInternet As Leak_filling
 Public Function Server_GetData(ByVal GetData As String)
-Dim DataTemp
-Dim i As Long
-On Error GoTo Er
+Dim DataTemp, Temp
+Dim i, c As Long
 If ServerGetDataShow = True Then Form2.Text1.Text = GetData
-DataTemp = Split(GetData, ",")
-Select Case Val(DataTemp(2))
-    Case 0
-        KCTemp(DataTemp(0)) = DataTemp(1)
-    Case 1
-        KCTemp(DataTemp(0)) = 0
-End Select
+Temp = Split(GetData, "|")
+On Error GoTo Er
+For i = 0 To UBound(Temp) - 1
+    If Temp(i) = "Echo" Then
+        Form2.Text1.Text = Form2.Text1.Text & Timer - NetworkEcho & "ms" & vbCrLf
+        GoTo BreakHanlder
+    End If
+    DataTemp = Split(Temp(i), ",")
+    For c = 3 To 5
+        KCTemp(c) = DataTemp(c - 3)
+    Next
+    DoEvents
+BreakHanlder:
+Next
 Er:
 End Function
 Public Function Server_SendData(ByVal SK As Long, ByVal X As Single, ByVal Y As Single, ByVal R As Long, _
@@ -28,11 +39,11 @@ For i = 1 To TCPNum
             Case 0
                 StrData = "H;" & SK & ";" & X & ";" & Y & ";" & R & ";" & FR & ";" & FG & ";" & FB & ";" & CR & ";" & CG & ";" & CB & "|"
             Case 1
-                StrData = "Break" & "|"
+                StrData = "Break|"
             Case 2
                 StrData = "G;" & PlayerID & ";" & LV & ";" & HpP & ";" & EP & ";" & SCD & ";" & EMP & ";" & SkillOpt & ";" & Form1.Label2.Caption & "|"
             Case 3
-                StrData = "Renew" & "|"
+                StrData = "Renew|"
         End Select
         If ClientGetDataShow = True Then Form2.Text1.Text = StrData
         Form3.Winsock1(i).SendData StrData
@@ -42,6 +53,16 @@ End Function
 Public Function Client_GetData()
 Dim DataTemp, Temp: Dim i As Long
 Temp = Split(Client_GetData_tcpTemp, "|")
+If UBound(Temp) > 0 Then
+    If InStr("|", Temp(UBound(Temp) - 1)) = 0 Then
+        ClientInternet.a = True
+        ClientInternet.Leak = Temp(UBound(Temp) - 1)
+    End If
+End If
+If InStr("H", Temp(0)) = 0 And InStr("G", Temp(0)) = 0 And Temp(0) <> "Break" And Temp(0) <> "Renew" And Temp(0) <> "Echo" Then
+    Temp(0) = ClientInternet.Leak & Temp(0)
+    ClientInternet.a = False
+End If
 For i = 0 To UBound(Temp) - 1
 On Error GoTo BreakHanlder
 If ClientGetDataShow = True Then Form2.Text1.Text = Temp(i)
@@ -51,6 +72,10 @@ If Temp(i) = "Renew" Then
 End If
 If Temp(i) = "Break" Then
     Form1.Picture1.Cls
+    GoTo BreakHanlder
+End If
+If Temp(i) = "Echo" Then
+    Form4.Winsock1.SendData "Echo|"
     GoTo BreakHanlder
 End If
 DataTemp = Split(Temp(i), ";")
@@ -71,9 +96,12 @@ End Select
 BreakHanlder:
 Next
 End Function
-Public Function Client_SendData(ByVal SendDataKeyID As Integer, ByVal SendDataBtye As Integer, ByVal DownUp As Integer)
-Dim CSendData As String
-CSendData = SendDataKeyID & "," & SendDataBtye & "," & DownUp
+Public Function Client_SendData()
+Dim CSendData As String: Dim i As Long
+For i = 3 To 4
+    CSendData = CSendData & KCTemp(i) & ","
+Next
+CSendData = CSendData & KCTemp(5) & "|"
 If ClientSendDataShow = True Then Form2.Text1.Text = CSendData
 If Form4.Winsock1.State = 7 Then Form4.Winsock1.SendData CSendData
 End Function

@@ -62,7 +62,7 @@ Private Sub Form_Load()
 Winsock1(0).Listen
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-Local_State = 0
+Local_State = 0: TCPNum = 0
 End Sub
 Private Sub OlTime_Timer()
 For i = 1 To TCPNum

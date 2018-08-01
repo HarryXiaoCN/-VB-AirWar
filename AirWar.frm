@@ -526,10 +526,9 @@ Select Case Local_State
             If KCTemp(i) = KeyCode Then Exit Sub
         Next
         For i = 3 To 4
-            If KCTemp(i) = 0 Then KCTemp(i) = KeyCode: Client_SendData i, KeyCode, 0: Exit Sub
+            If KCTemp(i) = 0 Then KCTemp(i) = KeyCode: Exit Sub
         Next
         KCTemp(5) = KeyCode
-        Client_SendData 5, KeyCode, 0
 End Select
 End Sub
 Private Sub Picture1_KeyUp(KeyCode As Integer, Shift As Integer)
@@ -546,7 +545,7 @@ Select Case Local_State
         Next
     Case 2
         For i = 3 To 5
-            If KCTemp(i) = KeyCode Then KCTemp(i) = 0: Client_SendData i, KeyCode, 1
+            If KCTemp(i) = KeyCode Then KCTemp(i) = 0
         Next
 End Select
 End Sub

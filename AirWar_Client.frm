@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "mswinsck.ocx"
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Begin VB.Form Form4 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "AirWar Client"
@@ -21,6 +21,11 @@ Begin VB.Form Form4
    ScaleHeight     =   2055
    ScaleWidth      =   5520
    StartUpPosition =   3  '´°¿ÚÈ±Ê¡
+   Begin VB.Timer CleintSendControl 
+      Interval        =   10
+      Left            =   0
+      Top             =   1560
+   End
    Begin VB.Timer Timer1 
       Interval        =   250
       Left            =   4920
@@ -63,6 +68,7 @@ Begin VB.Form Form4
       Height          =   375
       Left            =   1560
       TabIndex        =   1
+      Text            =   "127.0.0.1"
       Top             =   120
       Width           =   3855
    End
@@ -98,6 +104,11 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Client_GetData_tcpTemp_KG As Boolean
+
+Private Sub CleintSendControl_Timer()
+Client_SendData
+End Sub
+
 Private Sub Command1_Click()
 On Error GoTo Er
 Winsock1.RemoteHost = Text1.Text
