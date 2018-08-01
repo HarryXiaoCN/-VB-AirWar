@@ -1,5 +1,5 @@
 Attribute VB_Name = "Airwar_ControlDsek"
-Public CMDShow, TCPGetDataShow, TCPSendDataShow As Boolean
+Public CMDShow, ClientGetDataShow, ServerSendDataShow, ClientSendDataShow, ServerGetDataShow As Boolean
 Public Function CMD_Execute(ByRef CMD As String)
 Form2.Text1 = Form2.Text1 & CMD_Execute_Interpreter(CMD_Big_Small(CMD)) & vbCrLf
 Form2.Text1.SelStart = Len(Form2.Text1.Text)
@@ -23,10 +23,14 @@ Select Case CMD_Temp(0)
         End Select
     Case "network"
         Select Case CMD_Temp(1)
-            Case "client"
-                If CMD_Temp(2) = "0" Then TCPGetDataShow = False Else TCPGetDataShow = True
-            Case "server"
-                If CMD_Temp(2) = "0" Then TCPSendDataShow = False Else TCPSendDataShow = True
+            Case "clientget"
+                If CMD_Temp(2) = "0" Then ClientGetDataShow = False Else ClientGetDataShow = True
+            Case "serversend"
+                If CMD_Temp(2) = "0" Then ServerSendDataShow = False Else ServerSendDataShow = True
+            Case "clientsend"
+                If CMD_Temp(2) = "0" Then ClientSendDataShow = False Else ClientSendDataShow = True
+            Case "serverget"
+                If CMD_Temp(2) = "0" Then ServerGetDataShow = False Else ServerGetDataShow = True
         End Select
 End Select
 CMD_Execute_Interpreter = CMD & "--Successfully"

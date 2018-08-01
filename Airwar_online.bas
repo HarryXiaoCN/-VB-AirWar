@@ -4,6 +4,8 @@ Public Client_SendData_Coding_Temp, Client_GetData_Key, Client_GetData_tcpTemp A
 Public Function Server_GetData(ByVal GetData As String)
 Dim DataTemp
 Dim i As Long
+On Error GoTo Er
+If ServerGetDataShow = True Then Form2.Text1.Text = GetData
 DataTemp = Split(GetData, ",")
 Select Case Val(DataTemp(2))
     Case 0
@@ -11,12 +13,7 @@ Select Case Val(DataTemp(2))
     Case 1
         KCTemp(DataTemp(0)) = 0
 End Select
-End Function
-Public Function Server_SendData_BsS(ByRef i As Boolean) As String
-If i = True Then Server_SendData_BsS = "1" Else Server_SendData_BsS = "0"
-End Function
-Public Function Server_SendData_SsB(ByRef i As String) As Boolean
-If i = "1" Then Server_SendData_SsB = True Else Server_SendData_SsB = False
+Er:
 End Function
 Public Function Server_SendData(ByVal SK As Long, ByVal X As Single, ByVal Y As Single, ByVal R As Long, _
 ByVal FR As Long, ByVal FG As Long, ByVal FB As Long, _
@@ -37,7 +34,7 @@ For i = 1 To TCPNum
             Case 3
                 StrData = "Renew" & "|"
         End Select
-        If TCPGetDataShow = True Then Form2.Text1.Text = StrData
+        If ClientGetDataShow = True Then Form2.Text1.Text = StrData
         Form3.Winsock1(i).SendData StrData
     End If
 Next
@@ -46,7 +43,8 @@ Public Function Client_GetData()
 Dim DataTemp, Temp: Dim i As Long
 Temp = Split(Client_GetData_tcpTemp, "|")
 For i = 0 To UBound(Temp) - 1
-If TCPGetDataShow = True Then Form2.Text1.Text = Temp(i)
+On Error GoTo BreakHanlder
+If ClientGetDataShow = True Then Form2.Text1.Text = Temp(i)
 If Temp(i) = "Renew" Then
     Form1.SkOn1(1).Visible = False: Form1.SkOn2(1).Visible = False
     GoTo BreakHanlder
@@ -74,7 +72,10 @@ BreakHanlder:
 Next
 End Function
 Public Function Client_SendData(ByVal SendDataKeyID As Integer, ByVal SendDataBtye As Integer, ByVal DownUp As Integer)
-If Form4.Winsock1.State = 7 Then Form4.Winsock1.SendData SendDataKeyID & "," & SendDataBtye & "," & DownUp
+Dim CSendData As String
+CSendData = SendDataKeyID & "," & SendDataBtye & "," & DownUp
+If ClientSendDataShow = True Then Form2.Text1.Text = CSendData
+If Form4.Winsock1.State = 7 Then Form4.Winsock1.SendData CSendData
 End Function
 Public Function Local_State_Vision()
 Select Case Local_State

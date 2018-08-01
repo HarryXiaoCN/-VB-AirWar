@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "mswinsck.ocx"
 Begin VB.Form Form4 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "AirWar Client"
@@ -124,6 +124,6 @@ Winsock1.Close
 End Sub
 Private Sub Winsock1_DataArrival(ByVal bytesTotal As Long)
 Winsock1.GetData Client_GetData_tcpTemp
-If TCPGetDataShow = True Then Form2.Text1.Text = Client_GetData_tcpTemp
+If ClientGetDataShow = True Then Form2.Text1.Text = Client_GetData_tcpTemp
 Client_GetData
 End Sub
