@@ -1,6 +1,6 @@
 Type=Exe
 Form=AirWar.frm
-Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\..\..\Windows\system32\stdole2.tlb#OLE Automation
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\SysWOW64\stdole2.tlb#OLE Automation
 Module=Airwar_ruler_Type; Airwar_ruler.bas
 Module=Airwar_ruler_engine; Airwar_ruler_Engine.bas
 Module=Airwar_var_public; Airwar_var_public.bas
@@ -12,7 +12,7 @@ Module=Airwar_ruler_engine_Phy; Airwar_ruler_engine_Phy.bas
 Module=Airwar_ruler_engine_Move; Airwar_ruler_engine_Move.bas
 Form=AirWar_ControlDesk.frm
 Module=Airwar_ControlDsek; Airwar_ControlDsek.bas
-Object={248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0; mswinsck.ocx
+Object={248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0; MSWINSCK.OCX
 Module=Airwar_online; Airwar_online.bas
 Form=AirWar_Server.frm
 Form=AirWar_Client.frm

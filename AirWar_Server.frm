@@ -89,5 +89,5 @@ End Sub
 Private Sub Winsock1_DataArrival(Index As Integer, ByVal bytesTotal As Long)
 Dim TCPData As String
 Winsock1(Index).GetData TCPData
-Server_GetData TCPData
+Server_GetData TCPData, Index
 End Sub

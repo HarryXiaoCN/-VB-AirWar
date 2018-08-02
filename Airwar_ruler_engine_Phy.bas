@@ -8,9 +8,7 @@ For c = 0 To BgSum - 1
             Case 4
                 If Pg(Bg(c).Target).Sp > 0 Then Pg(Bg(c).Target).Sp = Pg(Bg(c).Target).Sp - 0.01 - Diff / 20000
                 Pg(Bg(c).Target).HP = Pg(Bg(c).Target).HP - Bg(c).Atk
-            Case 5
-                Bf_Add Bg(c).Target, Bg(c).Source, 0
-            Case 0, 1, 2, 3, 5
+            Case 0, 1, 2, 3
                 MiTemp = Á½µã¾àÀë(Pg(i).X, Pg(i).Y, Bg(c).X, Bg(c).Y)
                 If Min(0) > MiTemp Then
                     Min(0) = MiTemp: Min(1) = c

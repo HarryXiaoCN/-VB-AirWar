@@ -175,7 +175,7 @@ Public Sub World_Load()
 Dim i As Long
 ReDim Bg(1000)
 Erase PSkill
-Diff = 0: BfSum = 0: BgSum = 0: SgSum = 0: PBSum = 0: FPSum = 0
+Diff = 0: BgSum = 0: SgSum = 0: PBSum = 0: FPSum = 0
 For i = 0 To 1
     PSkill(i, 0) = True
     PBSkillCD(i) = True

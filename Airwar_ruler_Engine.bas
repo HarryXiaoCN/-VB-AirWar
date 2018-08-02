@@ -45,26 +45,6 @@ For i = 0 To 1
     End If
 Next
 End Sub
-Public Sub 物理事件检测_Buff主体()
-Dim i As Long
-For i = 0 To BfSum
-    If Bfg(i).a = True Then
-        Bfg(i).Ti = Bfg(i).Ti - 1
-        If Bfg(i).Ti <= 0 Then
-            Bfg(i).a = False
-            Select Case Bfg(i).F
-                Case 0
-                    Pg(Bfg(i).Target).Sp = Abs(Pg(Bfg(i).Target).Sp)
-            End Select
-        Else
-            Select Case Bfg(i).F
-                Case 0
-                    Pg(Bfg(i).Target).Sp = -Abs(Pg(Bfg(i).Target).Sp)
-            End Select
-        End If
-    End If
-Next
-End Sub
 Public Sub 移动事件处理_FoePlane主体()
 Dim i As Long
 For i = 0 To FPSum

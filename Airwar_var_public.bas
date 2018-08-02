@@ -4,12 +4,11 @@ Public Bg() As Bullet
 Public PBg(1000) As Bullet
 Public Sg(10) As Supply
 Public FPg(1000) As Plane
-Public Bfg(100) As PlaneState
 Public PC(10) As KeyConfig
 Public Diff, PBSkillCDTime(3) As Long
 Public KCTemp(7) As Integer
 Public PBCD(3), PBSkillCD(3), PSkill(2, 4), DuoPlayer, PlaneWYKZ_Skill_SwitchLock As Boolean
-Public BgSum, SgSum, PBSum, FPSum, BfSum, PSkillID(3) As Long
+Public BgSum, SgSum, PBSum, FPSum, PSkillID(3) As Long
 Public PSkillID_Ft(3) As Single
 Public Function PBg_Add_2(ByVal PBID As Long, ByVal PID As Long, Optional Ty As Long = 0)
 Select Case Ty
@@ -141,22 +140,6 @@ For i = 0 To 1
     End If
 Next
 End Function
-Public Function Bf_Add(ByVal Tar As Long, ByVal Sou As Long, ByVal F As Long)
-Dim i As Long
-For i = 0 To BfSum - 1
-    If Bfg(i).a = False Then
-        Bf_Add_2 i, Tar, Sou, F
-    End If
-Next
-Bf_Add_2 BfSum, Tar, Sou, F
-BfSum = BfSum + 1
-End Function
-Public Function Bf_Add_2(ByVal BfID As Long, ByVal Tar As Long, ByVal Sou As Long, ByVal F As Long)
-Select Case F
-    Case 0
-        Bfg(BfID).a = True: Bfg(BfID).Ti = 3
-End Select
-End Function
 Public Function Bg_Add(ByVal BgID As Long, Optional Ty As Long = 0, Optional FPID)
 Randomize
 Bg(BgID).Trl = Ty
@@ -187,10 +170,5 @@ Select Case Ty
         Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(Bg(BgID).Target).X
         Bg(BgID).mY = Pg(Bg(BgID).Target).Y
         Bg(BgID).Source = FPID
-    Case 5
-        Bg(BgID).a = True: Bg(BgID).Ar = 15: Bg(BgID).Atk = 5: Bg(BgID).Sb = True
-        Bg(BgID).Sp = 20 + Diff / 25: Bg(BgID).X = FPg(FPID).X
-        Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(Bg(BgID).Target).X
-        Bg(BgID).mY = Pg(Bg(BgID).Target).Y
 End Select
 End Function

@@ -1,7 +1,7 @@
 Attribute VB_Name = "Airwar_online"
 Public Local_State, TCPNum, Client_GetData_Temp As Long
 Public Client_SendData_Coding_Temp, Client_GetData_Key, Client_GetData_tcpTemp As String
-Public Function Server_GetData(ByVal GetData As String)
+Public Function Server_GetData(ByVal GetData As String, Optional NID As Long)
 Dim DataTemp, Temp
 Dim i, c As Long
 If ServerGetDataShow = True Then Form2.Text1.Text = GetData
@@ -19,20 +19,6 @@ For i = 0 To UBound(Temp) - 1
 BreakHanlder:
 Next
 Er:
-End Function
-Public Function Server_SendData()
- Dim StrData As String
-Select Case Break
-    Case 0
-        StrData = "H;" & SK & ";" & X & ";" & Y & ";" & R & ";" & FR & ";" & FG & ";" & FB & ";" & CR & ";" & CG & ";" & CB & "|"
-    Case 1
-        StrData = "Break|"
-    Case 2
-        StrData = "G;" & PlayerID & ";" & LV & ";" & HpP & ";" & EP & ";" & SCD & ";" & EMP & ";" & SkillOpt & ";" & Form1.Label2.Caption & "|"
-    Case 3
-        StrData = "Renew|"
-End Select
-Server_SendData_Ignition StrData
 End Function
 Public Function Server_SendData_Ui(ByVal PlayerID As Long, _
 ByVal LV As String, ByVal HpP As Long, ByVal EP As Long, _
@@ -97,6 +83,8 @@ Select Case DataTemp(0)
         Form1.Label2.Caption = DataTemp(8)
     Case "L"
         Form1.Picture1.Line (Val(DataTemp(1)), Val(DataTemp(2)))-(Val(DataTemp(3)), Val(DataTemp(4))), RGB(Val(DataTemp(5)), Val(DataTemp(6)), Val(DataTemp(7)))
+    Case "T"
+        Form2.Text1.Text = DataTemp(1)
 End Select
 BreakHanlder:
 Next

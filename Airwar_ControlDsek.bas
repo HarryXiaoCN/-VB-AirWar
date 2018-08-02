@@ -32,6 +32,7 @@ Select Case CMD_Temp(0)
                 If Pg(CMD_Temp(2)).MxE + Val(CMD_Temp(3)) < 100000000 Then Pg(CMD_Temp(2)).MxE = Pg(CMD_Temp(2)).MxE + Val(CMD_Temp(3)) Else Pg(CMD_Temp(2)).MxE = 99999999
                 GoTo Successfully
             Case "sp_add"
+                If Pg(CMD_Temp(2)).Sp + Val(CMD_Temp(3)) < 0 Then CMD_Execute_Interpreter = CMD & "--Error: Speed cannot be negative": Exit Function
                 If Pg(CMD_Temp(2)).Sp + Val(CMD_Temp(3)) < 100000000 Then Pg(CMD_Temp(2)).Sp = Pg(CMD_Temp(2)).Sp + Val(CMD_Temp(3)) Else Pg(CMD_Temp(2)).Sp = 99999999
                 GoTo Successfully
             Case "exp_add"

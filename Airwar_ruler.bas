@@ -54,13 +54,6 @@ Public Type Supply
     dX As Single
     dY As Single
 End Type
-Public Type PlaneState
-    a As Boolean
-    Target As Long
-    Source As Long
-    F As Long
-    Ti As Single
-End Type
 Public Type KeyConfig
     Up As Integer
     Down As Integer
