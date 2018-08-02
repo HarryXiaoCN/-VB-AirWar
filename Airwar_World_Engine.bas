@@ -20,22 +20,22 @@ Select Case Local_State
         Form1.Picture1.Cls
         物理事件检测
         移动事件处理
-        F5_PC_Plane
         F5_Foe_Plane
         F5_Foe_Bullet
         F5_PC_Supply
         F5_PC_Bullet
+        F5_PC_Plane
     Case 1
         Form1.Picture1.Cls
         Server_SendData_Ignition "Break|"
         物理事件检测
         移动事件处理
         F5_NetworkMode
-        F5_PC_Plane
         F5_Foe_Plane
         F5_Foe_Bullet
         F5_PC_Supply
         F5_PC_Bullet
+        F5_PC_Plane
 End Select
 End Function
 Public Function F5_NetworkMode()
@@ -105,6 +105,11 @@ For i = 0 To PBSum - 1
                 Form1.Picture1.Circle (PBg(i).X + Rnd * 20 - 20, PBg(i).Y + Rnd * 20 - 20), PBg(i).Ar + Rnd * 20 - 20, RGB(176, 196, 222)
                 If Local_State = 1 Then Server_SendData_Circle 1, PBg(i).X + Rnd * 20 - 20, PBg(i).Y + Rnd * 20 - 20, PBg(i).Ar + Rnd * 20 - 20, 176, 196, 222, 176, 196, 222
                 Form1.Picture1.FillStyle = 0
+            Case 3
+                Form1.Picture1.FillColor = RGB(127, 255, 0)
+                Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(127, 255, 0)
+                If Local_State = 1 Then Server_SendData_Circle 0, PBg(i).X, PBg(i).Y, PBg(i).Ar, 127, 255, 0, 127, 255, 0
+                Form1.Picture1.FillColor = RGB(0, 255, 255)
         End Select
     End If
 Next
@@ -169,11 +174,11 @@ Dim i As Long
 Erase PSkill
 Diff = 0
 For i = 0 To 1
+    PSkill(i, 0) = True
     PBSkillCD(i) = True
     PBCD(i) = True
+    Form1.Shape1(i).Left = Form1.SkOn1(PSkillID(i) + i * 5).Left: Form1.Shape1(i).Top = Form1.SkOn1(PSkillID(i) + i * 5).Top - 20
 Next
-Form1.Shape1(0).Left = Form1.SkOn1(PSkillID(0)).Left: Form1.Shape1(0).Top = Form1.SkOn1(PSkillID(0)).Top - 20
-Form1.Shape1(1).Left = Form1.SkOn2(PSkillID(1)).Left: Form1.Shape1(1).Top = Form1.SkOn2(PSkillID(1)).Top - 20
 Form1.Timer5.Interval = 1000
 Form1.Label2.Caption = "0"
 PC_Def

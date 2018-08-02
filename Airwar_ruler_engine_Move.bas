@@ -54,13 +54,13 @@ Select Case TrID
             PBg(PBID).dX = XXJie.a: PBg(PBID).dY = XXJie.b: PBg(PBID).Da = True
         End If
         PBg(PBID).X = PBg(PBID).X + PBg(PBID).dX: PBg(PBID).Y = PBg(PBID).Y + PBg(PBID).dY
-        If PBg(PBID).X = PBg(PBID).mX And PBg(PBID).Y = PBg(PBID).mY Then PBg(PBID).Ar = 3000
+        If PBg(PBID).X = PBg(PBID).mX And PBg(PBID).Y >= PBg(PBID).mY Then PBg(PBID).Ar = 3000
         If PBg(PBID).X < 0 Or PBg(PBID).Y < 0 Or PBg(PBID).X > 6000 Or PBg(PBID).Y > 11000 Then
             PBg(PBID).a = False: PBg(PBID).Da = False
         End If
     Case 2
         If Form1.Ftime(PBg(PBID).Source).Enabled = False Then
-            PSkillID_Ft(PBg(PBID).Source) = 0: Form1.Ftime((PBg(PBID).Source)).Enabled = True: PBg(PBID).X = Pg(0).X: PBg(PBID).Y = Pg(0).Y
+            PSkillID_Ft(PBg(PBID).Source) = 0: Form1.Ftime((PBg(PBID).Source)).Enabled = True: PBg(PBID).X = Pg((PBg(PBID).Source)).X: PBg(PBID).Y = Pg((PBg(PBID).Source)).Y
         Else
             If PSkillID_Ft(PBg(PBID).Source) > 3 + 0.5 * Pg((PBg(PBID).Source)).Rank Then
                 Form1.Ftime((PBg(PBID).Source)).Enabled = False
@@ -69,48 +69,62 @@ Select Case TrID
                 PBg(PBID).X = Pg((PBg(PBID).Source)).X: PBg(PBID).Y = Pg((PBg(PBID).Source)).Y
             End If
         End If
+    Case 3
+        If Form1.Ftime(PBg(PBID).Source).Enabled = False Then
+            PSkillID_Ft(PBg(PBID).Source) = 0: Form1.Ftime((PBg(PBID).Source)).Enabled = True: PBg(PBID).X = Pg((PBg(PBID).Source)).X: PBg(PBID).Y = Pg((PBg(PBID).Source)).Y
+        Else
+            If PSkillID_Ft(PBg(PBID).Source) > 1 + 0.1 * Pg((PBg(PBID).Source)).Rank Then
+                Form1.Ftime((PBg(PBID).Source)).Enabled = False
+                PBg(PBID).a = False
+            Else
+                PBg(PBID).X = Pg((PBg(PBID).Source)).X: PBg(PBID).Y = Pg((PBg(PBID).Source)).Y
+                PBg(PBID).Ar = PSkillID_Ft(PBg(PBID).Source) * 700
+            End If
+        End If
 End Select
 End Function
-Public Function PlaneWYKZ(ByRef PlID As Long, KeyCode As Integer)
-Select Case PlID
-    Case 0
-        Select Case KeyCode
-            Case 65
-                If Pg(PlID).X - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
-                Pg(PlID).X = Pg(PlID).X - Pg(PlID).Sp
-            Case 87
-                If Pg(PlID).Y + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Height Then Exit Function
-                Pg(PlID).Y = Pg(PlID).Y + Pg(PlID).Sp
-            Case 68
-                If Pg(PlID).X + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Width Then Exit Function
-                Pg(PlID).X = Pg(PlID).X + Pg(PlID).Sp
-            Case 83
-                If Pg(PlID).Y - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
-                Pg(PlID).Y = Pg(PlID).Y - Pg(PlID).Sp
-            Case 74
-                PBg_Add PlID
-            Case 75
-                PBg_Add PlID, Pg(0).Blt
-        End Select
-    Case 1
-        Select Case KeyCode
-            Case 37
-                If Pg(PlID).X - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
-                Pg(PlID).X = Pg(PlID).X - Pg(PlID).Sp
-            Case 38
-                If Pg(PlID).Y + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Height Then Exit Function
-                Pg(PlID).Y = Pg(PlID).Y + Pg(PlID).Sp
-            Case 39
-                If Pg(PlID).X + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Width Then Exit Function
-                Pg(PlID).X = Pg(PlID).X + Pg(PlID).Sp
-            Case 40
-                If Pg(PlID).Y - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
-                Pg(PlID).Y = Pg(PlID).Y - Pg(PlID).Sp
-            Case 97
-                PBg_Add PlID
-            Case 98
-                PBg_Add PlID, Pg(1).Blt
-            End Select
+Public Function PlaneWYKZ_Up(ByRef PlID As Long)
+If Pg(PlID).Y + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Height Then Exit Function
+Pg(PlID).Y = Pg(PlID).Y + Pg(PlID).Sp
+End Function
+Public Function PlaneWYKZ_Down(ByRef PlID As Long)
+If Pg(PlID).Y - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
+Pg(PlID).Y = Pg(PlID).Y - Pg(PlID).Sp
+End Function
+Public Function PlaneWYKZ_Left(ByRef PlID As Long)
+If Pg(PlID).X - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
+Pg(PlID).X = Pg(PlID).X - Pg(PlID).Sp
+End Function
+Public Function PlaneWYKZ_Right(ByRef PlID As Long)
+If Pg(PlID).X + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Width Then Exit Function
+Pg(PlID).X = Pg(PlID).X + Pg(PlID).Sp
+End Function
+Public Function PlaneWYKZ_Skill_Switch(ByRef PlID As Long)
+If PlaneWYKZ_Skill_SwitchLock = True Then Form1.ChangeLock = True: Exit Function
+If PSkill(PlID, PSkillID(PlID) + 1) = True Then
+    PSkillID(PlID) = PSkillID(PlID) + 1: Pg(PlID).Blt = PSkillID(PlID) + 1
+Else
+    PSkillID(PlID) = 0: Pg(PlID).Blt = 1
+End If
+Form1.Shape1(PlID).Left = Form1.SkOn1(PSkillID(PlID) + PlID * 5).Left: Form1.Shape1(PlID).Top = Form1.SkOn1(PSkillID(PlID) + PlID * 5).Top - 20
+PlaneWYKZ_Skill_SwitchLock = True
+End Function
+Public Function PlaneWYKZ(ByRef PlID As Long, KeyCode As Integer, KeyBtye As Long)
+Select Case KeyCode
+    Case PC(PlID).Left
+        PlaneWYKZ_Left PlID
+    Case PC(PlID).Up
+        PlaneWYKZ_Up PlID
+    Case PC(PlID).Right
+        PlaneWYKZ_Right PlID
+    Case PC(PlID).Down
+        PlaneWYKZ_Down PlID
+    Case PC(PlID).Attack
+        PBg_Add PlID
+    Case PC(PlID).Ultimate_Skill
+        PBg_Add PlID, Pg(PlID).Blt
+    Case PC(PlID).Skill_Switch
+        PlaneWYKZ_Skill_Switch PlID
 End Select
 End Function
 Public Function SupplyWYKZ(ByRef BID As Long)

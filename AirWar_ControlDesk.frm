@@ -5,12 +5,12 @@ Begin VB.Form Form2
    ClientHeight    =   1350
    ClientLeft      =   45
    ClientTop       =   390
-   ClientWidth     =   9090
+   ClientWidth     =   9015
    LinkTopic       =   "Form2"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   1350
-   ScaleWidth      =   9090
+   ScaleWidth      =   9015
    StartUpPosition =   3  '´°¿ÚÈ±Ê¡
    Begin VB.CommandButton Command1 
       Appearance      =   0  'Flat
@@ -55,27 +55,35 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private History(100) As String
-Private HistorySum, HistoryNow As Long
 Private Sub Command1_Click()
 History(HistorySum) = Text2.Text
 CMD_Execute (Text2.Text)
-HistoryNow = HistorySum
 HistorySum = HistorySum + 1
+HistoryNow = HistorySum
+End Sub
+Private Sub Form_Load()
+HistoryNow = HistorySum
+End Sub
+Private Sub Form_Unload(Cancel As Integer)
+If CMDShow = False Then CMDShow = True: World_Stop: Form2.Show Else CMDShow = False: World_Start: Unload Form2
 End Sub
 Private Sub Text2_KeyDown(KeyCode As Integer, Shift As Integer)
+On Error GoTo Er
     If KeyCode = 13 Then
         Command1_Click
     End If
     If KeyCode = 192 Or KeyCode = 27 Then
-        If CMDShow = False Then CMDShow = True: World_Stop: Form2.Show Else CMDShow = False: World_Start: Unload Form2
+        Unload Form2
     End If
     If KeyCode = 38 And HistorySum > 0 Then
         HistoryNow = HistoryNow + 1
         Text2.Text = History(HistorySum - HistoryNow)
+        Text2.SelStart = Len(Text2.Text)
     End If
     If KeyCode = 40 And HistoryNow > 0 Then
         HistoryNow = HistoryNow - 1
         Text2.Text = History(HistorySum - HistoryNow)
+        Text2.SelStart = Len(Text2.Text)
     End If
+Er:
 End Sub

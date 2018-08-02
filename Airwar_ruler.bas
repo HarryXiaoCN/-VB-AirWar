@@ -2,8 +2,8 @@ Attribute VB_Name = "Airwar_ruler_Type"
 Public Type Plane
     a As Boolean
     Da As Boolean
-    HP As Long
-    MxHP As Long
+    HP As Single
+    MxHP As Single
     Ar As Long '飞机物理半径
     E As Long '技能释放的能量
     MxE As Long
@@ -64,4 +64,13 @@ Public Type Skill
 '    Public Type Skill_Buff
         dAk As Long '攻击加成
         dE As Long '能量加成
+End Type
+Public Type KeyConfig
+    Up As Integer
+    Down As Integer
+    Left As Integer
+    Right As Integer
+    Attack As Integer
+    Ultimate_Skill As Integer
+    Skill_Switch As Integer
 End Type

@@ -5,7 +5,8 @@ Min(0) = 99999
 For c = 0 To BgSum - 1
     If Bg(c).a = True Then
         If Bg(c).Trl = 4 Then
-            If Pg(Bg(c).Target).Sp > 0 Then Pg(Bg(c).Target).Sp = Pg(Bg(c).Target).Sp - 0.01 * Diff / 20000
+            If Pg(Bg(c).Target).Sp > 0 Then Pg(Bg(c).Target).Sp = Pg(Bg(c).Target).Sp - 0.01 - Diff / 20000
+            Pg(PlID).HP = Pg(PlID).HP - Bg(c).Atk
         Else
             MiTemp = 两点距离(Pg(i).X, Pg(i).Y, Bg(c).X, Bg(c).Y)
             If Min(0) > MiTemp Then
@@ -83,13 +84,13 @@ End Function
 Public Function 物理事件检测_Plane主体_PBaFP事件_经验结算(ByVal PBID As Long, ByVal FPID As Long)
 Select Case FPg(FPID).AiRank
     Case 0
-        Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 1
+        Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 1 + Diff * 0.01
     Case 1
-        Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 25
+        Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 25 + Diff * 0.25
     Case 2
-        Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 50
+        Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 50 + Diff * 0.5
     Case 3
-        Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 100
+        Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 100 + Diff * 1
         Pg(PBg(PBID).Source).Sp = Pg(PBg(PBID).Source).Sp + 3
 End Select
 升级 PBg(PBID).Source
@@ -100,6 +101,7 @@ Public Function 物理事件检测_PlaneBullet主体_Trl_1(ByRef i As Long)
 End Function
 Public Function 物理事件检测_PlaneBullet主体_Trl_2_Bullet(ByRef i As Long)
 'E处理
+Dim c As Long
 For c = 0 To BgSum
     If Bg(c).a = True Then
         If 两点距离(PBg(i).X, PBg(i).Y, Bg(c).X, Bg(c).Y) <= PBg(i).Ar Then
@@ -110,6 +112,7 @@ Next
 PBg(i).a = False: PBg(i).Da = False
 End Function
 Public Function 物理事件检测_PlaneBullet主体_Trl_2_FoePlane(ByRef i As Long)
+Dim c As Long
 For c = 0 To FPSum
     If FPg(c).a = True Then
         If 两点距离(PBg(i).X, PBg(i).Y, FPg(c).X, FPg(c).Y) <= PBg(i).Ar Then
@@ -129,6 +132,7 @@ If PBg(i).X = PBg(i).mX And PBg(i).Y = PBg(i).mY Then
 End If
 End Function
 Public Function 物理事件检测_PlaneBullet主体_Trl_3(ByRef i As Long)
+Dim c As Long
 For c = 0 To BgSum
     If Bg(c).a = True Then
         If 两点距离(PBg(i).X, PBg(i).Y, Bg(c).X, Bg(c).Y) <= PBg(i).Ar Then
@@ -144,6 +148,15 @@ For c = 0 To FPSum
                 FPg(c).a = False: FPg(c).Da = False: 物理事件检测_Plane主体_PBaFP事件_经验结算 i, c
             End If
         End If
+    End If
+Next
+End Function
+Public Function 物理事件检测_PlaneBullet主体_Trl_4(ByRef i As Long)
+Dim c As Long
+For c = 0 To 1
+    If 两点距离(Pg(PBg(i).Source).X, Pg(PBg(i).Source).Y, Pg(c).X, Pg(c).Y) <= PBg(i).Ar Then
+        If Pg(c).a = False Then Pg(c).a = True
+        If Pg(c).HP < Pg(c).MxHP Then Pg(c).HP = Pg(c).HP + PBg(i).Atk
     End If
 Next
 End Function

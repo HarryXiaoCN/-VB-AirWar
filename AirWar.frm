@@ -5,7 +5,7 @@ Begin VB.Form Form1
    Caption         =   "AirWar"
    ClientHeight    =   8130
    ClientLeft      =   150
-   ClientTop       =   795
+   ClientTop       =   780
    ClientWidth     =   12060
    BeginProperty Font 
       Name            =   "微软雅黑"
@@ -21,6 +21,12 @@ Begin VB.Form Form1
    ScaleHeight     =   8130
    ScaleWidth      =   12060
    StartUpPosition =   3  '窗口缺省
+   Begin VB.Timer ChangeLock 
+      Enabled         =   0   'False
+      Interval        =   100
+      Left            =   10680
+      Top             =   7080
+   End
    Begin VB.Timer Spare 
       Enabled         =   0   'False
       Interval        =   100
@@ -30,7 +36,7 @@ Begin VB.Form Form1
    Begin VB.Timer Ftime 
       Enabled         =   0   'False
       Index           =   1
-      Interval        =   1000
+      Interval        =   100
       Left            =   6240
       Top             =   7560
    End
@@ -141,7 +147,7 @@ Begin VB.Form Form1
          Top             =   945
          Width           =   390
       End
-      Begin VB.Label SkOn2 
+      Begin VB.Label SkOn1 
          Alignment       =   2  'Center
          Caption         =   "盾"
          BeginProperty Font 
@@ -154,14 +160,14 @@ Begin VB.Form Form1
             Strikethrough   =   0   'False
          EndProperty
          Height          =   405
-         Index           =   1
+         Index           =   6
          Left            =   600
          TabIndex        =   20
          Top             =   2655
          Visible         =   0   'False
          Width           =   405
       End
-      Begin VB.Label SkOn2 
+      Begin VB.Label SkOn1 
          Alignment       =   2  'Center
          Caption         =   "黑"
          BeginProperty Font 
@@ -174,10 +180,30 @@ Begin VB.Form Form1
             Strikethrough   =   0   'False
          EndProperty
          Height          =   405
-         Index           =   0
+         Index           =   5
          Left            =   120
          TabIndex        =   19
          Top             =   2655
+         Width           =   405
+      End
+      Begin VB.Label SkOn1 
+         Alignment       =   2  'Center
+         Caption         =   "血"
+         BeginProperty Font 
+            Name            =   "微软雅黑"
+            Size            =   12
+            Charset         =   134
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   405
+         Index           =   7
+         Left            =   1080
+         TabIndex        =   28
+         Top             =   2640
+         Visible         =   0   'False
          Width           =   405
       End
    End
@@ -327,11 +353,31 @@ Begin VB.Form Form1
          Top             =   480
          Width           =   435
       End
+      Begin VB.Label SkOn1 
+         Alignment       =   2  'Center
+         Caption         =   "血"
+         BeginProperty Font 
+            Name            =   "微软雅黑"
+            Size            =   12
+            Charset         =   134
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   405
+         Index           =   2
+         Left            =   1080
+         TabIndex        =   27
+         Top             =   2640
+         Visible         =   0   'False
+         Width           =   405
+      End
    End
    Begin VB.Timer Ftime 
       Enabled         =   0   'False
       Index           =   0
-      Interval        =   1000
+      Interval        =   100
       Left            =   6720
       Top             =   7560
    End
@@ -449,6 +495,12 @@ Begin VB.Form Form1
          Caption         =   "连接远程服务器"
       End
    End
+   Begin VB.Menu 设置 
+      Caption         =   "设置"
+      Begin VB.Menu 键位设置 
+         Caption         =   "键位设置"
+      End
+   End
    Begin VB.Menu 帮助 
       Caption         =   "帮助"
    End
@@ -474,6 +526,13 @@ Const KLF_ACTIVATE = &H1
 Dim la(1 To 16) As Long
 Dim ActIme, BigFovPlaneTime, CunningFovPlaneTime, FrozenFovPlaneTime As Long
 Private T_s As Single
+Private TimeTired As Long
+
+Private Sub ChangeLock_Timer()
+TimeTired = TimeTired + 1
+If TimeTired >= 1 Then PlaneWYKZ_Skill_SwitchLock = False: TimeTired = 0: ChangeLock.Enabled = False
+End Sub
+
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 Picture1_KeyDown KeyCode, Shift
 End Sub
@@ -484,23 +543,13 @@ Private Sub Form_Unload(Cancel As Integer)
 End
 End Sub
 Private Sub Ftime_Timer(Index As Integer)
-PSkillID_Ft(Index) = PSkillID_Ft(Index) + 1
+PSkillID_Ft(Index) = PSkillID_Ft(Index) + 0.1
 End Sub
 Private Sub Picture1_KeyDown(KeyCode As Integer, Shift As Integer)
 '37_40:4865
 Dim i As Long
 If KeyCode = 192 Then
     If CMDShow = False Then CMDShow = True: World_Stop: Form2.Show Else CMDShow = False: World_Start: Unload Form2
-End If
-If KeyCode = 76 And (Local_State = 1 Or Local_State = 0) Then
-    If PSkillID(0) = 0 And PSkill(0, 1) = True Then PSkillID(0) = 1: Pg(0).Blt = 2 Else PSkillID(0) = 0: Pg(0).Blt = 1
-    Form1.Shape1(0).Left = Form1.SkOn1(PSkillID(0)).Left: Form1.Shape1(0).Top = Form1.SkOn1(PSkillID(0)).Top - 20
-    Exit Sub
-End If
-If KeyCode = 99 And (Local_State = 2 Or Local_State = 0) Then
-    If PSkillID(1) = 0 And PSkill(1, 1) = True Then PSkillID(1) = 1: Pg(1).Blt = 2 Else PSkillID(1) = 0: Pg(1).Blt = 1
-    Form1.Shape1(1).Left = Form1.SkOn2(PSkillID(1)).Left: Form1.Shape1(1).Top = Form1.SkOn2(PSkillID(1)).Top - 20
-    Exit Sub
 End If
 Select Case Local_State
     Case 0
@@ -550,6 +599,7 @@ Select Case Local_State
 End Select
 End Sub
 Private Sub Form_Load()
+Key_Config_Def
 Picture1.Scale (0, Picture1.Height)-(Picture1.Width, 0)
 World_Load
 End Sub
@@ -557,14 +607,18 @@ End Sub
 Private Sub Spare_Timer()
 Dim LVTemp: Dim i As Long
 If Local_State = 2 Then
-    Form1.Shape1(0).Left = Form1.SkOn1(PSkillID(0)).Left: Form1.Shape1(0).Top = Form1.SkOn1(PSkillID(0)).Top - 20
-    Form1.Shape1(1).Left = Form1.SkOn2(PSkillID(1)).Left: Form1.Shape1(1).Top = Form1.SkOn2(PSkillID(1)).Top - 20
+    For i = 0 To 1
+        Form1.Shape1(i).Left = Form1.SkOn1(PSkillID(i) + i * 5).Left: Form1.Shape1(i).Top = Form1.SkOn1(PSkillID(i) + i * 5).Top - 20
+    Next
 End If
-If Form1.SkOn1(1).Visible = True And Form1.SkOn2(1).Visible = True Then Exit Sub
+If Form1.SkOn1(1).Visible = True And Form1.SkOn1(6).Visible = True Then Exit Sub
 For i = 0 To 1
     LVTemp = Split(Label9(i), ":")
     If Val(LVTemp(1)) > 2 Then
-        If i = 0 Then Form1.SkOn1(1).Visible = True Else Form1.SkOn2(1).Visible = True
+        Form1.SkOn1(1 + i * 5).Visible = True
+    End If
+    If Val(LVTemp(1)) > 4 Then
+        Form1.SkOn1(2 + i * 5).Visible = True
     End If
 Next
 End Sub
@@ -572,7 +626,7 @@ Private Sub Timer1_Timer()
 F5
 End Sub
 Private Sub Timer2_Timer()
-Dim i As Long
+Dim i, c As Long
 Label3.Caption = KCTemp(0) & "," & KCTemp(1) & "," & KCTemp(2) & "," & KCTemp(3) & "," & KCTemp(4) & "," & KCTemp(5)
 '---------------------------Test------------------------------
 For i = 0 To 1
@@ -585,13 +639,13 @@ For i = 0 To 1
     Else
         JinDuT1(i).Progress = 0
     End If
+    For c = 1 To 2
+        If PSkill(i, c) = True Then SkOn1(c + i * 5).Visible = True Else SkOn1(c + i * 5).Visible = False
+    Next
 Next
 '-------------------------------------------------------------
 ActIme = "134481924" '这里是英文输入法的码。
 ActivateKeyboardLayout ActIme, 1
-'---------------------------Skon------------------------------
-If PSkill(0, 1) = True Then SkOn1(1).Enabled = True: SkOn1(1).Visible = True Else SkOn1(1).Enabled = False: SkOn1(1).Visible = False
-If PSkill(1, 1) = True Then SkOn2(1).Enabled = True: SkOn2(1).Visible = True Else SkOn2(1).Enabled = False: SkOn2(1).Visible = False
 End Sub
 Private Sub Timer3_Timer()
 If Pg(0).a = True Or Pg(1).a = True Then
@@ -654,6 +708,10 @@ MsgBox "操作说明：" _
 & vbCrLf & "Player1: L" _
 & vbCrLf & "Player2: 3"
 
+End Sub
+
+Private Sub 键位设置_Click()
+Form5.Show
 End Sub
 
 Private Sub 开始_Click()

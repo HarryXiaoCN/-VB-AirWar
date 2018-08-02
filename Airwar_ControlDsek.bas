@@ -1,6 +1,8 @@
 Attribute VB_Name = "Airwar_ControlDsek"
 Public CMDShow, ClientGetDataShow, ServerSendDataShow, ClientSendDataShow, ServerGetDataShow As Boolean
 Public NetworkEcho As Single
+Public History(100) As String
+Public HistorySum, HistoryNow As Long
 Public Function CMD_Execute(ByRef CMD As String)
 Form2.Text1 = Form2.Text1 & CMD_Execute_Interpreter(CMD_Big_Small(CMD)) & vbCrLf
 Form2.Text1.SelStart = Len(Form2.Text1.Text)
@@ -15,6 +17,8 @@ Select Case CMD_Temp(0)
         Select Case CMD_Temp(1)
             Case "hp_mx"
                 Pg(CMD_Temp(2)).HP = Pg(CMD_Temp(2)).MxHP: GoTo Successfully
+            Case "hp_add"
+                Pg(CMD_Temp(2)).HP = Pg(CMD_Temp(2)).HP + Val(CMD_Temp(3)): GoTo Successfully
             Case "e_mx"
                 Pg(CMD_Temp(2)).E = Pg(CMD_Temp(2)).MxE: GoTo Successfully
             Case "mxhp_add"
@@ -23,6 +27,8 @@ Select Case CMD_Temp(0)
                 Pg(CMD_Temp(2)).MxE = Pg(CMD_Temp(2)).MxE + Val(CMD_Temp(3)): GoTo Successfully
             Case "sp_add"
                 Pg(CMD_Temp(2)).Sp = Pg(CMD_Temp(2)).Sp + Val(CMD_Temp(3)): GoTo Successfully
+            Case "exp_add"
+                Pg(CMD_Temp(2)).EMP = Pg(CMD_Temp(2)).EMP + Val(CMD_Temp(3)): Éý¼¶ Val(CMD_Temp(2)): GoTo Successfully
         End Select
     Case "network"
         Select Case CMD_Temp(1)

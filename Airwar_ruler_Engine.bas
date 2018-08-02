@@ -29,6 +29,8 @@ For i = 0 To PBSum
                 物理事件检测_PlaneBullet主体_Trl_2 i
             Case 2
                 物理事件检测_PlaneBullet主体_Trl_3 i
+            Case 3
+                物理事件检测_PlaneBullet主体_Trl_4 i
         End Select
     End If
 Next
@@ -55,12 +57,12 @@ Public Sub 移动事件处理_Plane主体()
 Dim i As Long
 If Pg(0).a = True Then
     For i = 0 To 5
-        PlaneWYKZ 0, KCTemp(i)
+        PlaneWYKZ 0, KCTemp(i), i
     Next
 End If
 If Pg(1).a = True Then
     For i = 0 To 5
-        PlaneWYKZ 1, KCTemp(i)
+        PlaneWYKZ 1, KCTemp(i), i
     Next
 End If
 End Sub

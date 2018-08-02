@@ -1,13 +1,15 @@
 Attribute VB_Name = "Airwar_var_public"
-Public Pg(1000) As Plane
+Public Pg(10) As Plane
 Public Bg(1000) As Bullet
 Public PBg(1000) As Bullet
-Public Sg(10000) As Supply
+Public Sg(10) As Supply
 Public FPg(1000) As Plane
-Public Diff, PBSkillCDTime(2) As Long
+Public PC(10) As KeyConfig
+Public Diff, PBSkillCDTime(3) As Long
 Public KCTemp(7) As Integer
-Public PBCD(2), PBSkillCD(2), PSkill(2, 3), DuoPlayer As Boolean
-Public BgSum, SgSum, PBSum, FPSum, PSkillID(2), PSkillID_Ft(2) As Long
+Public PBCD(3), PBSkillCD(3), PSkill(2, 4), DuoPlayer, PlaneWYKZ_Skill_SwitchLock As Boolean
+Public BgSum, SgSum, PBSum, FPSum, PSkillID(3) As Long
+Public PSkillID_Ft(3) As Single
 Public Function PBg_Add_2(ByVal PBID As Long, ByVal PID As Long, Optional Ty As Long = 0)
 Select Case Ty
     Case 0
@@ -34,6 +36,14 @@ Select Case Ty
         PBg(PBID).mY = Pg(PID).Y
         Pg(PID).E = Pg(PID).E - 40
         PBSkillCD(PID) = False
+    Case 3
+        PBg(PBID).a = True: PBg(PBID).Ar = 10 * Pg(PID).Rank: PBg(PBID).Atk = Pg(PID).MxHP * 0.007: PBg(PBID).Sb = False
+        PBg(PBID).Sp = 0: PBg(PBID).X = Pg(PID).X: PBg(PBID).Y = Pg(PID).Y
+        PBg(PBID).Pen = False: PBg(PBID).Trl = 3
+        PBg(PBID).mX = Pg(PID).X
+        PBg(PBID).mY = Pg(PID).Y
+        Pg(PID).E = Pg(PID).E - 50
+        PBSkillCD(PID) = False
 End Select
 PBg(PBID).Source = PID
 End Function
@@ -41,9 +51,10 @@ Public Function PBg_Add(ByVal PID As Long, Optional Ty As Long = 0)
 Select Case Ty
     Case 0
         If Pg(PID).E <= 0 Or PBCD(PID) = False Then Exit Function
-    Case 1, 2
+    Case 1, 2, 3
         If PSkillID(PID) = 0 Then If Pg(PID).E < 20 Or PBSkillCD(PID) = False Then Exit Function
-        If PSkillID(PID) = 1 Then If Pg(PID).E < 50 Or PBSkillCD(PID) = False Then Exit Function
+        If PSkillID(PID) = 1 Then If Pg(PID).E < 40 Or PBSkillCD(PID) = False Then Exit Function
+        If PSkillID(PID) = 2 Then If Pg(PID).E < 50 Or PBSkillCD(PID) = False Then Exit Function
 End Select
 For i = 0 To PBSum - 1
     If PBg(i).a = False Then
@@ -154,7 +165,7 @@ Select Case Ty
         Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(Bg(BgID).Target).X
         Bg(BgID).mY = Pg(Bg(BgID).Target).Y
     Case 4
-        Bg(BgID).a = True: Bg(BgID).Ar = 10: Bg(BgID).Atk = 5: Bg(BgID).Sb = False
+        Bg(BgID).a = True: Bg(BgID).Ar = 10: Bg(BgID).Atk = 0.0001: Bg(BgID).Sb = False
         Bg(BgID).Sp = 10 + Diff / 25: Bg(BgID).X = FPg(FPID).X
         Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(Bg(BgID).Target).X
         Bg(BgID).mY = Pg(Bg(BgID).Target).Y

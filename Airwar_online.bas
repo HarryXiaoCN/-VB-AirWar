@@ -69,7 +69,8 @@ On Error GoTo BreakHanlder
 If ClientGetDataShow = True Then Form2.Text1.Text = Client_GetData_tcpTemp
 For i = 0 To UBound(Temp) - 1
 If Temp(i) = "Renew" Then
-    Form1.SkOn1(1).Visible = False: Form1.SkOn2(1).Visible = False
+    Form1.SkOn1(1).Visible = False: Form1.SkOn1(6).Visible = False
+    Form1.SkOn1(2).Visible = False: Form1.SkOn1(7).Visible = False
     GoTo BreakHanlder
 End If
 If Temp(i) = "Break" Then
@@ -108,6 +109,9 @@ Next
 CSendData = CSendData & KCTemp(5) & "|"
 If ClientSendDataShow = True Then Form2.Text1.Text = CSendData
 If Form4.Winsock1.State = 7 Then Form4.Winsock1.SendData CSendData
+'For i = 3 To 5
+'    If KCTemp(i) = PC2.Skill_Switch Then KCTemp(i) = 0: Exit Function
+'Next
 End Function
 Public Function Local_State_Vision()
 Select Case Local_State

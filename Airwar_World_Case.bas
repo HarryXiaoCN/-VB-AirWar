@@ -1,16 +1,18 @@
 Attribute VB_Name = "Airwar_World_Case"
 Public Function Éý¼¶(ByRef PID As Long)
 Randomize
-If Pg(PID).Emp >= Pg(PID).MxEmp Then
-    Pg(PID).MxEmp = Int(Rnd * (10 ^ Pg(PID).Rank - 10 * Pg(PID).Rank + 1)) + 10 * Pg(PID).Rank + Pg(PID).Emp
-    Pg(PID).Emp = 0: Pg(PID).Rank = Pg(PID).Rank + 1
+Do While Pg(PID).EMP >= Pg(PID).MxEmp
+    Pg(PID).EMP = Pg(PID).EMP - Pg(PID).MxEmp
+    Pg(PID).MxEmp = Int(Rnd * (10 ^ Pg(PID).Rank - 10 * Pg(PID).Rank + 1)) + 10 * Pg(PID).Rank + Pg(PID).MxEmp
+    Pg(PID).Rank = Pg(PID).Rank + 1
     Pg(PID).MxHP = Int(Rnd * (10 * Pg(PID).Rank - 9 + Pg(PID).Rank)) + 10 + Pg(PID).Rank + Pg(PID).MxHP
     Pg(PID).HP = Pg(PID).MxHP
     Pg(PID).E = Pg(PID).MxE
     Pg(PID).Esp = Pg(PID).Esp + 0.5
     Pg(PID).Sp = 3 + Pg(PID).Sp
     If Pg(PID).Rank >= 3 Then PSkill(PID, 1) = True
-End If
+    If Pg(PID).Rank >= 5 Then PSkill(PID, 2) = True
+Loop
 End Function
 Public Function PCEsp_Recovery()
 Dim i As Long
@@ -58,6 +60,32 @@ For i = 0 To FPSum - 1
     End If
 Next
 End Sub
+Public Function Key_Config_Def()
+Key_Config_Def_Player1
+Key_Config_Def_Player2
+End Function
+Public Function Key_Config_Def_Player1()
+With PC(0)
+    .Up = 87
+    .Down = 83
+    .Left = 65
+    .Right = 68
+    .Attack = 74
+    .Ultimate_Skill = 75
+    .Skill_Switch = 76
+End With
+End Function
+Public Function Key_Config_Def_Player2()
+With PC(1)
+    .Up = 38
+    .Down = 40
+    .Left = 37
+    .Right = 39
+    .Attack = 97
+    .Ultimate_Skill = 98
+    .Skill_Switch = 99
+End With
+End Function
 Public Function Test_FoePlane(Optional Arnk As Long = 0)
 '100ms
 'If FPSum > 4 Then Exit Sub
