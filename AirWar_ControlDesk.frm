@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form Form2 
    BorderStyle     =   1  'Fixed Single
-   Caption         =   "ControlDesk"
+   Caption         =   "Control Desk"
    ClientHeight    =   1350
    ClientLeft      =   45
    ClientTop       =   390

@@ -27,8 +27,9 @@ Public Type Bullet
     a As Boolean
     Da As Boolean
     Ar As Long
-    Atk As Long '子弹的破坏力
+    Atk As Single  '子弹的破坏力
     Pen As Boolean '是否有穿透性
+    PenHp As Long
     Trl As Long '子弹的轨迹类型
     Sb As Boolean '子弹是否会被破坏
     Source As Long '谁发出的
@@ -53,17 +54,12 @@ Public Type Supply
     dX As Single
     dY As Single
 End Type
-Public Type Skill
-'    Public Type Skill_Bullet
-        Blt As Long '子弹类型
-        Exd As Long '能量消耗
-'    Public Type Skill_Shield
-        dHp As Long '生命加成
-        dSb As Boolean '是否改变存在性
-        CD As Long '冷却时间
-'    Public Type Skill_Buff
-        dAk As Long '攻击加成
-        dE As Long '能量加成
+Public Type PlaneState
+    a As Boolean
+    Target As Long
+    Source As Long
+    F As Long
+    Ti As Single
 End Type
 Public Type KeyConfig
     Up As Integer

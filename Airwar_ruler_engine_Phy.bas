@@ -4,15 +4,18 @@ Dim Min(2), MiTemp As Long
 Min(0) = 99999
 For c = 0 To BgSum - 1
     If Bg(c).a = True Then
-        If Bg(c).Trl = 4 Then
-            If Pg(Bg(c).Target).Sp > 0 Then Pg(Bg(c).Target).Sp = Pg(Bg(c).Target).Sp - 0.01 - Diff / 20000
-            Pg(PlID).HP = Pg(PlID).HP - Bg(c).Atk
-        Else
-            MiTemp = 两点距离(Pg(i).X, Pg(i).Y, Bg(c).X, Bg(c).Y)
-            If Min(0) > MiTemp Then
-                Min(0) = MiTemp: Min(1) = c
-            End If
-        End If
+        Select Case Bg(c).Trl
+            Case 4
+                If Pg(Bg(c).Target).Sp > 0 Then Pg(Bg(c).Target).Sp = Pg(Bg(c).Target).Sp - 0.01 - Diff / 20000
+                Pg(Bg(c).Target).HP = Pg(Bg(c).Target).HP - Bg(c).Atk
+            Case 5
+                Bf_Add Bg(c).Target, Bg(c).Source, 0
+            Case 0, 1, 2, 3, 5
+                MiTemp = 两点距离(Pg(i).X, Pg(i).Y, Bg(c).X, Bg(c).Y)
+                If Min(0) > MiTemp Then
+                    Min(0) = MiTemp: Min(1) = c
+                End If
+        End Select
     End If
 Next
 If Min(0) <= Pg(i).Ar + Bg(Min(1)).Ar Then 物理事件检测_Plane主体_PaB事件 i, Min(1)
@@ -163,7 +166,8 @@ End Function
 Public Function 物理事件检测_Plane主体_PBaB事件(ByVal PBID As Long, ByVal BID As Long)
 If Bg(BID).Sb = False Then Exit Function
 Bg(BID).a = False: Bg(BID).Da = False
-PBg(PBID).a = False: PBg(PBID).Da = False
+PBg(PBID).PenHp = PBg(PBID).PenHp - 1
+If PBg(PBID).PenHp <= 0 Then PBg(PBID).a = False: PBg(PBID).Da = False
 End Function
 Public Function 物理事件检测_Plane主体_PaS事件(ByVal PlID As Long, ByVal SID As Long)
 Select Case Sg(SID).Tp

@@ -38,6 +38,7 @@ For c = 0 To BgSum - 1
 Next
 Bg_Add c, Arnk + 1, FPID
 BgSum = BgSum + 1
+If BgSum + 100 > UBound(Bg) Then ReDim Preserve Bg(BgSum + 1100)
 End Function
 Public Function FoeBullet_Shoot_Chance() As Boolean
 Randomize

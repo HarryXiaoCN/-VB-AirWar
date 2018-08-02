@@ -84,20 +84,28 @@ Select Case TrID
 End Select
 End Function
 Public Function PlaneWYKZ_Up(ByRef PlID As Long)
-If Pg(PlID).Y + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Height Then Exit Function
+If Pg(PlID).Y + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Height Then Pg(PlID).Y = Form1.Picture1.Height - Pg(PlID).Ar: Exit Function
+If Pg(PlID).Y + Pg(PlID).Sp + Pg(PlID).Ar <= 0 Then Pg(PlID).Y = Pg(PlID).Ar: Exit Function
 Pg(PlID).Y = Pg(PlID).Y + Pg(PlID).Sp
+'If Pg(PlID).Y > Form1.Picture1.Height Then Pg(PlID).Y = Form1.Picture1.Height
 End Function
 Public Function PlaneWYKZ_Down(ByRef PlID As Long)
-If Pg(PlID).Y - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
+If Pg(PlID).Y - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Pg(PlID).Y = Pg(PlID).Ar: Exit Function
+If Pg(PlID).Y - Pg(PlID).Sp - Pg(PlID).Ar >= Form1.Picture1.Height Then Pg(PlID).Y = Form1.Picture1.Height - Pg(PlID).Ar: Exit Function
 Pg(PlID).Y = Pg(PlID).Y - Pg(PlID).Sp
+'If Pg(PlID).Y < 0 Then Pg(PlID).Y = 0
 End Function
 Public Function PlaneWYKZ_Left(ByRef PlID As Long)
-If Pg(PlID).X - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Exit Function
+If Pg(PlID).X - Pg(PlID).Sp - Pg(PlID).Ar <= 0 Then Pg(PlID).X = Pg(PlID).Ar: Exit Function
+If Pg(PlID).X - Pg(PlID).Sp - Pg(PlID).Ar >= Form1.Picture1.Width Then Pg(PlID).X = Form1.Picture1.Width - Pg(PlID).Ar: Exit Function
 Pg(PlID).X = Pg(PlID).X - Pg(PlID).Sp
+'If Pg(PlID).X < 0 Then Pg(PlID).X = 0
 End Function
 Public Function PlaneWYKZ_Right(ByRef PlID As Long)
-If Pg(PlID).X + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Width Then Exit Function
+If Pg(PlID).X + Pg(PlID).Sp + Pg(PlID).Ar >= Form1.Picture1.Width Then Pg(PlID).X = Form1.Picture1.Width - Pg(PlID).Ar: Exit Function
+If Pg(PlID).X + Pg(PlID).Sp + Pg(PlID).Ar <= 0 Then Pg(PlID).X = Pg(PlID).Ar: Exit Function
 Pg(PlID).X = Pg(PlID).X + Pg(PlID).Sp
+'If Pg(PlID).X >= Form1.Picture1.Width Then Pg(PlID).X = Form1.Picture1.Width
 End Function
 Public Function PlaneWYKZ_Skill_Switch(ByRef PlID As Long)
 If PlaneWYKZ_Skill_SwitchLock = True Then Form1.ChangeLock = True: Exit Function

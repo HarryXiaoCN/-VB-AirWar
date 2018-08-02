@@ -5,6 +5,7 @@ Form1.Timer2.Enabled = False
 Form1.Timer3.Enabled = False
 Form1.Timer4.Enabled = False
 Form1.Timer5.Enabled = False
+Form1.BuffTi.Enabled = False
 End Function
 Public Function World_Start()
 Form1.Timer1.Enabled = True
@@ -12,6 +13,7 @@ Form1.Timer2.Enabled = True
 Form1.Timer3.Enabled = True
 Form1.Timer4.Enabled = True
 Form1.Timer5.Enabled = True
+Form1.BuffTi.Enabled = True
 If Local_State = 1 Then Server_SendData_Ignition "Renew|"
 End Function
 Public Function F5()
@@ -171,8 +173,9 @@ End If
 End Function
 Public Sub World_Load()
 Dim i As Long
+ReDim Bg(1000)
 Erase PSkill
-Diff = 0
+Diff = 0: BfSum = 0: BgSum = 0: SgSum = 0: PBSum = 0: FPSum = 0
 For i = 0 To 1
     PSkill(i, 0) = True
     PBSkillCD(i) = True

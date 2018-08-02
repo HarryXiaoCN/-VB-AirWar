@@ -18,17 +18,25 @@ Select Case CMD_Temp(0)
             Case "hp_mx"
                 Pg(CMD_Temp(2)).HP = Pg(CMD_Temp(2)).MxHP: GoTo Successfully
             Case "hp_add"
-                Pg(CMD_Temp(2)).HP = Pg(CMD_Temp(2)).HP + Val(CMD_Temp(3)): GoTo Successfully
+                If Pg(CMD_Temp(2)).HP + Val(CMD_Temp(3)) < 100000000 Then Pg(CMD_Temp(2)).HP = Pg(CMD_Temp(2)).HP + Val(CMD_Temp(3)) Else Pg(CMD_Temp(2)).HP = 99999999
+                GoTo Successfully
             Case "e_mx"
                 Pg(CMD_Temp(2)).E = Pg(CMD_Temp(2)).MxE: GoTo Successfully
+            Case "e_add"
+                If Pg(CMD_Temp(2)).E + Val(CMD_Temp(3)) < 100000000 Then Pg(CMD_Temp(2)).E = Pg(CMD_Temp(2)).E + Val(CMD_Temp(3)) Else Pg(CMD_Temp(2)).E = 99999999
+                GoTo Successfully
             Case "mxhp_add"
-                Pg(CMD_Temp(2)).MxHP = Pg(CMD_Temp(2)).MxHP + Val(CMD_Temp(3)): GoTo Successfully
+                If Pg(CMD_Temp(2)).MxHP + Val(CMD_Temp(3)) < 100000000 Then Pg(CMD_Temp(2)).MxHP = Pg(CMD_Temp(2)).MxHP + Val(CMD_Temp(3)) Else Pg(CMD_Temp(2)).MxHP = 99999999
+                GoTo Successfully
             Case "mxe_add"
-                Pg(CMD_Temp(2)).MxE = Pg(CMD_Temp(2)).MxE + Val(CMD_Temp(3)): GoTo Successfully
+                If Pg(CMD_Temp(2)).MxE + Val(CMD_Temp(3)) < 100000000 Then Pg(CMD_Temp(2)).MxE = Pg(CMD_Temp(2)).MxE + Val(CMD_Temp(3)) Else Pg(CMD_Temp(2)).MxE = 99999999
+                GoTo Successfully
             Case "sp_add"
-                Pg(CMD_Temp(2)).Sp = Pg(CMD_Temp(2)).Sp + Val(CMD_Temp(3)): GoTo Successfully
+                If Pg(CMD_Temp(2)).Sp + Val(CMD_Temp(3)) < 100000000 Then Pg(CMD_Temp(2)).Sp = Pg(CMD_Temp(2)).Sp + Val(CMD_Temp(3)) Else Pg(CMD_Temp(2)).Sp = 99999999
+                GoTo Successfully
             Case "exp_add"
-                Pg(CMD_Temp(2)).EMP = Pg(CMD_Temp(2)).EMP + Val(CMD_Temp(3)): Éý¼¶ Val(CMD_Temp(2)): GoTo Successfully
+                If Val(CMD_Temp(3)) < 1000000000 Then Pg(CMD_Temp(2)).EMP = Pg(CMD_Temp(2)).EMP + Val(CMD_Temp(3)): Éý¼¶ Val(CMD_Temp(2)) Else Pg(CMD_Temp(2)).EMP = Pg(CMD_Temp(2)).EMP + 999999999
+                GoTo Successfully
         End Select
     Case "network"
         Select Case CMD_Temp(1)
@@ -45,10 +53,15 @@ Select Case CMD_Temp(0)
         If Form3.Winsock1(Val(CMD_Temp(1))).State = 7 Then
             Form3.Winsock1(Val(CMD_Temp(1))).SendData "Echo|": NetworkEcho = Timer: GoTo Successfully
         Else
-            CMD_Execute_Interpreter = CMD & "--Error 404 Found": Exit Function
+            CMD_Execute_Interpreter = CMD & "--Error: 404 Found": Exit Function
         End If
+    Case "foe"
+        Select Case CMD_Temp(1)
+            Case "plane_add"
+                Test_FoePlane Val(CMD_Temp(2)): GoTo Successfully
+        End Select
 End Select
-CMD_Execute_Interpreter = CMD & "--Unknown command"
+CMD_Execute_Interpreter = CMD & "--Unknown Command"
 Exit Function
 Successfully:
 CMD_Execute_Interpreter = CMD & "--Successfully"
