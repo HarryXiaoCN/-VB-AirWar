@@ -2,7 +2,7 @@ Attribute VB_Name = "Airwar_ruler_engine_Move"
 Public Function FoePlaneWYKZ(ByRef FPID As Long)
 Dim XXJie As 二元解
 Select Case FPg(FPID).AiRank
-    Case 0, 1, 2, 3
+    Case 0, 1, 2, 3, 4
         If FPg(FPID).Da = False Then
             XXJie = 线性求解(FPg(FPID).X, FPg(FPID).Y, FPg(FPID).mX, FPg(FPID).mY, FPg(FPID).Sp)
             FPg(FPID).dX = XXJie.a: FPg(FPID).dY = XXJie.b: FPg(FPID).Da = True
@@ -32,7 +32,7 @@ Select Case TrID
         If Bg(BID).X < 0 Or Bg(BID).Y < 0 Or Bg(BID).X > 6000 Or Bg(BID).Y > 8000 Then
             Bg(BID).a = False: Bg(BID).Da = False
         End If
-    Case 4
+    Case 4, 5
         If FPg(Bg(BID).Source).a = False Then Bg(BID).a = False
 End Select
 End Function

@@ -67,6 +67,11 @@ For i = 0 To FPSum - 1
                 Form1.Picture1.Circle (FPg(i).X, FPg(i).Y), FPg(i).Ar, RGB(175, 238, 238)
                 If Local_State = 1 Then Server_SendData_Circle 0, FPg(i).X, FPg(i).Y, FPg(i).Ar, 175, 238, 238, 175, 238, 238
                 Form1.Picture1.FillColor = RGB(143, 188, 143)
+            Case 4
+                Form1.Picture1.FillColor = RGB(0, 0, 0)
+                Form1.Picture1.Circle (FPg(i).X, FPg(i).Y), FPg(i).Ar, RGB(0, 0, 0)
+                If Local_State = 1 Then Server_SendData_Circle 0, FPg(i).X, FPg(i).Y, FPg(i).Ar, 0, 0, 0, 0, 0, 0
+                Form1.Picture1.FillColor = RGB(143, 188, 143)
         End Select
     End If
 Next

@@ -524,7 +524,7 @@ Const IME_CONFIG_GENERAL = 1
 Const KLF_REORDER = &H8
 Const KLF_ACTIVATE = &H1
 Dim la(1 To 16) As Long
-Dim ActIme, BigFovPlaneTime, CunningFovPlaneTime, FrozenFovPlaneTime As Long
+Dim ActIme, BigFoePlaneTime, CunningFoePlaneTime, FrozenFoePlaneTime, BlackHolefoePlaneTime As Long
 Private T_s As Single
 Private TimeTired As Long
 Private Sub ChangeLock_Timer()
@@ -668,22 +668,25 @@ End Sub
 
 Private Sub Timer5_Timer()
 '---------------------------Code------------------------------
-BigFovPlaneTime = BigFovPlaneTime + 1
-CunningFovPlaneTime = CunningFovPlaneTime + 1
-FrozenFovPlaneTime = FrozenFovPlaneTime + 1
+BigFoePlaneTime = BigFoePlaneTime + 1
+CunningFoePlaneTime = CunningFoePlaneTime + 1
+FrozenFoePlaneTime = FrozenFoePlaneTime + 1
 PCEsp_Recovery
 If FoePlaneLifeSum() <= Diff / 10 Then
-    If BigFovPlaneTime < 15 - Diff / 10 Then
+    If BigFoePlaneTime < 15 - Diff / 10 Then
         Test_FoePlane
     Else
-        Test_FoePlane 1: BigFovPlaneTime = 0
+        Test_FoePlane 1: BigFoePlaneTime = 0
     End If
 End If
-If CunningFovPlaneTime > 60 - Diff / 10 Then
-    Test_FoePlane 2: CunningFovPlaneTime = 0
+If CunningFoePlaneTime > 60 - Diff / 10 Then
+    Test_FoePlane 2: CunningFoePlaneTime = 0
 End If
-If FrozenFovPlaneTime > 90 - Diff / 8 Then
-    Test_FoePlane 3: FrozenFovPlaneTime = 0
+If FrozenFoePlaneTime > 90 - Diff / 8 Then
+    Test_FoePlane 3: FrozenFoePlaneTime = 0
+End If
+If BlackHolefoePlaneTime > 180 - Diff / 10 Then
+    Test_FoePlane 4: BlackHolefoePlaneTime = 0
 End If
 Test_Bullet_2
 End Sub

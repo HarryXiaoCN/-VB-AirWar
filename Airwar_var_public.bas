@@ -87,6 +87,11 @@ Select Case Arnk
         FPg(FPID).Ar = 120: FPg(FPID).Sb = True: FPg(FPID).AiRank = 3
         FPg(FPID).Sp = 5
         FPg_Add_0_Def FPID
+    Case 4
+        FPg(FPID).a = True: FPg(FPID).HP = 2000: FPg(FPID).MxHP = 2000
+        FPg(FPID).Ar = 500: FPg(FPID).Sb = True: FPg(FPID).AiRank = 4
+        FPg(FPID).Sp = 3
+        FPg_Add_0_Def FPID
 End Select
 End Function
 Public Function FPg_Add_0_Def(ByVal FPID As Long)
@@ -166,7 +171,13 @@ Select Case Ty
         Bg(BgID).mY = Pg(Bg(BgID).Target).Y
     Case 4
         Bg(BgID).a = True: Bg(BgID).Ar = 10: Bg(BgID).Atk = 0.01: Bg(BgID).Sb = False
-        Bg(BgID).Sp = 10 + Diff / 25: Bg(BgID).X = FPg(FPID).X
+        Bg(BgID).Sp = 10: Bg(BgID).X = FPg(FPID).X
+        Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(Bg(BgID).Target).X
+        Bg(BgID).mY = Pg(Bg(BgID).Target).Y
+        Bg(BgID).Source = FPID
+    Case 5
+        Bg(BgID).a = True: Bg(BgID).Ar = 1: Bg(BgID).Atk = 10: Bg(BgID).Sb = False
+        Bg(BgID).Sp = 5: Bg(BgID).X = FPg(FPID).X
         Bg(BgID).Y = FPg(FPID).Y: Bg(BgID).mX = Pg(Bg(BgID).Target).X
         Bg(BgID).mY = Pg(Bg(BgID).Target).Y
         Bg(BgID).Source = FPID

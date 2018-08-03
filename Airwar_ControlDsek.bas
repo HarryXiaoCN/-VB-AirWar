@@ -17,6 +17,8 @@ Select Case CMD_Temp(0)
         Select Case CMD_Temp(1)
             Case "hp_mx"
                 Pg(CMD_Temp(2)).HP = Pg(CMD_Temp(2)).MxHP: GoTo Successfully
+            Case "revive"
+                Pg(CMD_Temp(2)).a = True: Pg(CMD_Temp(2)).HP = Pg(CMD_Temp(2)).MxHP: GoTo Successfully
             Case "hp_add"
                 If Pg(CMD_Temp(2)).HP + Val(CMD_Temp(3)) < 100000000 Then Pg(CMD_Temp(2)).HP = Pg(CMD_Temp(2)).HP + Val(CMD_Temp(3)) Else Pg(CMD_Temp(2)).HP = 99999999
                 GoTo Successfully

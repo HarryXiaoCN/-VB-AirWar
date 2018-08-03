@@ -1,13 +1,21 @@
 Attribute VB_Name = "Airwar_ruler_engine_Phy"
 Public Function 物理事件检测_Plane主体_PaB(ByRef i As Long)
-Dim Min(2), MiTemp As Long
+Dim Min(2), MiTemp, c, j As Long: Dim XXJie As 二元解
 Min(0) = 99999
-For c = 0 To BgSum - 1
+For c = 0 To BgSum
     If Bg(c).a = True Then
         Select Case Bg(c).Trl
             Case 4
                 If Pg(Bg(c).Target).Sp > 0 Then Pg(Bg(c).Target).Sp = Pg(Bg(c).Target).Sp - 0.01 - Diff / 20000
                 Pg(Bg(c).Target).HP = Pg(Bg(c).Target).HP - Bg(c).Atk
+            Case 5
+                For j = 0 To 1
+                    If Pg(j).a = True Then
+                        XXJie = 线性求解(Pg(j).X, Pg(j).Y, FPg(Bg(c).Source).X, FPg(Bg(c).Source).Y, Bg(c).Sp)
+                        Pg(j).X = Pg(j).X + XXJie.a: Pg(j).Y = Pg(j).Y + XXJie.b
+                        Pg(j).HP = Pg(j).HP - Bg(c).Atk * (1 / 两点距离(Pg(j).X, Pg(j).Y, FPg(Bg(c).Source).X, FPg(Bg(c).Source).Y))
+                    End If
+                Next
             Case 0, 1, 2, 3
                 MiTemp = 两点距离(Pg(i).X, Pg(i).Y, Bg(c).X, Bg(c).Y)
                 If Min(0) > MiTemp Then
@@ -35,7 +43,8 @@ Public Function 物理事件检测_Plane主体_PaFP事件(ByVal PlID As Long, ByVal FPID A
 If Pg(PlID).Sb = False Then Exit Function '飞机是否免疫伤害
 Pg(PlID).HP = Pg(PlID).HP - FPg(FPID).HP
 If Pg(PlID).HP <= 0 Then Pg(PlID).a = False
-FPg(FPID).a = False: FPg(FPID).Da = False
+FPg(FPID).HP = FPg(FPID).HP - Pg(PlID).HP
+If FPg(FPID).HP <= 0 Then FPg(FPID).a = False: FPg(FPID).Da = False
 End Function
 Public Function 物理事件检测_Plane主体_PaS(ByRef i As Long)
 Dim Min(2), MiTemp As Long
@@ -93,6 +102,8 @@ Select Case FPg(FPID).AiRank
     Case 3
         Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 100 + Diff * 1
         Pg(PBg(PBID).Source).Sp = Pg(PBg(PBID).Source).Sp + 3
+    Case 4
+        Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 10000 + Diff * 10
 End Select
 升级 PBg(PBID).Source
 End Function
