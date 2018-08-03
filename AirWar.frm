@@ -5,7 +5,7 @@ Begin VB.Form Form1
    Caption         =   "AirWar"
    ClientHeight    =   8130
    ClientLeft      =   150
-   ClientTop       =   780
+   ClientTop       =   795
    ClientWidth     =   12060
    BeginProperty Font 
       Name            =   "微软雅黑"
@@ -21,11 +21,6 @@ Begin VB.Form Form1
    ScaleHeight     =   8130
    ScaleWidth      =   12060
    StartUpPosition =   3  '窗口缺省
-   Begin VB.Timer BuffTi 
-      Interval        =   100
-      Left            =   9720
-      Top             =   7080
-   End
    Begin VB.Timer ChangeLock 
       Enabled         =   0   'False
       Interval        =   100
@@ -532,11 +527,6 @@ Dim la(1 To 16) As Long
 Dim ActIme, BigFovPlaneTime, CunningFovPlaneTime, FrozenFovPlaneTime As Long
 Private T_s As Single
 Private TimeTired As Long
-
-Private Sub BuffTi_Timer()
-物理事件检测_Buff主体
-End Sub
-
 Private Sub ChangeLock_Timer()
 TimeTired = TimeTired + 1
 If TimeTired >= 1 Then PlaneWYKZ_Skill_SwitchLock = False: TimeTired = 0: ChangeLock.Enabled = False
