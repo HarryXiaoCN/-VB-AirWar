@@ -121,7 +121,7 @@ For c = 0 To BgSum
         End If
     End If
 Next
-PBg(i).a = False: PBg(i).Da = False
+'mark:当初这里有一个清除存在的过程
 End Function
 Public Function 物理事件检测_PlaneBullet主体_Trl_2_FoePlane(ByRef i As Long)
 Dim c As Long

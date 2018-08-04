@@ -21,6 +21,18 @@ Begin VB.Form Form1
    ScaleHeight     =   8130
    ScaleWidth      =   12060
    StartUpPosition =   3  '窗口缺省
+   Begin VB.Timer BHB 
+      Enabled         =   0   'False
+      Interval        =   5
+      Left            =   11520
+      Top             =   6600
+   End
+   Begin VB.Timer HGC 
+      Enabled         =   0   'False
+      Interval        =   10
+      Left            =   9720
+      Top             =   7080
+   End
    Begin VB.Timer ChangeLock 
       Enabled         =   0   'False
       Interval        =   100
@@ -500,6 +512,9 @@ Begin VB.Form Form1
       Begin VB.Menu 键位设置 
          Caption         =   "键位设置"
       End
+      Begin VB.Menu 手柄模式 
+         Caption         =   "手柄模式"
+      End
    End
    Begin VB.Menu 帮助 
       Caption         =   "帮助"
@@ -527,6 +542,16 @@ Dim la(1 To 16) As Long
 Dim ActIme, BigFoePlaneTime, CunningFoePlaneTime, FrozenFoePlaneTime, BlackHolefoePlaneTime As Long
 Private T_s As Single
 Private TimeTired As Long
+Dim myJoy As JOYINFOEX
+
+Private Sub BHB_Timer()
+If PBg(BHB_PID).Ar < 3000 Then PBg(BHB_PID).Ar = PBg(BHB_PID).Ar + 10 Else BHB.Enabled = False: PBg(BHB_PID).a = False: PBg(BHB_PID).Da = False
+Form1.Picture1.FillColor = RGB(0, 0, 0)
+Form1.Picture1.Circle (PBg(BHB_PID).X, PBg(BHB_PID).Y), PBg(BHB_PID).Ar, RGB(0, 0, 0)
+If Local_State = 1 Then Server_SendData_Circle 0, PBg(BHB_PID).X, PBg(BHB_PID).Y, PBg(BHB_PID).Ar, 0, 0, 0, 0, 0, 0
+Form1.Picture1.FillColor = RGB(0, 255, 255)
+End Sub
+
 Private Sub ChangeLock_Timer()
 TimeTired = TimeTired + 1
 If TimeTired >= 1 Then PlaneWYKZ_Skill_SwitchLock = False: TimeTired = 0: ChangeLock.Enabled = False
@@ -544,6 +569,49 @@ End Sub
 Private Sub Ftime_Timer(Index As Integer)
 PSkillID_Ft(Index) = PSkillID_Ft(Index) + 0.1
 End Sub
+Private Sub HGC_Timer()
+Dim dx, dy, db As Long
+Dim r&
+myJoy.dwSize = 64
+myJoy.dwFlags = JOY_RETURNALL
+r& = joyGetPosEx(JOYSTICKID1, myJoy)
+If r = 0 Then
+    dx = myJoy.dwXpos     'As Long                '  x position
+    dy = myJoy.dwYpos     'As Long                '  y position
+    db = myJoy.dwButtons   ' As Long             '  button states
+    Select Case dx
+        Case Is < 20000
+            Picture1_KeyDown PC(0).Left, 0
+        Case Is > 40000
+            Picture1_KeyDown PC(0).Right, 0
+        Case Else
+            Picture1_KeyUp PC(0).Left, 0
+            Picture1_KeyUp PC(0).Right, 0
+    End Select
+    Select Case dy
+        Case Is < 20000
+            Picture1_KeyDown PC(0).Up, 0
+        Case Is > 40000
+            Picture1_KeyDown PC(0).Down, 0
+        Case Else
+            Picture1_KeyUp PC(0).Up, 0
+            Picture1_KeyUp PC(0).Down, 0
+    End Select
+    Select Case db
+        Case 1
+            Picture1_KeyDown PC(0).Attack, 0
+        Case 2
+            Picture1_KeyDown PC(0).Skill_Switch, 0
+        Case 4
+            Picture1_KeyDown PC(0).Ultimate_Skill, 0
+        Case Else
+            Picture1_KeyUp PC(0).Attack, 0
+            Picture1_KeyUp PC(0).Skill_Switch, 0
+            Picture1_KeyUp PC(0).Ultimate_Skill, 0
+    End Select
+End If
+End Sub
+
 Private Sub Picture1_KeyDown(KeyCode As Integer, Shift As Integer)
 '37_40:4865
 Dim i As Long
@@ -598,6 +666,19 @@ Select Case Local_State
 End Select
 End Sub
 Private Sub Form_Load()
+Dim r&
+Dim hwnd&
+Static TheX As Long
+Static TheY As Long
+' Tell form to receive joystick functions.
+r& = joySetCapture(hwnd, JOYSTICKID1, 1, 0)
+r& = joyReleaseCapture(JOYSTICKID1)
+' Get joystick position coordinates and fill in the TheX and TheY
+' variables.
+r& = joyGetPosEx(JOYSTICKID1, myJoy)
+TheX = myJoy.dwXpos
+TheY = myJoy.dwYpos
+'-----------------------------------------------------------------------------
 Key_Config_Def
 Picture1.Scale (0, Picture1.Height)-(Picture1.Width, 0)
 World_Load
@@ -690,10 +771,6 @@ If BlackHolefoePlaneTime > 180 - Diff / 10 Then
 End If
 Test_Bullet_2
 End Sub
-
-Private Sub Timer6_Timer()
-End Sub
-
 Private Sub 帮助_Click()
 
 MsgBox "操作说明：" _
@@ -729,13 +806,14 @@ Private Sub 启动本地服务器_Click()
 If Local_State = 0 Then Local_State = 1: 双人_Click: Form3.Show: World_Stop Else MsgBox "请先关闭远程服务器连接再启动本地服务器！"
 Local_State_Vision
 End Sub
-
+Private Sub 手柄模式_Click()
+If 手柄模式.Checked = False Then 手柄模式.Checked = True: HGC.Enabled = True Else 手柄模式.Checked = False: HGC.Enabled = False
+End Sub
 Private Sub 双人_Click()
 If DuoPlayer = True Then Exit Sub
 PC_2_Def
 DuoPlayer = True
 End Sub
-
 Private Sub 暂停_Click()
 World_Stop
 End Sub
