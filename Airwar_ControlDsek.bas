@@ -63,6 +63,13 @@ Select Case CMD_Temp(0)
             Case "plane_add"
                 Test_FoePlane Val(CMD_Temp(2)): GoTo Successfully
         End Select
+    Case "vis"
+        Select Case CMD_Temp(1)
+            Case "keyboard"
+                If Val(CMD_Temp(2)) = 0 Then KeyboardVis = False: GoTo Successfully Else KeyboardVis = True: GoTo Successfully
+            Case "rein"
+                If Val(CMD_Temp(2)) = 0 Then ReinCodeVis = False: GoTo Successfully Else ReinCodeVis = True: GoTo Successfully
+        End Select
 End Select
 CMD_Execute_Interpreter = CMD & "--Unknown Command"
 Exit Function

@@ -92,8 +92,8 @@ For i = 0 To PBSum - 1
             Case 2
                 Randomize
                 Form1.Picture1.FillStyle = 1
-                Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(100 + PSkillID_Ft(i) * 30, 149 + PSkillID_Ft(i) * 20, 237)
-                If Local_State = 1 Then Server_SendData_Circle 1, PBg(i).X, PBg(i).Y, PBg(i).Ar, 100 + PSkillID_Ft(i) * 30, 149 + PSkillID_Ft(i) * 20, 237, 100 + PSkillID_Ft(i) * 30, 149 + PSkillID_Ft(i) * 20, 237
+                Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(100 + PSkillID_Ft(PBg(i).Source) * 30, 149 + PSkillID_Ft(PBg(i).Source) * 20, 237)
+                If Local_State = 1 Then Server_SendData_Circle 1, PBg(i).X, PBg(i).Y, PBg(i).Ar, 100 + PSkillID_Ft(PBg(i).Source) * 30, 149 + PSkillID_Ft(PBg(i).Source) * 20, 237, 100 + PSkillID_Ft(PBg(i).Source) * 30, 149 + PSkillID_Ft(PBg(i).Source) * 20, 237
                 Form1.Picture1.Circle (PBg(i).X + Rnd * 20 - 20, PBg(i).Y + Rnd * 20 - 20), PBg(i).Ar + Rnd * 20 - 20, RGB(176, 196, 222)
                 If Local_State = 1 Then Server_SendData_Circle 1, PBg(i).X + Rnd * 20 - 20, PBg(i).Y + Rnd * 20 - 20, PBg(i).Ar + Rnd * 20 - 20, 176, 196, 222, 176, 196, 222
                 Form1.Picture1.Circle (PBg(i).X + Rnd * 20 - 20, PBg(i).Y + Rnd * 20 - 20), PBg(i).Ar + Rnd * 20 - 20, RGB(176, 196, 222)
@@ -168,9 +168,10 @@ End Function
 Public Sub World_Load()
 Dim i As Long
 ReDim Bg(1000)
-Erase PSkill
+Erase PSkill, PBg, Sg, FPg
 Diff = 0: BgSum = 0: SgSum = 0: PBSum = 0: FPSum = 0
 For i = 0 To 1
+    PSkillID(i) = 0
     PSkill(i, 0) = True
     PBSkillCD(i) = True
     PBCD(i) = True

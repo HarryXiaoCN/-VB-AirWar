@@ -8,6 +8,7 @@ Public PC(10) As KeyConfig
 Public Diff, PBSkillCDTime(3) As Long
 Public KCTemp(7) As Integer
 Public PBCD(3), PBSkillCD(3), PSkill(2, 4), DuoPlayer, PlaneWYKZ_Skill_SwitchLock As Boolean
+Public KeyboardVis, ReinCodeVis As Boolean
 Public BgSum, SgSum, PBSum, FPSum, PSkillID(3) As Long
 Public PSkillID_Ft(3), PSkillID_BHB(3) As Single
 Public Function PBg_Add_2(ByVal PBID As Long, ByVal PID As Long, Optional Ty As Long = 0)

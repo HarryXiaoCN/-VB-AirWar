@@ -455,6 +455,13 @@ Begin VB.Form Form1
       Top             =   0
       Width           =   6000
    End
+   Begin VB.Label Label10 
+      Height          =   495
+      Left            =   6240
+      TabIndex        =   29
+      Top             =   6480
+      Width           =   2175
+   End
    Begin VB.Label Label4 
       AutoSize        =   -1  'True
       Caption         =   "单机模式"
@@ -583,6 +590,7 @@ If R = 0 Then
     dX = myJoy.dwXpos     'As Long                '  x position
     dY = myJoy.dwYpos     'As Long                '  y position
     db = myJoy.dwButtons   ' As Long             '  button states
+    If ReinCodeVis = True Then Label10.Caption = dX & ";" & dY & ";" & db
     Select Case dX
         Case Is < 20000
             Picture1_KeyDown PC(0).Left, 0
@@ -605,9 +613,15 @@ If R = 0 Then
         Case 1
             Picture1_KeyDown PC(0).Attack, 0
         Case 2
-            Picture1_KeyDown PC(0).Skill_Switch, 0
-        Case 4
             Picture1_KeyDown PC(0).Ultimate_Skill, 0
+        Case 4
+            Picture1_KeyDown PC(0).Skill_Switch, 0
+        Case 8
+            World_Stop
+        Case 64
+            重来_Click
+        Case 128
+            World_Start
         Case Else
             Picture1_KeyUp PC(0).Attack, 0
             Picture1_KeyUp PC(0).Skill_Switch, 0
@@ -615,7 +629,6 @@ If R = 0 Then
     End Select
 End If
 End Sub
-
 Private Sub Picture1_KeyDown(KeyCode As Integer, Shift As Integer)
 '37_40:4865
 Dim i As Long
@@ -711,7 +724,7 @@ F5
 End Sub
 Private Sub Timer2_Timer()
 Dim i, c As Long
-Label3.Caption = KCTemp(0) & "," & KCTemp(1) & "," & KCTemp(2) & "," & KCTemp(3) & "," & KCTemp(4) & "," & KCTemp(5)
+If KeyboardVis = True Then Label3.Caption = KCTemp(0) & "," & KCTemp(1) & "," & KCTemp(2) & "," & KCTemp(3) & "," & KCTemp(4) & "," & KCTemp(5)
 '---------------------------Test------------------------------
 For i = 0 To 1
     If Pg(i).a = True Then
