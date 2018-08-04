@@ -23,7 +23,15 @@ Begin VB.Form Form1
    StartUpPosition =   3  '´°¿ÚÈ±Ê¡
    Begin VB.Timer BHB 
       Enabled         =   0   'False
-      Interval        =   5
+      Index           =   1
+      Interval        =   10
+      Left            =   11040
+      Top             =   6600
+   End
+   Begin VB.Timer BHB 
+      Enabled         =   0   'False
+      Index           =   0
+      Interval        =   10
       Left            =   11520
       Top             =   6600
    End
@@ -544,12 +552,8 @@ Private T_s As Single
 Private TimeTired As Long
 Dim myJoy As JOYINFOEX
 
-Private Sub BHB_Timer()
-If PBg(BHB_PID).Ar < 3000 Then PBg(BHB_PID).Ar = PBg(BHB_PID).Ar + 10 Else BHB.Enabled = False: PBg(BHB_PID).a = False: PBg(BHB_PID).Da = False
-Form1.Picture1.FillColor = RGB(0, 0, 0)
-Form1.Picture1.Circle (PBg(BHB_PID).X, PBg(BHB_PID).Y), PBg(BHB_PID).Ar, RGB(0, 0, 0)
-If Local_State = 1 Then Server_SendData_Circle 0, PBg(BHB_PID).X, PBg(BHB_PID).Y, PBg(BHB_PID).Ar, 0, 0, 0, 0, 0, 0
-Form1.Picture1.FillColor = RGB(0, 255, 255)
+Private Sub BHB_Timer(Index As Integer)
+PSkillID_BHB(Index) = PSkillID_BHB(Index) + 300
 End Sub
 
 Private Sub ChangeLock_Timer()
@@ -570,16 +574,16 @@ Private Sub Ftime_Timer(Index As Integer)
 PSkillID_Ft(Index) = PSkillID_Ft(Index) + 0.1
 End Sub
 Private Sub HGC_Timer()
-Dim dx, dy, db As Long
-Dim r&
+Dim dX, dY, db As Long
+Dim R&
 myJoy.dwSize = 64
 myJoy.dwFlags = JOY_RETURNALL
-r& = joyGetPosEx(JOYSTICKID1, myJoy)
-If r = 0 Then
-    dx = myJoy.dwXpos     'As Long                '  x position
-    dy = myJoy.dwYpos     'As Long                '  y position
+R& = joyGetPosEx(JOYSTICKID1, myJoy)
+If R = 0 Then
+    dX = myJoy.dwXpos     'As Long                '  x position
+    dY = myJoy.dwYpos     'As Long                '  y position
     db = myJoy.dwButtons   ' As Long             '  button states
-    Select Case dx
+    Select Case dX
         Case Is < 20000
             Picture1_KeyDown PC(0).Left, 0
         Case Is > 40000
@@ -588,7 +592,7 @@ If r = 0 Then
             Picture1_KeyUp PC(0).Left, 0
             Picture1_KeyUp PC(0).Right, 0
     End Select
-    Select Case dy
+    Select Case dY
         Case Is < 20000
             Picture1_KeyDown PC(0).Up, 0
         Case Is > 40000
@@ -666,16 +670,16 @@ Select Case Local_State
 End Select
 End Sub
 Private Sub Form_Load()
-Dim r&
+Dim R&
 Dim hwnd&
 Static TheX As Long
 Static TheY As Long
 ' Tell form to receive joystick functions.
-r& = joySetCapture(hwnd, JOYSTICKID1, 1, 0)
-r& = joyReleaseCapture(JOYSTICKID1)
+R& = joySetCapture(hwnd, JOYSTICKID1, 1, 0)
+R& = joyReleaseCapture(JOYSTICKID1)
 ' Get joystick position coordinates and fill in the TheX and TheY
 ' variables.
-r& = joyGetPosEx(JOYSTICKID1, myJoy)
+R& = joyGetPosEx(JOYSTICKID1, myJoy)
 TheX = myJoy.dwXpos
 TheY = myJoy.dwYpos
 '-----------------------------------------------------------------------------

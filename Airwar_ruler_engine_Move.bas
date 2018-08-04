@@ -49,15 +49,31 @@ Select Case TrID
             PBg(PBID).a = False: PBg(PBID).Da = False
         End If
     Case 1
-        If PBg(PBID).Da = False Then
-            XXJie = 线性求解(PBg(PBID).X, PBg(PBID).Y, PBg(PBID).mX, PBg(PBID).mY, PBg(PBID).Sp)
-            PBg(PBID).dX = XXJie.a: PBg(PBID).dY = XXJie.b: PBg(PBID).Da = True
+        If PBg(PBID).Y < PBg(PBID).mY Then
+            If PBg(PBID).Da = False Then
+                XXJie = 线性求解(PBg(PBID).X, PBg(PBID).Y, PBg(PBID).mX, PBg(PBID).mY, PBg(PBID).Sp)
+                PBg(PBID).dX = XXJie.a: PBg(PBID).dY = XXJie.b: PBg(PBID).Da = True
+            End If
+            PBg(PBID).X = PBg(PBID).X + PBg(PBID).dX: PBg(PBID).Y = PBg(PBID).Y + PBg(PBID).dY
+        Else
+            '----------------------------
+            If Form1.BHB(PBg(PBID).Source).Enabled = False Then
+                PSkillID_BHB(PBg(PBID).Source) = PBg(PBID).Ar
+                Form1.BHB((PBg(PBID).Source)).Enabled = True
+            Else
+                If PBg(PBID).Ar > 3000 Then
+                    Form1.BHB((PBg(PBID).Source)).Enabled = False
+                    PBg(PBID).a = False: PBg(PBID).Da = False
+                Else
+                    PBg(PBID).Ar = PSkillID_BHB(PBg(PBID).Source)
+                End If
+            End If
+            '----------------------------
         End If
-        PBg(PBID).X = PBg(PBID).X + PBg(PBID).dX: PBg(PBID).Y = PBg(PBID).Y + PBg(PBID).dY
-        If PBg(PBID).X = PBg(PBID).mX And PBg(PBID).Y >= PBg(PBID).mY Then PBg(PBID).Ar = 3000
-        If PBg(PBID).X < 0 Or PBg(PBID).Y < 0 Or PBg(PBID).X > 6000 Or PBg(PBID).Y > 11000 Then
-            PBg(PBID).a = False: PBg(PBID).Da = False
-        End If
+'        If PBg(PBID).X = PBg(PBID).mX And PBg(PBID).Y >= PBg(PBID).mY Then PBg(PBID).Ar = 3000
+'        If PBg(PBID).X < 0 Or PBg(PBID).Y < 0 Or PBg(PBID).X > 6000 Or PBg(PBID).Y > 11000 Then
+'            PBg(PBID).a = False: PBg(PBID).Da = False
+'        End If
     Case 2
         If Form1.Ftime(PBg(PBID).Source).Enabled = False Then
             PSkillID_Ft(PBg(PBID).Source) = 0: Form1.Ftime((PBg(PBID).Source)).Enabled = True: PBg(PBID).X = Pg((PBg(PBID).Source)).X: PBg(PBID).Y = Pg((PBg(PBID).Source)).Y

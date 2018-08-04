@@ -86,12 +86,8 @@ For i = 0 To PBSum - 1
                 If Local_State = 1 Then Server_SendData_Circle 0, PBg(i).X, PBg(i).Y, PBg(i).Ar, 0, 255, 255, 0, 255, 255
             Case 1
                 Form1.Picture1.FillColor = RGB(0, 0, 0)
-                If PBg(i).X = PBg(i).mX And PBg(i).Y >= PBg(i).mY Then
-                    BHB_PID = i: Form1.BHB.Enabled = True
-                Else
-                    Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(0, 0, 0)
-                    If Local_State = 1 Then Server_SendData_Circle 0, PBg(i).X, PBg(i).Y, PBg(i).Ar, 0, 0, 0, 0, 0, 0
-                End If
+                Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(0, 0, 0)
+                If Local_State = 1 Then Server_SendData_Circle 0, PBg(i).X, PBg(i).Y, PBg(i).Ar, 0, 0, 0, 0, 0, 0
                 Form1.Picture1.FillColor = RGB(0, 255, 255)
             Case 2
                 Randomize

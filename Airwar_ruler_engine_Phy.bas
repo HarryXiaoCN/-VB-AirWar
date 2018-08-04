@@ -135,10 +135,10 @@ For c = 0 To FPSum
         End If
     End If
 Next
-PBg(i).a = False: PBg(i).Da = False
+'PBg(i).a = False: PBg(i).Da = False
 End Function
 Public Function 物理事件检测_PlaneBullet主体_Trl_2(ByRef i As Long)
-If PBg(i).X = PBg(i).mX And PBg(i).Y = PBg(i).mY Then
+If PBg(i).Y >= PBg(i).mY Then
     物理事件检测_PlaneBullet主体_Trl_2_Bullet i
     物理事件检测_PlaneBullet主体_Trl_2_FoePlane i
 End If
