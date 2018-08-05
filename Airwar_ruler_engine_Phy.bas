@@ -104,6 +104,7 @@ Select Case FPg(FPID).AiRank
         Pg(PBg(PBID).Source).Sp = Pg(PBg(PBID).Source).Sp + 3
     Case 4
         Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 10000 + Diff * 10
+        PSkill(PBg(PBID).Source, 3) = True
 End Select
 升级 PBg(PBID).Source
 End Function
@@ -169,6 +170,28 @@ For c = 0 To 1
     If 两点距离(Pg(PBg(i).Source).X, Pg(PBg(i).Source).Y, Pg(c).X, Pg(c).Y) <= PBg(i).Ar Then
         If Pg(c).a = False Then Pg(c).a = True
         If Pg(c).HP < Pg(c).MxHP Then Pg(c).HP = Pg(c).HP + PBg(i).Atk
+    End If
+Next
+End Function
+Public Function 物理事件检测_PlaneBullet主体_Trl_5(ByRef i As Long)
+Dim c As Long: Dim XXJie As 二元解
+For c = 0 To BgSum
+    If Bg(c).a = True Then
+        XXJie = 线性求解(Bg(c).X, Bg(c).Y, PBg(i).X, PBg(i).Y, PBg(i).Sp)
+        Bg(c).X = Bg(c).X + XXJie.a: Bg(c).Y = Bg(c).Y + XXJie.b
+        If 两点距离(PBg(i).X, PBg(i).Y, Bg(c).X, Bg(c).Y) <= PBg(i).Ar Then
+            Bg(c).a = False: Bg(c).Da = False
+        End If
+    End If
+Next
+For c = 0 To FPSum
+    If FPg(c).a = True Then
+        If 两点距离(PBg(i).X, PBg(i).Y, FPg(c).X, FPg(c).Y) <= PBg(i).Ar Then
+            FPg(c).HP = FPg(c).HP - PBg(i).Atk
+            If FPg(c).HP <= 0 Then
+                FPg(c).a = False: FPg(c).Da = False: 物理事件检测_Plane主体_PBaFP事件_经验结算 i, c
+            End If
+        End If
     End If
 Next
 End Function

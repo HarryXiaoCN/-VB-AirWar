@@ -7,7 +7,7 @@ Public FPg(1000) As Plane
 Public PC(10) As KeyConfig
 Public Diff, PBSkillCDTime(3) As Long
 Public KCTemp(7) As Integer
-Public PBCD(3), PBSkillCD(3), PSkill(2, 4), DuoPlayer, PlaneWYKZ_Skill_SwitchLock As Boolean
+Public PBCD(3), PBSkillCD(3), PSkill(2, 5), DuoPlayer, PlaneWYKZ_Skill_SwitchLock As Boolean
 Public KeyboardVis, ReinCodeVis As Boolean
 Public BgSum, SgSum, PBSum, FPSum, PSkillID(3) As Long
 Public PSkillID_Ft(3), PSkillID_BHB(3) As Single
@@ -45,6 +45,14 @@ Select Case Ty
         PBg(PBID).mY = Pg(PID).Y
         Pg(PID).E = Pg(PID).E - 50
         PBSkillCD(PID) = False
+    Case 4
+        PBg(PBID).a = True: PBg(PBID).Ar = 50: PBg(PBID).Atk = Pg(PID).Rank: PBg(PBID).Sb = False
+        PBg(PBID).Sp = 30: PBg(PBID).X = Pg(PID).X: PBg(PBID).Y = Pg(PID).Y
+        PBg(PBID).Pen = False: PBg(PBID).Trl = 4
+        PBg(PBID).mX = Pg(PID).X
+        PBg(PBID).mY = Pg(PID).Y + 3200
+        Pg(PID).E = Pg(PID).E - 60
+        PBSkillCD(PID) = False
 End Select
 PBg(PBID).Source = PID
 End Function
@@ -52,10 +60,11 @@ Public Function PBg_Add(ByVal PID As Long, Optional Ty As Long = 0)
 Select Case Ty
     Case 0
         If Pg(PID).E <= 0 Or PBCD(PID) = False Then Exit Function
-    Case 1, 2, 3
+    Case 1, 2, 3, 4
         If PSkillID(PID) = 0 Then If Pg(PID).E < 20 Or PBSkillCD(PID) = False Then Exit Function
         If PSkillID(PID) = 1 Then If Pg(PID).E < 40 Or PBSkillCD(PID) = False Then Exit Function
         If PSkillID(PID) = 2 Then If Pg(PID).E < 50 Or PBSkillCD(PID) = False Then Exit Function
+        If PSkillID(PID) = 3 Then If Pg(PID).E < 60 Or PBSkillCD(PID) = False Then Exit Function
 End Select
 For i = 0 To PBSum - 1
     If PBg(i).a = False Then
@@ -69,7 +78,7 @@ End Function
 Public Function FPg_Add(ByVal FPID As Long, Optional Arnk As Long = 0)
 Select Case Arnk
     Case 0
-        FPg(FPID).a = True: FPg(FPID).HP = 10: FPg(FPID).MxHP = 10
+        FPg(FPID).a = True: FPg(FPID).HP = 10 + Diff / 10: FPg(FPID).MxHP = 10 + Diff / 10
         FPg(FPID).Ar = 100: FPg(FPID).Sb = True: FPg(FPID).AiRank = 0
         FPg(FPID).Sp = 5
         FPg_Add_0_Def FPID
@@ -152,7 +161,7 @@ Bg(BgID).Trl = Ty
 Bg(BgID).Target = Bg_Add_JustHitYou
 Select Case Ty
     Case 0
-        Bg(BgID).a = True: Bg(BgID).Ar = 30: Bg(BgID).Atk = 10: Bg(BgID).Sb = True
+        Bg(BgID).a = True: Bg(BgID).Ar = 30: Bg(BgID).Atk = 10 + Diff / 30: Bg(BgID).Sb = True
         Bg(BgID).Sp = 10 + Diff / 30: Bg(BgID).X = Int(Rnd * (6001)): Bg(BgID).Y = 8000: Bg(BgID).mX = Pg(Bg(BgID).Target).X
         Bg(BgID).mY = Pg(Bg(BgID).Target).Y
     Case 1

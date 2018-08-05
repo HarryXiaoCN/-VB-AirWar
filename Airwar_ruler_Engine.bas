@@ -31,6 +31,8 @@ For i = 0 To PBSum
                 物理事件检测_PlaneBullet主体_Trl_3 i
             Case 3
                 物理事件检测_PlaneBullet主体_Trl_4 i
+            Case 4
+                物理事件检测_PlaneBullet主体_Trl_5 i
         End Select
     End If
 Next

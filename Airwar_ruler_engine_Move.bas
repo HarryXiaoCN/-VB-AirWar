@@ -97,6 +97,26 @@ Select Case TrID
                 PBg(PBID).Ar = PSkillID_Ft(PBg(PBID).Source) * 700
             End If
         End If
+    Case 4
+        If PBg(PBID).Y < PBg(PBID).mY Then
+            If PBg(PBID).Da = False Then
+                XXJie = 线性求解(PBg(PBID).X, PBg(PBID).Y, PBg(PBID).mX, PBg(PBID).mY, PBg(PBID).Sp)
+                PBg(PBID).dX = XXJie.a: PBg(PBID).dY = XXJie.b: PBg(PBID).Da = True
+            End If
+            PBg(PBID).X = PBg(PBID).X + PBg(PBID).dX: PBg(PBID).Y = PBg(PBID).Y + PBg(PBID).dY
+        Else
+            '----------------------------
+            If Form1.Ftime(PBg(PBID).Source).Enabled = False Then
+                PSkillID_Ft(PBg(PBID).Source) = 0
+                Form1.Ftime((PBg(PBID).Source)).Enabled = True
+            Else
+                If PSkillID_Ft(PBg(PBID).Source) > 5 + Pg((PBg(PBID).Source)).Rank Then
+                    Form1.Ftime((PBg(PBID).Source)).Enabled = False
+                    PBg(PBID).a = False: PBg(PBID).Da = False
+                End If
+            End If
+            '----------------------------
+        End If
 End Select
 End Function
 Public Function PlaneWYKZ_Up(ByRef PlID As Long)

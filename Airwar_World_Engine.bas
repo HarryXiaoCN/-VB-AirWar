@@ -85,9 +85,9 @@ For i = 0 To PBSum - 1
                 Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(0, 255, 255)
                 If Local_State = 1 Then Server_SendData_Circle 0, PBg(i).X, PBg(i).Y, PBg(i).Ar, 0, 255, 255, 0, 255, 255
             Case 1
-                Form1.Picture1.FillColor = RGB(0, 0, 0)
-                Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(0, 0, 0)
-                If Local_State = 1 Then Server_SendData_Circle 0, PBg(i).X, PBg(i).Y, PBg(i).Ar, 0, 0, 0, 0, 0, 0
+                Form1.Picture1.FillColor = RGB(128, 0, 0)
+                Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(128, 0, 0)
+                If Local_State = 1 Then Server_SendData_Circle 0, PBg(i).X, PBg(i).Y, PBg(i).Ar, 128, 0, 0, 128, 0, 0
                 Form1.Picture1.FillColor = RGB(0, 255, 255)
             Case 2
                 Randomize
@@ -105,6 +105,11 @@ For i = 0 To PBSum - 1
                 Form1.Picture1.FillColor = RGB(127, 255, 0)
                 Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(127, 255, 0)
                 If Local_State = 1 Then Server_SendData_Circle 0, PBg(i).X, PBg(i).Y, PBg(i).Ar, 127, 255, 0, 127, 255, 0
+                Form1.Picture1.FillColor = RGB(0, 255, 255)
+            Case 4
+                Form1.Picture1.FillColor = RGB(0, 0, 0)
+                Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(0, 0, 0)
+                If Local_State = 1 Then Server_SendData_Circle 0, PBg(i).X, PBg(i).Y, PBg(i).Ar, 0, 0, 0, 0, 0, 0
                 Form1.Picture1.FillColor = RGB(0, 255, 255)
         End Select
     End If

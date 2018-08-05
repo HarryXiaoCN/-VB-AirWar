@@ -189,7 +189,7 @@ Begin VB.Form Form1
       End
       Begin VB.Label SkOn1 
          Alignment       =   2  'Center
-         Caption         =   "ºÚ"
+         Caption         =   "ºË"
          BeginProperty Font 
             Name            =   "Î¢ÈíÑÅºÚ"
             Size            =   12
@@ -222,6 +222,26 @@ Begin VB.Form Form1
          Index           =   7
          Left            =   1080
          TabIndex        =   28
+         Top             =   2640
+         Visible         =   0   'False
+         Width           =   405
+      End
+      Begin VB.Label SkOn1 
+         Alignment       =   2  'Center
+         Caption         =   "ºÚ"
+         BeginProperty Font 
+            Name            =   "Î¢ÈíÑÅºÚ"
+            Size            =   12
+            Charset         =   134
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   405
+         Index           =   8
+         Left            =   1560
+         TabIndex        =   31
          Top             =   2640
          Visible         =   0   'False
          Width           =   405
@@ -277,7 +297,7 @@ Begin VB.Form Form1
       End
       Begin VB.Label SkOn1 
          Alignment       =   2  'Center
-         Caption         =   "ºÚ"
+         Caption         =   "ºË"
          BeginProperty Font 
             Name            =   "Î¢ÈíÑÅºÚ"
             Size            =   12
@@ -389,6 +409,26 @@ Begin VB.Form Form1
          Index           =   2
          Left            =   1080
          TabIndex        =   27
+         Top             =   2640
+         Visible         =   0   'False
+         Width           =   405
+      End
+      Begin VB.Label SkOn1 
+         Alignment       =   2  'Center
+         Caption         =   "ºÚ"
+         BeginProperty Font 
+            Name            =   "Î¢ÈíÑÅºÚ"
+            Size            =   12
+            Charset         =   134
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   405
+         Index           =   3
+         Left            =   1560
+         TabIndex        =   30
          Top             =   2640
          Visible         =   0   'False
          Width           =   405
@@ -736,7 +776,7 @@ For i = 0 To 1
     Else
         JinDuT1(i).Progress = 0
     End If
-    For c = 1 To 2
+    For c = 1 To 3
         If PSkill(i, c) = True Then SkOn1(c + i * 5).Visible = True Else SkOn1(c + i * 5).Visible = False
     Next
 Next
@@ -769,13 +809,13 @@ Private Sub Timer5_Timer()
 BigFoePlaneTime = BigFoePlaneTime + 1
 CunningFoePlaneTime = CunningFoePlaneTime + 1
 FrozenFoePlaneTime = FrozenFoePlaneTime + 1
+BlackHolefoePlaneTime = BlackHolefoePlaneTime + 1
 PCEsp_Recovery
 If FoePlaneLifeSum() <= Diff / 10 Then
-    If BigFoePlaneTime < 15 - Diff / 10 Then
-        Test_FoePlane
-    Else
-        Test_FoePlane 1: BigFoePlaneTime = 0
-    End If
+    Test_FoePlane
+End If
+If BigFoePlaneTime > 30 - Diff / 10 Then
+    Test_FoePlane 1: BigFoePlaneTime = 0
 End If
 If CunningFoePlaneTime > 60 - Diff / 10 Then
     Test_FoePlane 2: CunningFoePlaneTime = 0
