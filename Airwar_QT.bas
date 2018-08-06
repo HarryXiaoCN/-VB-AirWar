@@ -74,6 +74,24 @@ End Function
 Public Function æ‡¿Î≈–∂œ(ByVal X1 As Single, ByVal Y1 As Single, ByVal X2 As Single, ByVal Y2 As Single, ByVal Limit As Long) As Boolean
 If (Y2 - Y1) ^ 2 + (X2 - X1) ^ 2 <= Limit ^ 2 Then æ‡¿Î≈–∂œ = True
 End Function
+Public Function ∂‘Ω«ºÏ≤È(ByVal X1 As Single, ByVal Y1 As Single, ByVal X2 As Single, ByVal Y2 As Single, ByVal Range As Long) As Boolean
+If X2 < X1 And Y2 < Y1 Then
+    If Range >= (X2 - (X1 - (Y1 - Y2))) / Sqr(2) _
+    And -Range <= (X2 - (X1 - (Y1 - Y2))) / Sqr(2) Then ∂‘Ω«ºÏ≤È = True: Exit Function
+End If
+If X2 > X1 And Y2 < Y1 Then
+    If Range >= ((X1 + (Y1 - Y2)) - X2) / Sqr(2) And _
+    -Range <= ((X1 + (Y1 - Y2)) - X2) / Sqr(2) Then ∂‘Ω«ºÏ≤È = True: Exit Function
+End If
+If X2 < X1 And Y2 > Y1 Then
+    If Range >= ((X1 - X2) + Y1 - Y2) / Sqr(2) And _
+    -Range <= ((X1 - X2) + Y1 - Y2) / Sqr(2) Then ∂‘Ω«ºÏ≤È = True: Exit Function
+End If
+If X2 > X1 And Y2 > Y1 Then
+    If Range >= (Y1 + (X2 - X1) - Y2) / Sqr(2) And _
+    -Range <= (Y1 + (X2 - X1) - Y2) / Sqr(2) Then ∂‘Ω«ºÏ≤È = True: Exit Function
+End If
+End Function
 Public Function KeyCodeToStr(KeyCode As Integer, Optional Shift As Integer) As String
     If KeyCode > 47 And KeyCode < 91 Then
         KeyCodeToStr = Chr(KeyCode)

@@ -11,9 +11,9 @@ Public PBCD(3), PBSkillCD(3), PSkill(2, 5), DuoPlayer, PlaneWYKZ_Skill_SwitchLoc
 'PBCD(玩家号) 控制玩家子弹频率；PBSkillCD 由PBSkillCDTime决定的大招开关
 'PSkill（玩家号，技能号） 玩家大招有无控制；DuoPlayer 双人玩家控制
 'PlaneWYKZ_Skill_SwitchLock 大招切换间隔控制
-Public KeyboardVis, ReinCodeVis As Boolean '键盘及手柄可视化控制
+Public KeyboardVis, ReinCodeVis, TeleportingFoePlaneDisplacementLock As Boolean '键盘及手柄可视化控制
 Public PgSum, BgSum, SgSum, PBSum, FPSum, PSkillID(3) As Long 'PSkillID(玩家号) 当前玩家大招指向
-Public PSkillID_Ft(3), PSkillID_BHB(3), T_s As Single 'T_s 游戏计时变量
+Public PSkillID_Ft(3), PSkillID_BHB(3), T_s, TeleportingFoePlaneLockTime As Single 'T_s 游戏计时变量
 Public Sub PC_Def()
 '[Engine]World_Load input
 Dim i As Long
@@ -59,17 +59,20 @@ PBg(PBID).Source = PID
 End Function
 Public Function FPg_Add(ByVal FPID As Long, Optional Arnk As Long = 0)
 '[Case]Test_FoePlane input
+FPg(FPID).AiRank = Arnk
 Select Case Arnk
     Case 0 '小飞机
-        FPg_add_AttributeAssignment FPID, 10 + Diff / 10, 100, True, 0, 5
+        FPg_add_AttributeAssignment FPID, 10 + Diff / 10, 100, True, 5
     Case 1 '大飞机
-        FPg_add_AttributeAssignment FPID, 200, 150, True, 1, 3
+        FPg_add_AttributeAssignment FPID, 200, 150, True, 3
     Case 2 '跟踪飞机
-        FPg_add_AttributeAssignment FPID, 50, 80, True, 2, 8
+        FPg_add_AttributeAssignment FPID, 50, 80, True, 8
     Case 3 '冰冻飞机
-        FPg_add_AttributeAssignment FPID, 250, 120, True, 3, 5
+        FPg_add_AttributeAssignment FPID, 250, 120, True, 5
     Case 4 '黑洞飞机
-        FPg_add_AttributeAssignment FPID, 2000, 500, True, 4, 3
+        FPg_add_AttributeAssignment FPID, 2000, 500, True, 3
+    Case 5 '瞬移飞机
+        FPg_add_AttributeAssignment FPID, 3000, 200, True, 0
 End Select
 FPg_Add_TrajectoryInitialization FPID, Arnk
 End Function
@@ -92,6 +95,9 @@ Select Case Arnk
                 FPg(FPID).X = Int(Rnd * (6001)): FPg(FPID).Y = 8000
                 FPg(FPID).mX = Int(Rnd * (6001)): FPg(FPID).mY = 0
         End Select
+    Case 5
+        FPg(FPID).X = Int(Rnd * (4001)) + 1000
+        FPg(FPID).Y = Int(Rnd * (6001)) + 1000
 End Select
 End Function
 Public Function Sg_Add(ByVal SgID As Long)
@@ -132,6 +138,8 @@ Select Case Arnk
         Bg_add_AttributeAssignment BID, 1, 0.01, True, 0, FPg(FPID).X, FPg(FPID).Y, Pg(Bg(BID).Target).X, Pg(Bg(BID).Target).Y
     Case 4 '引力撕裂
         Bg_add_AttributeAssignment BID, 1, 10, True, 10, FPg(FPID).X, FPg(FPID).Y, Pg(Bg(BID).Target).X, Pg(Bg(BID).Target).Y
+    Case 5 '纵横激光炮
+        Bg_add_AttributeAssignment BID, 1, 3, True, 10, FPg(FPID).X, FPg(FPID).Y, Pg(Bg(BID).Target).X, Pg(Bg(BID).Target).Y
 End Select
 End Function
 Public Function PBg_add_AttributeAssignment( _
@@ -158,14 +166,13 @@ End Function
 Public Function FPg_add_AttributeAssignment( _
 ByRef FPID As Long, ByRef HP As Long, _
 ByRef Ar As Long, ByRef Sb As Boolean, _
-ByRef ARank As Long, ByRef Sp As Long)
+ByRef Sp As Long)
 'FBg_Add input
 FPg(FPID).a = True
 FPg(FPID).HP = HP
 FPg(FPID).MxHP = HP
 FPg(FPID).Ar = Ar
 FPg(FPID).Sb = Sb
-FPg(FPID).AiRank = ARank
 FPg(FPID).Sp = Sp
 End Function
 Public Function Pg_Def_AttributeAssignment(ByRef PID As Long)

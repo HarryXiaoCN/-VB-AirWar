@@ -21,6 +21,12 @@ Begin VB.Form Form1
    ScaleHeight     =   8130
    ScaleWidth      =   12060
    StartUpPosition =   3  '´°¿ÚÈ±Ê¡
+   Begin VB.Timer TFPDLock 
+      Enabled         =   0   'False
+      Interval        =   100
+      Left            =   9120
+      Top             =   7080
+   End
    Begin VB.Timer BHB 
       Enabled         =   0   'False
       Index           =   1
@@ -594,7 +600,7 @@ Const IME_CONFIG_GENERAL = 1
 Const KLF_REORDER = &H8
 Const KLF_ACTIVATE = &H1
 Dim la(1 To 16) As Long
-Dim ActIme, BigFoePlaneTime, CunningFoePlaneTime, FrozenFoePlaneTime, BlackHolefoePlaneTime As Long
+Dim ActIme, BigFoePlaneTime, CunningFoePlaneTime, FrozenFoePlaneTime, BlackHolefoePlaneTime, TeleportingFoePlaneTime As Long
 Private TimeTired As Long
 Dim myJoy As JOYINFOEX
 
@@ -758,6 +764,14 @@ For i = 0 To 1
     End If
 Next
 End Sub
+
+Private Sub TFPDLock_Timer()
+TeleportingFoePlaneLockTime = TeleportingFoePlaneLockTime - 0.1
+If TeleportingFoePlaneLockTime < 0.1 Then
+    TeleportingFoePlaneDisplacementLock = False: TFPDLock.Enabled = False
+End If
+End Sub
+
 Private Sub Timer1_Timer()
 F5
 End Sub
@@ -809,6 +823,7 @@ BigFoePlaneTime = BigFoePlaneTime + 1
 CunningFoePlaneTime = CunningFoePlaneTime + 1
 FrozenFoePlaneTime = FrozenFoePlaneTime + 1
 BlackHolefoePlaneTime = BlackHolefoePlaneTime + 1
+TeleportingFoePlaneTime = TeleportingFoePlaneTime + 1
 PCEsp_Recovery
 If FoePlaneLifeSum() <= Diff / 10 Then
     Test_FoePlane
@@ -824,6 +839,9 @@ If FrozenFoePlaneTime > 90 - Diff / 8 Then
 End If
 If BlackHolefoePlaneTime > 180 - Diff / 10 Then
     Test_FoePlane 4: BlackHolefoePlaneTime = 0
+End If
+If TeleportingFoePlaneTime > 240 - Diff / 10 Then
+    Test_FoePlane 5: TeleportingFoePlaneTime = 0
 End If
 Test_Bullet_2
 End Sub

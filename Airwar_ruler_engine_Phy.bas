@@ -18,6 +18,14 @@ For c = 0 To BgSum
                 XXJie = 线性求解(Pg(i).X, Pg(i).Y, FPg(Bg(c).Source).X, FPg(Bg(c).Source).Y, Bg(c).Sp)
                 Pg(i).X = Pg(i).X + XXJie.a: Pg(i).Y = Pg(i).Y + XXJie.b
                 Pg(i).HP = Pg(i).HP - Bg(c).Atk * (1 / 两点距离(Pg(j).X, Pg(j).Y, FPg(Bg(c).Source).X, FPg(Bg(c).Source).Y))
+                If Pg(i).HP <= 0 Then Pg(i).a = False
+            Case 5
+                If (Pg(i).X > FPg(Bg(c).Source).X - Pg(i).Ar And Pg(i).X < FPg(Bg(c).Source).X + Pg(i).Ar) _
+                Or (Pg(i).Y > FPg(Bg(c).Source).Y - Pg(i).Ar And Pg(i).Y > FPg(Bg(c).Source).Y - Pg(i).Ar) _
+                Or 对角检查(Pg(i).X, Pg(i).Y, FPg(Bg(c).Source).X, FPg(Bg(c).Source).Y, Pg(i).Ar) = True Then
+                    Pg(i).HP = Pg(i).HP - Bg(c).Atk * (1 - TeleportingFoePlaneLockTime)
+                    If Pg(i).HP <= 0 Then Pg(i).a = False
+                End If
         End Select
     End If
 Next
@@ -102,6 +110,9 @@ Select Case FPg(FPID).AiRank
     Case 4
         Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 10000 + Diff * 10
         PSkill(PBg(PBID).Source, 3) = True
+    Case 5
+        Pg(PBg(PBID).Source).EMP = Pg(PBg(PBID).Source).EMP + 20000 + Diff * 15
+        If PSkill(PBg(PBID).Source, 3) = False Then PSkill(PBg(PBID).Source, 3) = True
 End Select
 升级 PBg(PBID).Source
 End Function

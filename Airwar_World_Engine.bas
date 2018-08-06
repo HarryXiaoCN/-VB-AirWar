@@ -20,10 +20,10 @@ Select Case Local_State
         Form1.Picture1.Cls
         物理事件检测
         移动事件处理
-        F5_Foe_Plane
         F5_Foe_Bullet
         F5_PC_Supply
         F5_PC_Bullet
+        F5_Foe_Plane
         F5_PC_Plane
     Case 1
         Form1.Picture1.Cls
@@ -31,10 +31,10 @@ Select Case Local_State
         物理事件检测
         移动事件处理
         F5_NetworkMode
-        F5_Foe_Plane
         F5_Foe_Bullet
         F5_PC_Supply
         F5_PC_Bullet
+        F5_Foe_Plane
         F5_PC_Plane
 End Select
 End Function
@@ -71,6 +71,11 @@ For i = 0 To FPSum - 1
                 Form1.Picture1.FillColor = RGB(0, 0, 0)
                 Form1.Picture1.Circle (FPg(i).X, FPg(i).Y), FPg(i).Ar, RGB(0, 0, 0)
                 If Local_State = 1 Then Server_SendData_Circle 0, FPg(i).X, FPg(i).Y, FPg(i).Ar, 0, 0, 0, 0, 0, 0
+                Form1.Picture1.FillColor = RGB(143, 188, 143)
+            Case 5
+                Form1.Picture1.FillColor = RGB(75, 0, 130)
+                Form1.Picture1.Circle (FPg(i).X, FPg(i).Y), FPg(i).Ar, RGB(75, 0, 130)
+                If Local_State = 1 Then Server_SendData_Circle 0, FPg(i).X, FPg(i).Y, FPg(i).Ar, 75, 0, 130, 75, 0, 130
                 Form1.Picture1.FillColor = RGB(143, 188, 143)
         End Select
     End If
@@ -134,6 +139,7 @@ For i = 0 To SgSum - 1
 Next
 End Function
 Public Function F5_Foe_Bullet()
+Dim i As Long
 Form1.Picture1.FillColor = RGB(0, 0, 255)
 For i = 0 To BgSum - 1
     If Bg(i).a = True Then
@@ -153,7 +159,17 @@ For i = 0 To BgSum - 1
                 Form1.Picture1.FillColor = RGB(0, 0, 255)
             Case 3
                 Form1.Picture1.Line (Bg(i).X, Bg(i).Y)-(Pg(Bg(i).Target).X, Pg(Bg(i).Target).Y), RGB(225, 255, 255)
-                Server_SendData_Line Bg(i).X, Bg(i).Y, Pg(Bg(i).Target).X, Pg(Bg(i).Target).Y, 225, 255, 255
+                If Local_State = 1 Then Server_SendData_Line Bg(i).X, Bg(i).Y, Pg(Bg(i).Target).X, Pg(Bg(i).Target).Y, 225, 255, 255
+            Case 5
+                Form1.Picture1.Line (Bg(i).X, 0)-(Bg(i).X, 8000), RGB(255, 255 * TeleportingFoePlaneLockTime, 255 * TeleportingFoePlaneLockTime)
+                If Local_State = 1 Then Server_SendData_Line Bg(i).X, 0, Bg(i).X, 8000, 255, 255 * TeleportingFoePlaneLockTime, 255 * TeleportingFoePlaneLockTime
+                Form1.Picture1.Line (0, Bg(i).Y)-(6000, Bg(i).Y), RGB(255, 255 * TeleportingFoePlaneLockTime, 255 * TeleportingFoePlaneLockTime)
+                If Local_State = 1 Then Server_SendData_Line 0, Bg(i).Y, 6000, Bg(i).Y, 255, 255 * TeleportingFoePlaneLockTime, 255 * TeleportingFoePlaneLockTime
+                
+                Form1.Picture1.Line (Bg(i).X - 7000, Bg(i).Y - 7000)-(Bg(i).X + 7000, Bg(i).Y + 7000), RGB(255, 255 * TeleportingFoePlaneLockTime, 255 * TeleportingFoePlaneLockTime)
+                If Local_State = 1 Then Server_SendData_Line Bg(i).X - 7000, Bg(i).Y - 7000, Bg(i).X + 7000, Bg(i).Y + 7000, 255, 255 * TeleportingFoePlaneLockTime, 255 * TeleportingFoePlaneLockTime
+                Form1.Picture1.Line (Bg(i).X - 7000, Bg(i).Y + 7000)-(Bg(i).X + 7000, Bg(i).Y - 7000), RGB(255, 255 * TeleportingFoePlaneLockTime, 255 * TeleportingFoePlaneLockTime)
+                If Local_State = 1 Then Server_SendData_Line Bg(i).X - 7000, Bg(i).Y + 7000, Bg(i).X + 7000, Bg(i).Y - 7000, 255, 255 * TeleportingFoePlaneLockTime, 255 * TeleportingFoePlaneLockTime
         End Select
     End If
 Next

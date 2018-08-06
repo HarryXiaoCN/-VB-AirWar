@@ -11,6 +11,13 @@ Select Case FPg(FPID).AiRank
         If FPg(FPID).X < 0 Or FPg(FPID).Y < 0 Or FPg(FPID).X > 6000 Or FPg(FPID).Y > 8000 Then
             FPg(FPID).a = False: FPg(FPID).Da = False
         End If
+    Case 5
+        If TeleportingFoePlaneDisplacementLock = False Then
+            Randomize: TeleportingFoePlaneLockTime = 1
+            Form1.TFPDLock.Interval = Form1.Timer5.Interval / 5: Form1.TFPDLock.Enabled = True
+            FPg(FPID).X = Int(Rnd * (4001)) + 1000: FPg(FPID).Y = Int(Rnd * (6001)) + 1000
+            TeleportingFoePlaneDisplacementLock = True
+        End If
 End Select
 End Function
 Public Function BulletWYKZ(ByRef BID As Long, TrID As Long)
@@ -32,7 +39,7 @@ Select Case TrID
         If Bg(BID).X < 0 Or Bg(BID).Y < 0 Or Bg(BID).X > 6000 Or Bg(BID).Y > 8000 Then
             Bg(BID).a = False: Bg(BID).Da = False
         End If
-    Case 3, 4
+    Case 3, 4, 5
         Bg(BID).X = FPg(Bg(BID).Source).X: Bg(BID).Y = FPg(Bg(BID).Source).Y
         If FPg(Bg(BID).Source).a = False Then Bg(BID).a = False
 End Select
