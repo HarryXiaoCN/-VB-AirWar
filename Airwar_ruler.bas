@@ -26,6 +26,7 @@ End Type
 Public Type Bullet
     a As Boolean
     Da As Boolean
+    dE As Long '耗蓝
     Ar As Long
     Atk As Single  '子弹的破坏力
     Pen As Boolean '是否有穿透性

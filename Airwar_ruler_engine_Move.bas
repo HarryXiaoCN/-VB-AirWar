@@ -16,7 +16,7 @@ End Function
 Public Function BulletWYKZ(ByRef BID As Long, TrID As Long)
 Dim XXJie As 二元解
 Select Case TrID
-    Case 0, 1, 2
+    Case 0, 1
         If Bg(BID).Da = False Then
             XXJie = 线性求解(Bg(BID).X, Bg(BID).Y, Bg(BID).mX, Bg(BID).mY, Bg(BID).Sp)
             Bg(BID).dX = XXJie.a: Bg(BID).dY = XXJie.b: Bg(BID).Da = True
@@ -25,14 +25,15 @@ Select Case TrID
         If Bg(BID).X < 0 Or Bg(BID).Y < 0 Or Bg(BID).X > 6000 Or Bg(BID).Y > 8000 Then
             Bg(BID).a = False: Bg(BID).Da = False
         End If
-    Case 3
+    Case 2
         XXJie = 线性求解(Bg(BID).X, Bg(BID).Y, Pg(Bg(BID).Target).X, Pg(Bg(BID).Target).Y, Bg(BID).Sp)
         Bg(BID).dX = XXJie.a: Bg(BID).dY = XXJie.b
         Bg(BID).X = Bg(BID).X + Bg(BID).dX: Bg(BID).Y = Bg(BID).Y + Bg(BID).dY
         If Bg(BID).X < 0 Or Bg(BID).Y < 0 Or Bg(BID).X > 6000 Or Bg(BID).Y > 8000 Then
             Bg(BID).a = False: Bg(BID).Da = False
         End If
-    Case 4, 5
+    Case 3, 4
+        Bg(BID).X = FPg(Bg(BID).Source).X: Bg(BID).Y = FPg(Bg(BID).Source).Y
         If FPg(Bg(BID).Source).a = False Then Bg(BID).a = False
 End Select
 End Function

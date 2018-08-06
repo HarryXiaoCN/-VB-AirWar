@@ -29,14 +29,15 @@ For i = 0 To 1
 Next
 End Function
 Public Function FoeBullet_Shoot(ByRef FPID As Long, Optional Arnk As Long = 0)
+Dim c As Long
 If FoeBullet_Shoot_Chance() = False Then Exit Function
 For c = 0 To BgSum - 1
     If Bg(c).a = False Then
-        Bg_Add c, Arnk + 1, FPID
+        Bg_Add c, Arnk, FPID
         Exit Function
     End If
 Next
-Bg_Add c, Arnk + 1, FPID
+Bg_Add c, Arnk, FPID
 BgSum = BgSum + 1
 If BgSum + 100 > UBound(Bg) Then ReDim Preserve Bg(BgSum + 1100)
 End Function
@@ -88,8 +89,7 @@ With PC(1)
 End With
 End Function
 Public Function Test_FoePlane(Optional Arnk As Long = 0)
-'100ms
-'If FPSum > 4 Then Exit Sub
+'[Form1]Timer5
 For i = 0 To FPSum - 1
     If FPg(i).a = False Then
         FPg_Add i, Arnk: Exit Function

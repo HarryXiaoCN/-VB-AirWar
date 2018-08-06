@@ -70,6 +70,8 @@ Select Case CMD_Temp(0)
             Case "rein"
                 If Val(CMD_Temp(2)) = 0 Then ReinCodeVis = False: GoTo Successfully Else ReinCodeVis = True: GoTo Successfully
         End Select
+    Case "time"
+        T_s = Val(CMD_Temp(1)): GoTo Successfully
 End Select
 CMD_Execute_Interpreter = CMD & "--Unknown Command"
 Exit Function

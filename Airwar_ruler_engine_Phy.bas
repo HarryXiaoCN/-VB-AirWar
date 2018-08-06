@@ -1,26 +1,23 @@
 Attribute VB_Name = "Airwar_ruler_engine_Phy"
 Public Function 物理事件检测_Plane主体_PaB(ByRef i As Long)
-Dim Min(2), MiTemp, c, j As Long: Dim XXJie As 二元解
+'玩家与地方子弹（及子弹效果）的物理交互函数
+Dim Min(2), MiTemp, c As Long: Dim XXJie As 二元解
 Min(0) = 99999
 For c = 0 To BgSum
     If Bg(c).a = True Then
-        Select Case Bg(c).Trl
-            Case 4
-                If Pg(Bg(c).Target).Sp > 0 Then Pg(Bg(c).Target).Sp = Pg(Bg(c).Target).Sp - 0.01 - Diff / 20000
-                Pg(Bg(c).Target).HP = Pg(Bg(c).Target).HP - Bg(c).Atk
-            Case 5
-                For j = 0 To 1
-                    If Pg(j).a = True Then
-                        XXJie = 线性求解(Pg(j).X, Pg(j).Y, FPg(Bg(c).Source).X, FPg(Bg(c).Source).Y, Bg(c).Sp)
-                        Pg(j).X = Pg(j).X + XXJie.a: Pg(j).Y = Pg(j).Y + XXJie.b
-                        Pg(j).HP = Pg(j).HP - Bg(c).Atk * (1 / 两点距离(Pg(j).X, Pg(j).Y, FPg(Bg(c).Source).X, FPg(Bg(c).Source).Y))
-                    End If
-                Next
-            Case 0, 1, 2, 3
+        Select Case FPg(Bg(c).Source).AiRank
+            Case 0, 1, 2
                 MiTemp = 两点距离(Pg(i).X, Pg(i).Y, Bg(c).X, Bg(c).Y)
                 If Min(0) > MiTemp Then
                     Min(0) = MiTemp: Min(1) = c
                 End If
+            Case 3
+                If Pg(Bg(c).Target).Sp > 0 Then Pg(Bg(c).Target).Sp = Pg(Bg(c).Target).Sp - 0.01 - Diff / 20000
+                Pg(Bg(c).Target).HP = Pg(Bg(c).Target).HP - Bg(c).Atk
+            Case 4
+                XXJie = 线性求解(Pg(i).X, Pg(i).Y, FPg(Bg(c).Source).X, FPg(Bg(c).Source).Y, Bg(c).Sp)
+                Pg(i).X = Pg(i).X + XXJie.a: Pg(i).Y = Pg(i).Y + XXJie.b
+                Pg(i).HP = Pg(i).HP - Bg(c).Atk * (1 / 两点距离(Pg(j).X, Pg(j).Y, FPg(Bg(c).Source).X, FPg(Bg(c).Source).Y))
         End Select
     End If
 Next
@@ -60,7 +57,7 @@ Next
 If Min(0) <= Pg(i).Ar + 50 Then 物理事件检测_Plane主体_PaS事件 i, Min(1)
 End Function
 Public Function 物理事件检测_PlaneBullet主体_Trl_1_Bullet(ByRef i As Long)
-Dim Min(2), MiTemp As Long
+Dim Min(2), MiTemp, c As Long
 Min(0) = 99999
 For c = 0 To BgSum
     If Bg(c).a = True Then

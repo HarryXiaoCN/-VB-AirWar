@@ -5,7 +5,7 @@ Begin VB.Form Form1
    Caption         =   "AirWar"
    ClientHeight    =   8130
    ClientLeft      =   150
-   ClientTop       =   795
+   ClientTop       =   780
    ClientWidth     =   12060
    BeginProperty Font 
       Name            =   "微软雅黑"
@@ -595,7 +595,6 @@ Const KLF_REORDER = &H8
 Const KLF_ACTIVATE = &H1
 Dim la(1 To 16) As Long
 Dim ActIme, BigFoePlaneTime, CunningFoePlaneTime, FrozenFoePlaneTime, BlackHolefoePlaneTime As Long
-Private T_s As Single
 Private TimeTired As Long
 Dim myJoy As JOYINFOEX
 
@@ -868,7 +867,8 @@ If 手柄模式.Checked = False Then 手柄模式.Checked = True: HGC.Enabled = True Els
 End Sub
 Private Sub 双人_Click()
 If DuoPlayer = True Then Exit Sub
-PC_2_Def
+PgSum = PgSum + 1
+Pg_Def_AttributeAssignment 1
 DuoPlayer = True
 End Sub
 Private Sub 暂停_Click()

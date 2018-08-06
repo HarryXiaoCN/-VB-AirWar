@@ -138,22 +138,22 @@ Form1.Picture1.FillColor = RGB(0, 0, 255)
 For i = 0 To BgSum - 1
     If Bg(i).a = True Then
         Select Case Bg(i).Trl
-            Case 0, 1
+            Case 0
                 Form1.Picture1.Circle (Bg(i).X, Bg(i).Y), Bg(i).Ar, RGB(0, 0, 255)
                 If Local_State = 1 Then Server_SendData_Circle 0, Bg(i).X, Bg(i).Y, Bg(i).Ar, 0, 0, 255, 0, 0, 255
-            Case 2
+            Case 1
                 Form1.Picture1.FillColor = RGB(255, 255, 0)
                 Form1.Picture1.Circle (Bg(i).X, Bg(i).Y), Bg(i).Ar, RGB(255, 255, 0)
                 If Local_State = 1 Then Server_SendData_Circle 0, Bg(i).X, Bg(i).Y, Bg(i).Ar, 255, 255, 0, 255, 255, 0
                 Form1.Picture1.FillColor = RGB(0, 0, 255)
-            Case 3
+            Case 2
                 Form1.Picture1.FillColor = RGB(255, 20, 147)
                 Form1.Picture1.Circle (Bg(i).X, Bg(i).Y), Bg(i).Ar, RGB(255, 20, 147)
                 If Local_State = 1 Then Server_SendData_Circle 0, Bg(i).X, Bg(i).Y, Bg(i).Ar, 255, 20, 147, 255, 20, 147
                 Form1.Picture1.FillColor = RGB(0, 0, 255)
-            Case 4
-                Form1.Picture1.Line (FPg(Bg(i).Source).X, FPg(Bg(i).Source).Y)-(Pg(Bg(i).Target).X, Pg(Bg(i).Target).Y), RGB(225, 255, 255)
-                Server_SendData_Line FPg(Bg(i).Source).X, FPg(Bg(i).Source).Y, Pg(Bg(i).Target).X, Pg(Bg(i).Target).Y, 225, 255, 255
+            Case 3
+                Form1.Picture1.Line (Bg(i).X, Bg(i).Y)-(Pg(Bg(i).Target).X, Pg(Bg(i).Target).Y), RGB(225, 255, 255)
+                Server_SendData_Line Bg(i).X, Bg(i).Y, Pg(Bg(i).Target).X, Pg(Bg(i).Target).Y, 225, 255, 255
         End Select
     End If
 Next
@@ -185,5 +185,4 @@ Next
 Form1.Timer5.Interval = 1000
 Form1.Label2.Caption = "0"
 PC_Def
-If DuoPlayer = True Then PC_2_Def
 End Sub
