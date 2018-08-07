@@ -7,7 +7,7 @@ Public FPg(1000) As Plane
 Public PC(10) As KeyConfig
 Public Diff, PBSkillCDTime(3) As Long 'Diff 是难度，随时间变化；PBSkillCDTime 是技能冷却时间
 Public KCTemp(7) As Integer
-Public PBCD(3), PBSkillCD(3), PSkill(2, 5), DuoPlayer, PlaneWYKZ_Skill_SwitchLock As Boolean
+Public PBCD(3), PBSkillCD(3), PSkill(2, 6), DuoPlayer, PlaneWYKZ_Skill_SwitchLock As Boolean
 'PBCD(玩家号) 控制玩家子弹频率；PBSkillCD 由PBSkillCDTime决定的大招开关
 'PSkill（玩家号，技能号） 玩家大招有无控制；DuoPlayer 双人玩家控制
 'PlaneWYKZ_Skill_SwitchLock 大招切换间隔控制
@@ -26,14 +26,15 @@ Public Function PBg_Add(ByVal PID As Long, Optional Ty As Long = 0)
 Select Case Ty
     Case 0
         If Pg(PID).E < 1 Or PBCD(PID) = False Then Exit Function
-    Case 1, 2, 3, 4
+    Case 1, 2, 3, 4, 5
         If PSkillID(PID) = 0 Then If Pg(PID).E < 10 Or PBSkillCD(PID) = False Then Exit Function
         If PSkillID(PID) = 1 Then If Pg(PID).E < 20 Or PBSkillCD(PID) = False Then Exit Function
         If PSkillID(PID) = 2 Then If Pg(PID).E < 30 Or PBSkillCD(PID) = False Then Exit Function
         If PSkillID(PID) = 3 Then If Pg(PID).E < 40 Or PBSkillCD(PID) = False Then Exit Function
+        If PSkillID(PID) = 4 Then If Pg(PID).E < 50 Or PBSkillCD(PID) = False Then Exit Function
 End Select
 For i = 0 To PBSum - 1
-    If PBg(i).a = False Then
+    If PBg(i).A = False Then
         PBg_Add_ClassificationAndEntry i, PID, Ty
         Exit Function
     End If
@@ -54,6 +55,8 @@ Select Case Ty
         PBg_add_AttributeAssignment PBID, PID, 10 * Pg(PID).Rank, Pg(PID).MxHP * 0.007, False, 0, Pg(PID).X, Pg(PID).Y, Pg(PID).Rank, False, 3, Pg(PID).X, Pg(PID).Y, 30
     Case 4 '黑洞炸弹
         PBg_add_AttributeAssignment PBID, PID, 50, Pg(PID).Rank, False, 30, Pg(PID).X, Pg(PID).Y, Pg(PID).Rank, False, 4, Pg(PID).X, Pg(PID).Y + 3200, 40
+    Case 5 '好吃的糖果
+        PBg_add_AttributeAssignment PBID, PID, 70, 0, False, 30, Pg(PID).X, Pg(PID).Y, Pg(PID).Rank, True, 5, 3000, 6000, 50
 End Select
 PBg(PBID).Source = PID
 End Function
@@ -102,7 +105,7 @@ End Select
 End Function
 Public Function Sg_Add(ByVal SgID As Long)
 Randomize
-Sg(SgID).a = True: Sg(SgID).Tp = Int(Rnd * 3): Sg(SgID).Sp = 20
+Sg(SgID).A = True: Sg(SgID).Tp = Int(Rnd * 3): Sg(SgID).Sp = 20
 Sg(SgID).X = Int(Rnd * (6001)): Sg(SgID).Y = 8000
 Sg(SgID).mX = Int(Rnd * (6001)): Sg(SgID).mY = 0
 End Function
@@ -110,13 +113,13 @@ Public Function Bg_Add_JustHitYou() As Long
 Dim i, Aggregate, Division, Verification As Long
 Randomize
 For i = 0 To 1
-    If Pg(i).a = True Then
+    If Pg(i).A = True Then
         Aggregate = Aggregate + Pg(i).Rank
     End If
 Next
 Division = Int(Rnd * (Aggregate + 1))
 For i = 0 To 1
-    If Pg(i).a = True Then
+    If Pg(i).A = True Then
         Verification = Verification + Pg(i).Rank
         If Verification > Division Then Bg_Add_JustHitYou = i: Exit Function
     End If
@@ -151,7 +154,7 @@ ByRef Pen As Boolean, ByRef Trl As Long, _
 ByRef mX As Single, ByRef mY As Single, _
 ByRef dE As Long)
 'PBg_Add_ClassificationAndEntry input
-PBg(PBID).a = True: PBg(PBID).Ar = Ar
+PBg(PBID).A = True: PBg(PBID).Ar = Ar
 PBg(PBID).Atk = Atk
 PBg(PBID).Sb = Sb
 PBg(PBID).Sp = Sp
@@ -168,7 +171,7 @@ ByRef FPID As Long, ByRef HP As Long, _
 ByRef Ar As Long, ByRef Sb As Boolean, _
 ByRef Sp As Long)
 'FBg_Add input
-FPg(FPID).a = True
+FPg(FPID).A = True
 FPg(FPID).HP = HP
 FPg(FPID).MxHP = HP
 FPg(FPID).Ar = Ar
@@ -177,7 +180,7 @@ FPg(FPID).Sp = Sp
 End Function
 Public Function Pg_Def_AttributeAssignment(ByRef PID As Long)
 'Pg_Def input
-Pg(PID).a = True
+Pg(PID).A = True
 Pg(PID).HP = 100
 Pg(PID).MxHP = 100
 Pg(PID).MxEmp = 10
@@ -207,7 +210,7 @@ ByRef Atk As Single, ByRef Sb As Boolean, _
 ByRef Sp As Long, ByRef X As Single, _
 ByRef Y As Single, ByRef mX As Single, ByRef mY As Single)
 'Bg_Add input
-Bg(BID).a = True
+Bg(BID).A = True
 Bg(BID).Ar = Ar
 Bg(BID).Atk = Atk
 Bg(BID).Sb = Sb

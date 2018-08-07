@@ -5,11 +5,11 @@ Select Case FPg(FPID).AiRank
     Case 0, 1, 2, 3, 4
         If FPg(FPID).Da = False Then
             XXJie = 线性求解(FPg(FPID).X, FPg(FPID).Y, FPg(FPID).mX, FPg(FPID).mY, FPg(FPID).Sp)
-            FPg(FPID).dX = XXJie.a: FPg(FPID).dY = XXJie.b: FPg(FPID).Da = True
+            FPg(FPID).dX = XXJie.A: FPg(FPID).dY = XXJie.B: FPg(FPID).Da = True
         End If
         FPg(FPID).X = FPg(FPID).X + FPg(FPID).dX: FPg(FPID).Y = FPg(FPID).Y + FPg(FPID).dY
         If FPg(FPID).X < 0 Or FPg(FPID).Y < 0 Or FPg(FPID).X > 6000 Or FPg(FPID).Y > 8000 Then
-            FPg(FPID).a = False: FPg(FPID).Da = False
+            FPg(FPID).A = False: FPg(FPID).Da = False
         End If
     Case 5
         If TeleportingFoePlaneDisplacementLock = False Then
@@ -26,22 +26,22 @@ Select Case TrID
     Case 0, 1
         If Bg(BID).Da = False Then
             XXJie = 线性求解(Bg(BID).X, Bg(BID).Y, Bg(BID).mX, Bg(BID).mY, Bg(BID).Sp)
-            Bg(BID).dX = XXJie.a: Bg(BID).dY = XXJie.b: Bg(BID).Da = True
+            Bg(BID).dX = XXJie.A: Bg(BID).dY = XXJie.B: Bg(BID).Da = True
         End If
         Bg(BID).X = Bg(BID).X + Bg(BID).dX: Bg(BID).Y = Bg(BID).Y + Bg(BID).dY
         If Bg(BID).X < 0 Or Bg(BID).Y < 0 Or Bg(BID).X > 6000 Or Bg(BID).Y > 8000 Then
-            Bg(BID).a = False: Bg(BID).Da = False
+            Bg(BID).A = False: Bg(BID).Da = False
         End If
     Case 2
         XXJie = 线性求解(Bg(BID).X, Bg(BID).Y, Pg(Bg(BID).Target).X, Pg(Bg(BID).Target).Y, Bg(BID).Sp)
-        Bg(BID).dX = XXJie.a: Bg(BID).dY = XXJie.b
+        Bg(BID).dX = XXJie.A: Bg(BID).dY = XXJie.B
         Bg(BID).X = Bg(BID).X + Bg(BID).dX: Bg(BID).Y = Bg(BID).Y + Bg(BID).dY
         If Bg(BID).X < 0 Or Bg(BID).Y < 0 Or Bg(BID).X > 6000 Or Bg(BID).Y > 8000 Then
-            Bg(BID).a = False: Bg(BID).Da = False
+            Bg(BID).A = False: Bg(BID).Da = False
         End If
     Case 3, 4, 5
         Bg(BID).X = FPg(Bg(BID).Source).X: Bg(BID).Y = FPg(Bg(BID).Source).Y
-        If FPg(Bg(BID).Source).a = False Then Bg(BID).a = False
+        If FPg(Bg(BID).Source).A = False Then Bg(BID).A = False
 End Select
 End Function
 Public Function PlBtWYKZ(ByRef PBID As Long, TrID As Long)
@@ -50,17 +50,17 @@ Select Case TrID
     Case 0
         If PBg(PBID).Da = False Then
             XXJie = 线性求解(PBg(PBID).X, PBg(PBID).Y, PBg(PBID).mX, PBg(PBID).mY, PBg(PBID).Sp)
-            PBg(PBID).dX = XXJie.a: PBg(PBID).dY = XXJie.b: PBg(PBID).Da = True
+            PBg(PBID).dX = XXJie.A: PBg(PBID).dY = XXJie.B: PBg(PBID).Da = True
         End If
         PBg(PBID).X = PBg(PBID).X + PBg(PBID).dX: PBg(PBID).Y = PBg(PBID).Y + PBg(PBID).dY
         If PBg(PBID).X < 0 Or PBg(PBID).Y < 0 Or PBg(PBID).X > 6000 Or PBg(PBID).Y > 8000 Then
-            PBg(PBID).a = False: PBg(PBID).Da = False
+            PBg(PBID).A = False: PBg(PBID).Da = False
         End If
     Case 1
         If PBg(PBID).Y < PBg(PBID).mY Then
             If PBg(PBID).Da = False Then
                 XXJie = 线性求解(PBg(PBID).X, PBg(PBID).Y, PBg(PBID).mX, PBg(PBID).mY, PBg(PBID).Sp)
-                PBg(PBID).dX = XXJie.a: PBg(PBID).dY = XXJie.b: PBg(PBID).Da = True
+                PBg(PBID).dX = XXJie.A: PBg(PBID).dY = XXJie.B: PBg(PBID).Da = True
             End If
             PBg(PBID).X = PBg(PBID).X + PBg(PBID).dX: PBg(PBID).Y = PBg(PBID).Y + PBg(PBID).dY
         Else
@@ -71,7 +71,7 @@ Select Case TrID
             Else
                 If PBg(PBID).Ar > 3000 Then
                     Form1.BHB((PBg(PBID).Source)).Enabled = False
-                    PBg(PBID).a = False: PBg(PBID).Da = False
+                    PBg(PBID).A = False: PBg(PBID).Da = False
                 Else
                     PBg(PBID).Ar = PSkillID_BHB(PBg(PBID).Source)
                 End If
@@ -88,7 +88,7 @@ Select Case TrID
         Else
             If PSkillID_Ft(PBg(PBID).Source) > 3 + 0.5 * Pg((PBg(PBID).Source)).Rank Then
                 Form1.Ftime((PBg(PBID).Source)).Enabled = False
-                PBg(PBID).a = False
+                PBg(PBID).A = False
             Else
                 PBg(PBID).X = Pg((PBg(PBID).Source)).X: PBg(PBID).Y = Pg((PBg(PBID).Source)).Y
             End If
@@ -99,17 +99,17 @@ Select Case TrID
         Else
             If PSkillID_Ft(PBg(PBID).Source) > 1 + 0.1 * Pg((PBg(PBID).Source)).Rank Then
                 Form1.Ftime((PBg(PBID).Source)).Enabled = False
-                PBg(PBID).a = False
+                PBg(PBID).A = False
             Else
                 PBg(PBID).X = Pg((PBg(PBID).Source)).X: PBg(PBID).Y = Pg((PBg(PBID).Source)).Y
                 PBg(PBID).Ar = PSkillID_Ft(PBg(PBID).Source) * 700
             End If
         End If
-    Case 4
+    Case 4, 5
         If PBg(PBID).Y < PBg(PBID).mY Then
             If PBg(PBID).Da = False Then
                 XXJie = 线性求解(PBg(PBID).X, PBg(PBID).Y, PBg(PBID).mX, PBg(PBID).mY, PBg(PBID).Sp)
-                PBg(PBID).dX = XXJie.a: PBg(PBID).dY = XXJie.b: PBg(PBID).Da = True
+                PBg(PBID).dX = XXJie.A: PBg(PBID).dY = XXJie.B: PBg(PBID).Da = True
             End If
             PBg(PBID).X = PBg(PBID).X + PBg(PBID).dX: PBg(PBID).Y = PBg(PBID).Y + PBg(PBID).dY
         Else
@@ -120,7 +120,7 @@ Select Case TrID
             Else
                 If PSkillID_Ft(PBg(PBID).Source) > 5 + Pg((PBg(PBID).Source)).Rank Then
                     Form1.Ftime((PBg(PBID).Source)).Enabled = False
-                    PBg(PBID).a = False: PBg(PBID).Da = False
+                    PBg(PBID).A = False: PBg(PBID).Da = False
                 End If
             End If
             '----------------------------
@@ -183,10 +183,10 @@ Public Function SupplyWYKZ(ByRef BID As Long)
 Dim XXJie As 二元解
 If Sg(SID).Da = False Then
     XXJie = 线性求解(Sg(SID).X, Sg(SID).Y, Sg(SID).mX, Sg(SID).mY, Sg(SID).Sp)
-    Sg(SID).dX = XXJie.a: Sg(SID).dY = XXJie.b: Sg(SID).Da = True
+    Sg(SID).dX = XXJie.A: Sg(SID).dY = XXJie.B: Sg(SID).Da = True
 End If
 Sg(SID).X = Sg(SID).X + Sg(SID).dX: Sg(SID).Y = Sg(SID).Y + Sg(SID).dY
 If Sg(SID).X < 0 Or Sg(SID).Y < 0 Or Sg(SID).X > 6000 Or Sg(SID).Y > 8000 Then
-    Sg(SID).a = False: Sg(SID).Da = False
+    Sg(SID).A = False: Sg(SID).Da = False
 End If
 End Function

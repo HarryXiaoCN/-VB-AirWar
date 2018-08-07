@@ -9,7 +9,7 @@ Form2.Text1.SelStart = Len(Form2.Text1.Text)
 Form2.Text2 = ""
 End Function
 Public Function CMD_Execute_Interpreter(ByRef CMD As String)
-Dim CMD_Temp
+Dim CMD_Temp: Dim i As Long
 On Error GoTo ErrHandler
 CMD_Temp = Split(CMD, " ")
 Select Case CMD_Temp(0)
@@ -18,7 +18,7 @@ Select Case CMD_Temp(0)
             Case "hp_mx"
                 Pg(CMD_Temp(2)).HP = Pg(CMD_Temp(2)).MxHP: GoTo Successfully
             Case "revive"
-                Pg(CMD_Temp(2)).a = True: Pg(CMD_Temp(2)).HP = Pg(CMD_Temp(2)).MxHP: GoTo Successfully
+                Pg(CMD_Temp(2)).A = True: Pg(CMD_Temp(2)).HP = Pg(CMD_Temp(2)).MxHP: GoTo Successfully
             Case "hp_add"
                 If Pg(CMD_Temp(2)).HP + Val(CMD_Temp(3)) < 100000000 Then Pg(CMD_Temp(2)).HP = Pg(CMD_Temp(2)).HP + Val(CMD_Temp(3)) Else Pg(CMD_Temp(2)).HP = 99999999
                 GoTo Successfully
@@ -40,17 +40,29 @@ Select Case CMD_Temp(0)
             Case "exp_add"
                 If Val(CMD_Temp(3)) < 1000000000 Then Pg(CMD_Temp(2)).EMP = Pg(CMD_Temp(2)).EMP + Val(CMD_Temp(3)): Éý¼¶ Val(CMD_Temp(2)) Else Pg(CMD_Temp(2)).EMP = Pg(CMD_Temp(2)).EMP + 999999999
                 GoTo Successfully
+            Case "athanasy"
+                If CMD_Temp(1) = "0" Then Pg(Val(CMD_Temp(2))).Sb = True Else Pg(Val(CMD_Temp(2))).Sb = False
+                GoTo Successfully
+            Case "unlock_all_skill"
+                For i = 1 To 4
+                    PSkill(CMD_Temp(2), i) = True
+                Next
+                GoTo Successfully
         End Select
     Case "network"
         Select Case CMD_Temp(1)
             Case "clientget"
-                If CMD_Temp(2) = "0" Then ClientGetDataShow = False: GoTo Successfully Else ClientGetDataShow = True: GoTo Successfully
+                If CMD_Temp(2) = "0" Then ClientGetDataShow = False Else ClientGetDataShow = True
+                GoTo Successfully
             Case "serversend"
-                If CMD_Temp(2) = "0" Then ServerSendDataShow = False: GoTo Successfully Else ServerSendDataShow = True: GoTo Successfully
+                If CMD_Temp(2) = "0" Then ServerSendDataShow = False Else ServerSendDataShow = True
+                GoTo Successfully
             Case "clientsend"
-                If CMD_Temp(2) = "0" Then ClientSendDataShow = False: GoTo Successfully Else ClientSendDataShow = True: GoTo Successfully
+                If CMD_Temp(2) = "0" Then ClientSendDataShow = False Else ClientSendDataShow = True
+                GoTo Successfully
             Case "serverget"
-                If CMD_Temp(2) = "0" Then ServerGetDataShow = False: GoTo Successfully Else ServerGetDataShow = True: GoTo Successfully
+                If CMD_Temp(2) = "0" Then ServerGetDataShow = False Else ServerGetDataShow = True
+                GoTo Successfully
         End Select
     Case "ping"
         If Form3.Winsock1(Val(CMD_Temp(1))).State = 7 Then

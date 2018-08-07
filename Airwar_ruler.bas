@@ -9,7 +9,6 @@ Public Type Plane
     MxE As Long
     Sb As Boolean '飞机是否会被击中
     Blt As Long '子弹类型
-    DrSly As Long '死亡之后的补给类型
     Sp As Single  '速度
     EMP As Long '经验值
     MxEmp As Long

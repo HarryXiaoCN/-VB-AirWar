@@ -47,7 +47,7 @@ End Function
 Public Function F5_Foe_Plane()
 Form1.Picture1.FillColor = RGB(143, 188, 143)
 For i = 0 To FPSum - 1
-    If FPg(i).a = True Then
+    If FPg(i).A = True Then
         Select Case FPg(i).AiRank
             Case 0
                 Form1.Picture1.Circle (FPg(i).X, FPg(i).Y), FPg(i).Ar, RGB(143, 188, 143)
@@ -82,9 +82,10 @@ For i = 0 To FPSum - 1
 Next
 End Function
 Public Function F5_PC_Bullet()
+Dim i As Long: Dim SYSE As 三原色
 Form1.Picture1.FillColor = RGB(0, 255, 255)
 For i = 0 To PBSum - 1
-    If PBg(i).a = True Then
+    If PBg(i).A = True Then
         Select Case PBg(i).Trl
             Case 0
                 Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(0, 255, 255)
@@ -116,6 +117,12 @@ For i = 0 To PBSum - 1
                 Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(0, 0, 0)
                 If Local_State = 1 Then Server_SendData_Circle 0, PBg(i).X, PBg(i).Y, PBg(i).Ar, 0, 0, 0, 0, 0, 0
                 Form1.Picture1.FillColor = RGB(0, 255, 255)
+            Case 5
+                SYSE = 彩虹函数
+                Form1.Picture1.FillColor = RGB(SYSE.R, SYSE.G, SYSE.B)
+                Form1.Picture1.Circle (PBg(i).X, PBg(i).Y), PBg(i).Ar, RGB(SYSE.R, SYSE.G, SYSE.B)
+                If Local_State = 1 Then Server_SendData_Circle 0, PBg(i).X, PBg(i).Y, PBg(i).Ar, SYSE.R, SYSE.G, SYSE.B, SYSE.R, SYSE.G, SYSE.B
+                Form1.Picture1.FillColor = RGB(0, 255, 255)
         End Select
     End If
 Next
@@ -123,7 +130,7 @@ End Function
 Public Function F5_PC_Supply()
 Form1.Picture1.FillColor = RGB(0, 255, 0)
 For i = 0 To SgSum - 1
-    If Sg(i).a = True Then
+    If Sg(i).A = True Then
         Select Case Sg(i).Tp
             Case 0
                 Form1.Picture1.Circle (Sg(i).X, Sg(i).Y), 50, RGB(255, 0, 0)
@@ -142,7 +149,7 @@ Public Function F5_Foe_Bullet()
 Dim i As Long
 Form1.Picture1.FillColor = RGB(0, 0, 255)
 For i = 0 To BgSum - 1
-    If Bg(i).a = True Then
+    If Bg(i).A = True Then
         Select Case Bg(i).Trl
             Case 0
                 Form1.Picture1.Circle (Bg(i).X, Bg(i).Y), Bg(i).Ar, RGB(0, 0, 255)
@@ -176,11 +183,11 @@ Next
 End Function
 Public Function F5_PC_Plane()
 Form1.Picture1.FillColor = RGB(255, 0, 0)
-If Pg(0).a = True Then
+If Pg(0).A = True Then
     Form1.Picture1.Circle (Pg(0).X, Pg(0).Y), Pg(0).Ar, RGB(255, 0, 0)
     If Local_State = 1 Then Server_SendData_Circle 0, Pg(0).X, Pg(0).Y, Pg(0).Ar, 255, 0, 0, 255, 0, 0
 End If
-If Pg(1).a = True Then
+If Pg(1).A = True Then
     Form1.Picture1.FillColor = RGB(0, 100, 0)
     Form1.Picture1.Circle (Pg(1).X, Pg(1).Y), Pg(1).Ar, RGB(0, 100, 0)
     If Local_State = 1 Then Server_SendData_Circle 0, Pg(1).X, Pg(1).Y, Pg(1).Ar, 0, 100, 0, 0, 100, 0

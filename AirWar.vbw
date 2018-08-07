@@ -1,11 +1,11 @@
-Form1 = 230, 20, 1290, 701, , 36, 31, 957, 711, C
-Airwar_ruler_Type = 747, 44, 1384, 705, 
+Form1 = -39, 1, 1021, 682, , 165, 48, 1086, 728, C
+Airwar_ruler_Type = 255, 52, 892, 713, 
 Airwar_ruler_engine = 116, 89, 1416, 684, 
-Airwar_var_public = 75, 99, 1427, 839, 
+Airwar_var_public = 2, 78, 1354, 818, 
 Airwar_World_Engine = 178, 183, 1541, 844, 
-Airwar_QT = 180, 136, 1480, 797, 
+Airwar_QT = 180, 136, 1480, 797, Z
 Airwar_World_Case = 208, 208, 1085, 688, 
-Airwar_ruler_engine_Phy = 26, 26, 1509, 605, Z
+Airwar_ruler_engine_Phy = 26, 26, 1509, 605, 
 Airwar_ruler_engine_Move = 79, 19, 1426, 799, 
 Form2 = 150, 150, 1351, 811, , 104, 104, 981, 584, C
 Airwar_ControlDsek = 0, 0, 877, 480, 

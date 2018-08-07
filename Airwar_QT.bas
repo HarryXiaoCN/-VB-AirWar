@@ -1,7 +1,12 @@
 Attribute VB_Name = "Airwar_QT"
 Public Type 二元解
-    a As Single
-    b As Single
+    A As Single
+    B As Single
+End Type
+Public Type 三原色
+    R As Long
+    G As Long
+    B As Long
 End Type
 Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 Declare Function joyGetPosEx Lib "winmm.dll" (ByVal uJoyID As Long, pji As JOYINFOEX) As Long
@@ -56,16 +61,22 @@ Type JOYINFOEX
         dwReserved1 As Long                 '  reserved for communication between winmm driver
         dwReserved2 As Long                 '  reserved for future expansion
 End Type
+Public Function 彩虹函数() As 三原色
+Randomize
+彩虹函数.R = Int(Rnd * (256))
+彩虹函数.G = Int(Rnd * (256))
+彩虹函数.B = Int(Rnd * (256))
+End Function
 Public Function 线性求解(ByVal X1 As Single, ByVal Y1 As Single, ByVal X2 As Single, ByVal Y2 As Single, ByVal Sd As Long) As 二元解
 Dim m As Double
 If X2 > X1 Then
     m = Sqr((X2 - X1) ^ 2 + (Y2 - Y1) ^ 2)
-    线性求解.b = (Y2 - Y1) * (Sd / m)
-    线性求解.a = Sqr(Sd ^ 2 - 线性求解.b ^ 2)
+    线性求解.B = (Y2 - Y1) * (Sd / m)
+    线性求解.A = Sqr(Sd ^ 2 - 线性求解.B ^ 2)
 Else
     m = Sqr((X1 - X2) ^ 2 + (Y1 - Y2) ^ 2)
-    线性求解.b = -(Y1 - Y2) * (Sd / m)
-    线性求解.a = -Sqr(Sd ^ 2 - 线性求解.b ^ 2)
+    线性求解.B = -(Y1 - Y2) * (Sd / m)
+    线性求解.A = -Sqr(Sd ^ 2 - 线性求解.B ^ 2)
 End If
 End Function
 Public Function 两点距离(ByVal X1 As Single, ByVal Y1 As Single, ByVal X2 As Single, ByVal Y2 As Single) As Long

@@ -106,6 +106,26 @@ Begin VB.Form Form1
          _ExtentY        =   450
          ProgressColor   =   33023
       End
+      Begin VB.Label SkOn1 
+         Alignment       =   2  'Center
+         Caption         =   "ÌÇ"
+         BeginProperty Font 
+            Name            =   "Î¢ÈíÑÅºÚ"
+            Size            =   12
+            Charset         =   134
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   405
+         Index           =   9
+         Left            =   2040
+         TabIndex        =   33
+         Top             =   2655
+         Visible         =   0   'False
+         Width           =   405
+      End
       Begin VB.Shape Shape1 
          BorderColor     =   &H000080FF&
          Height          =   405
@@ -228,7 +248,7 @@ Begin VB.Form Form1
          Index           =   7
          Left            =   1080
          TabIndex        =   28
-         Top             =   2640
+         Top             =   2655
          Visible         =   0   'False
          Width           =   405
       End
@@ -248,7 +268,7 @@ Begin VB.Form Form1
          Index           =   8
          Left            =   1560
          TabIndex        =   31
-         Top             =   2640
+         Top             =   2655
          Visible         =   0   'False
          Width           =   405
       End
@@ -415,7 +435,7 @@ Begin VB.Form Form1
          Index           =   2
          Left            =   1080
          TabIndex        =   27
-         Top             =   2640
+         Top             =   2655
          Visible         =   0   'False
          Width           =   405
       End
@@ -435,7 +455,27 @@ Begin VB.Form Form1
          Index           =   3
          Left            =   1560
          TabIndex        =   30
-         Top             =   2640
+         Top             =   2655
+         Visible         =   0   'False
+         Width           =   405
+      End
+      Begin VB.Label SkOn1 
+         Alignment       =   2  'Center
+         Caption         =   "ÌÇ"
+         BeginProperty Font 
+            Name            =   "Î¢ÈíÑÅºÚ"
+            Size            =   12
+            Charset         =   134
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   405
+         Index           =   4
+         Left            =   2040
+         TabIndex        =   32
+         Top             =   2655
          Visible         =   0   'False
          Width           =   405
       End
@@ -789,7 +829,7 @@ For i = 0 To 1
     Else
         JinDuT1(i).Progress = 0
     End If
-    For c = 1 To 3
+    For c = 1 To 4
         If PSkill(i, c) = True Then SkOn1(c + i * 5).Visible = True Else SkOn1(c + i * 5).Visible = False
     Next
 Next
